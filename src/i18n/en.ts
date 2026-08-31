@@ -61,6 +61,7 @@ const en: typeof fr = {
     donate: "Donate",
     volunteer: "Become a volunteer",
     sponsor: "Sponsor a child",
+    becomeMember: "Become a member",
     discover: "Discover our work",
     learnMore: "Learn more",
     readMore: "Read the article",
@@ -407,7 +408,19 @@ const en: typeof fr = {
         email: "Please enter a valid email address.",
         profession: "Please enter your occupation.",
         method: "Please select an available payment method.",
+        submit:
+          "Your application could not be sent. Try again in a moment, or write to us directly.",
+        tooMany:
+          "Too many applications from this device. Try again in an hour.",
       },
+    },
+    confirmation: {
+      sent: "Your application is recorded. A confirmation has just been sent to you by {channels}. Your member number will follow once the administration approves your file.",
+      pending:
+        "Your application is recorded. The administration will contact you to confirm your membership and give you your member number.",
+      email: "email",
+      sms: "SMS",
+      and: " and by ",
     },
     summaryLabels: {
       plan: "Option",

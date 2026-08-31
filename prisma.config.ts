@@ -1,5 +1,14 @@
 import { defineConfig } from "prisma/config";
 
+/* En local, la connexion vient de `.env`. En production, Railway pose
+   déjà DATABASE_URL dans l'environnement et ce fichier n'existe pas :
+   l'échec du chargement est donc normal et sans conséquence. */
+try {
+  process.loadEnvFile();
+} catch {
+  /* Pas de fichier .env : les variables viennent de l'hébergeur. */
+}
+
 /**
  * Configuration lue par la ligne de commande Prisma (migrations, studio).
  *

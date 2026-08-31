@@ -7,7 +7,6 @@ import type { Dictionary } from "@/i18n/dictionaries";
 import { formatMoney } from "@/lib/currency";
 import { getPlans, type PlanId } from "@/lib/membership";
 import {
-  createReference,
   getPaymentMethods,
   type PaymentMethodId,
 } from "@/lib/payments";
@@ -86,6 +85,13 @@ export function MembershipForm({
   });
   const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
   const [reference, setReference] = useState("");
+  const [sending, setSending] = useState(false);
+  /* Ce que le serveur dit avoir réellement envoyé : on ne promet jamais
+     un courriel ou un SMS qui ne serait pas parti. */
+  const [notified, setNotified] = useState<{ email: boolean; sms: boolean }>({
+    email: false,
+    sms: false,
+  });
 
   const chosenPlan = plans.find((entry) => entry.id === plan) ?? plans[0];
   const chosenMethod = methods.find((entry) => entry.id === method);
@@ -93,7 +99,7 @@ export function MembershipForm({
      sans conversion, pour que l'adhérent règle la somme exacte. */
   const amountLabel = formatMoney(chosenPlan.amountGnf, "GNF", locale);
 
-  function submit(event: React.FormEvent<HTMLFormElement>) {
+  async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const found: Partial<Record<string, string>> = {};
 
@@ -112,7 +118,43 @@ export function MembershipForm({
     }
     if (found.method) return;
 
-    setReference(createReference("CUF-M"));
+    setSending(true);
+    try {
+      const response = await fetch("/api/membership", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...values, locale }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setNotified(data.notified ?? { email: false, sms: false });
+        setReference(data.reference);
+        return;
+      }
+
+      /* Le serveur a refusé la demande : on rend la main au visiteur
+         plutôt que d'afficher une confirmation qui n'en est pas une. */
+      const data = await response.json().catch(() => ({}));
+      if (response.status === 429) {
+        setErrors({ submit: form.errors.tooMany });
+      } else if (Array.isArray(data.fields)) {
+        setErrors(
+          Object.fromEntries(
+            data.fields.map((field: string) => [
+              field,
+              form.errors[field as keyof typeof form.errors] ?? form.errors.submit,
+            ]),
+          ),
+        );
+      } else {
+        setErrors({ submit: form.errors.submit });
+      }
+    } catch {
+      setErrors({ submit: form.errors.submit });
+    } finally {
+      setSending(false);
+    }
   }
 
   function update(field: keyof typeof values, value: string) {
@@ -143,6 +185,24 @@ export function MembershipForm({
             values.motivation,
           ]}
         />
+
+        <p
+          role="status"
+          className="mt-6 rounded-card bg-teal-50 p-5 text-sm leading-relaxed text-ink"
+        >
+          {notified.email || notified.sms
+            ? membership.confirmation.sent
+                .replace(
+                  "{channels}",
+                  [
+                    notified.email ? membership.confirmation.email : null,
+                    notified.sms ? membership.confirmation.sms : null,
+                  ]
+                    .filter(Boolean)
+                    .join(membership.confirmation.and),
+                )
+            : membership.confirmation.pending}
+        </p>
 
         <p className="mt-6 border-t border-line pt-6 text-sm leading-relaxed text-ink-muted">
           {membership.notice}
@@ -334,6 +394,7 @@ export function MembershipForm({
           })}
         </div>
         {errors.method ? <FieldError>{errors.method}</FieldError> : null}
+        {errors.submit ? <FieldError>{errors.submit}</FieldError> : null}
       </fieldset>
 
       <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-7">
@@ -343,9 +404,9 @@ export function MembershipForm({
             {amountLabel}
           </span>
         </p>
-        <Button type="submit" size="lg">
+        <Button type="submit" size="lg" disabled={sending}>
           <Send className="size-4.5" aria-hidden="true" />
-          {form.submit}
+          {sending ? dictionary.common.sending : form.submit}
         </Button>
       </div>
     </form>

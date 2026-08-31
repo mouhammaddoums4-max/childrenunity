@@ -59,6 +59,7 @@ const fr = {
     donate: "Faire un don",
     volunteer: "Devenir bénévole",
     sponsor: "Parrainer un enfant",
+    becomeMember: "Devenir membre",
     discover: "Découvrir nos actions",
     learnMore: "En savoir plus",
     readMore: "Lire l'article",
@@ -405,7 +406,19 @@ const fr = {
         email: "Merci d'indiquer une adresse e-mail valide.",
         profession: "Merci d'indiquer votre profession.",
         method: "Sélectionnez un moyen de paiement disponible.",
+        submit:
+          "Votre demande n'a pas pu être envoyée. Réessayez dans un instant, ou écrivez-nous directement.",
+        tooMany:
+          "Trop de demandes envoyées depuis cet appareil. Réessayez dans une heure.",
       },
+    },
+    confirmation: {
+      sent: "Votre demande est enregistrée. Une confirmation vient de vous être envoyée par {channels}. Votre matricule vous parviendra dès que l'administration aura approuvé votre dossier.",
+      pending:
+        "Votre demande est enregistrée. L'administration vous contactera pour confirmer votre adhésion et vous communiquer votre matricule.",
+      email: "courriel",
+      sms: "SMS",
+      and: " et par ",
     },
     summaryLabels: {
       plan: "Formule",

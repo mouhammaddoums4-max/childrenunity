@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowRight, GraduationCap, Heart, Users } from "lucide-react";
+import { ArrowRight, GraduationCap, Heart, UserPlus, Users } from "lucide-react";
 import { path, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { Container } from "@/components/ui/container";
@@ -71,6 +71,14 @@ export function Hero({
             >
               {common.sponsor}
               <ArrowRight className="size-4.5" aria-hidden="true" />
+            </ButtonLink>
+            <ButtonLink
+              href={path(locale, "membership")}
+              variant="outline"
+              size="lg"
+            >
+              <UserPlus className="size-4.5" aria-hidden="true" />
+              {common.becomeMember}
             </ButtonLink>
           </div>
 
