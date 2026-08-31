@@ -2,9 +2,20 @@ import { NextResponse, type NextRequest } from "next/server";
 import { defaultLocale, locales } from "@/i18n/config";
 
 /**
- * Toutes les pages vivent sous /fr ou /en. Une URL sans prefixe de langue
- * est redirigee vers la langue preferee du navigateur, avec le francais
- * comme repli.
+ * Aiguillage des requetes.
+ *
+ * Deux espaces cohabitent dans la meme application :
+ *
+ * - le **site public**, dont chaque page vit sous /fr ou /en ; une URL sans
+ *   prefixe est redirigee vers la langue preferee du navigateur, avec le
+ *   francais comme repli ;
+ * - l'**administration**, servie sous /admin, sans prefixe de langue et
+ *   sans redirection.
+ *
+ * Le sous-domaine `admin.` mene directement a l'administration : la requete
+ * est reecrite vers /admin, sans redirection visible, de sorte que
+ * admin.childrensunityfoundation.org affiche la console de gestion tout en
+ * restant le meme deploiement — un seul build, une seule base.
  */
 function preferredLocale(request: NextRequest): string {
   const header = request.headers.get("accept-language");
@@ -28,6 +39,21 @@ function preferredLocale(request: NextRequest): string {
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const host = request.headers.get("host")?.toLowerCase() ?? "";
+
+  /* Sous-domaine d'administration : tout y mene a /admin. */
+  if (host.startsWith("admin.")) {
+    if (pathname.startsWith("/admin")) return NextResponse.next();
+
+    const rewritten = request.nextUrl.clone();
+    rewritten.pathname = `/admin${pathname === "/" ? "" : pathname}`;
+    return NextResponse.rewrite(rewritten);
+  }
+
+  /* L'administration reste joignable en direct, sans prefixe de langue. */
+  if (pathname === "/admin" || pathname.startsWith("/admin/")) {
+    return NextResponse.next();
+  }
 
   const hasLocale = locales.some(
     (locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`),

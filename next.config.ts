@@ -46,7 +46,12 @@ function newsletterOrigin(): string | undefined {
  */
 const contentSecurityPolicy = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  /* React a besoin d'eval() en developpement pour reconstruire les piles
+     d'appels ; il ne s'en sert jamais en production, ou la directive
+     reste donc absente. */
+  isProduction
+    ? "script-src 'self' 'unsafe-inline'"
+    : "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
   isProduction ? "style-src 'self'" : "style-src 'self' 'unsafe-inline'",
   "style-src-attr 'unsafe-inline'",
   "img-src 'self' data: blob:",
