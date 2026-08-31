@@ -15,7 +15,7 @@ import {
   getDashboard,
   placementLabels,
   purposeLabels,
-} from "@/lib/admin-data";
+} from "@/lib/admin/data";
 import { AdminShell } from "@/components/admin/shell";
 import { StatCard } from "@/components/admin/stat-card";
 import { Panel } from "@/components/admin/panel";

@@ -3,6 +3,7 @@
 import { headers } from "next/headers";
 import { createLoginLink } from "@/lib/auth";
 import { hasDatabase } from "@/lib/db";
+import { delivered, sendEmail } from "@/lib/notifications";
 import { siteUrl } from "@/lib/site";
 
 export type LoginState = {
@@ -52,7 +53,23 @@ export async function requestLoginLink(
       : `http://${host ?? "localhost:3000"}`;
   const url = `${origin}/admin/login/verify?token=${link.token}`;
 
-  const sent = await sendByEmail(link.user.email, link.user.fullName, url);
+  const sent = delivered(
+    await sendEmail({
+      to: link.user.email,
+      subject: "Votre lien de connexion — Administration CUF",
+      text: [
+        `Bonjour ${link.user.fullName},`,
+        "",
+        "Voici votre lien de connexion à l'administration de la fondation.",
+        "Il est valable quinze minutes et ne peut servir qu'une seule fois.",
+        "",
+        url,
+        "",
+        "Si vous n'avez pas demandé ce lien, ignorez ce message :",
+        "aucun accès n'a été ouvert.",
+      ].join("\n"),
+    }),
+  );
 
   if (sent) return { status: "sent" };
 
@@ -63,58 +80,10 @@ export async function requestLoginLink(
     return { status: "sent", devLink: url };
   }
 
-  console.error("[auth] BREVO_API_KEY absente : lien de connexion non envoyé.");
+  console.error("[auth] Service d'envoi non configuré : lien de connexion non transmis.");
   return {
     status: "error",
     message:
       "L'envoi des courriels n'est pas encore configuré. Prévenez l'administrateur du site.",
   };
-}
-
-/** Envoi via Brevo. Renvoie `false` si le service n'est pas configuré. */
-async function sendByEmail(
-  to: string,
-  name: string,
-  url: string,
-): Promise<boolean> {
-  const apiKey = process.env.BREVO_API_KEY;
-  if (!apiKey) return false;
-
-  const sender = {
-    name: "Children's Unity Foundation",
-    email: process.env.BREVO_SENDER ?? "contact@childrensunityfoundation.org",
-  };
-
-  try {
-    const response = await fetch("https://api.brevo.com/v3/smtp/email", {
-      method: "POST",
-      headers: {
-        "api-key": apiKey,
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        sender,
-        to: [{ email: to, name }],
-        subject: "Votre lien de connexion — Administration CUF",
-        htmlContent: `
-          <p>Bonjour ${name},</p>
-          <p>Voici votre lien de connexion à l'administration de la fondation.
-             Il est valable quinze minutes et ne peut servir qu'une fois.</p>
-          <p><a href="${url}">Se connecter</a></p>
-          <p>Si vous n'avez pas demandé ce lien, ignorez ce message :
-             aucun accès n'a été ouvert.</p>
-        `,
-      }),
-    });
-
-    if (!response.ok) {
-      console.error("[auth] Brevo a refusé l'envoi :", response.status);
-      return false;
-    }
-    return true;
-  } catch (error) {
-    console.error("[auth] Envoi du lien impossible :", error);
-    return false;
-  }
 }

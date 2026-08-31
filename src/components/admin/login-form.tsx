@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import { AlertCircle, ArrowRight, CheckCircle2, Loader2, Mail } from "lucide-react";
-import { requestLoginLink, type LoginState } from "@/app/admin/login/actions";
+import { requestLoginLink, type LoginState } from "@/lib/admin/login-actions";
 
 const initialState: LoginState = { status: "idle" };
 

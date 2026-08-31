@@ -121,45 +121,6 @@ export const getPublicChildren = unstable_cache(
   { revalidate: REVALIDATE_SECONDS, tags: ["children"] },
 );
 
-export type LiveStats = {
-  childrenSupported: number;
-  countries: number;
-  mentors: number;
-  activePlacements: number;
-};
-
-/**
- * Chiffres calculés à partir des dossiers réels : ils bougent tout seuls
- * dès qu'un enfant est enregistré ou qu'un mentor rejoint la fondation.
- * Aucun chiffre n'est saisi à la main, donc aucun ne peut être périmé.
- */
-export const getLiveStats = unstable_cache(
-  async (): Promise<LiveStats | null> => {
-    if (!hasDatabase) return null;
-
-    const [childrenSupported, countryRows, mentors, activePlacements] =
-      await Promise.all([
-        prisma.child.count({ where: { status: { in: ["ACTIVE", "GRADUATED"] } } }),
-        prisma.child.findMany({
-          where: { status: { in: ["ACTIVE", "GRADUATED"] } },
-          distinct: ["country"],
-          select: { country: true },
-        }),
-        prisma.user.count({ where: { role: "MENTOR", active: true } }),
-        prisma.placement.count({ where: { status: "ACTIVE" } }),
-      ]);
-
-    return {
-      childrenSupported,
-      countries: countryRows.length,
-      mentors,
-      activePlacements,
-    };
-  },
-  ["live-stats"],
-  { revalidate: REVALIDATE_SECONDS, tags: ["children", "stats"] },
-);
-
 export type PublicProject = {
   slug: string;
   title: string;

@@ -1,12 +1,12 @@
 import type { Locale } from "@/i18n/config";
-import { getStats } from "@/lib/content";
+import { getLiveStats } from "@/lib/live-stats";
 import { statIcon } from "@/components/ui/icons";
 import { Container } from "@/components/ui/container";
 
 const iconColors = ["text-brand", "text-teal", "text-orange", "text-brand"];
 
-export function StatsBand({ locale }: { locale: Locale }) {
-  const stats = getStats(locale);
+export async function StatsBand({ locale }: { locale: Locale }) {
+  const stats = await getLiveStats(locale);
   if (stats.length === 0) return null;
 
   return (

@@ -12,7 +12,7 @@ import { getEvent } from "@/lib/event";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { siteUrl } from "@/lib/site";
 import { isDraft } from "@/lib/publication";
-import "../globals.css";
+import "../../globals.css";
 
 const poppins = Poppins({
   subsets: ["latin"],

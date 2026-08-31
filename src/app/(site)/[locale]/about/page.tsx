@@ -14,6 +14,13 @@ import { ButtonLink } from "@/components/ui/button";
 import { Photo } from "@/components/ui/photo";
 import { StatsBand } from "@/components/sections/stats-band";
 
+/*
+ * Les chiffres d'impact sont comptés dans la base : la page est
+ * régénérée toutes les quinze minutes pour qu'ils montent d'eux-mêmes
+ * à mesure que les dossiers sont enregistrés, sans redéploiement.
+ */
+export const revalidate = 900;
+
 export async function generateMetadata({
   params,
 }: LocaleParams): Promise<Metadata> {

@@ -18,6 +18,13 @@ import { ArticleCard } from "@/components/sections/article-card";
 import { Partners } from "@/components/sections/partners";
 import { CtaBand } from "@/components/sections/cta-band";
 
+/*
+ * Les chiffres d'impact sont comptés dans la base : la page est
+ * régénérée toutes les quinze minutes pour qu'ils montent d'eux-mêmes
+ * à mesure que les dossiers sont enregistrés, sans redéploiement.
+ */
+export const revalidate = 900;
+
 export default async function HomePage({ params }: LocaleParams) {
   const locale = await resolveLocale(params);
   const dictionary = getDictionary(locale);
