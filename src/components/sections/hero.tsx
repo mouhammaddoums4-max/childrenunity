@@ -19,20 +19,34 @@ export function Hero({
   const { common } = dictionary;
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-brand-50/60 via-canvas to-canvas">
-      {/* Halos colores tres diffus, purement decoratifs */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-32 -left-24 size-96 rounded-full bg-brand/10 blur-3xl"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-24 right-0 size-96 rounded-full bg-teal/10 blur-3xl"
-      />
+    <section className="relative isolate overflow-hidden">
+      {/* Photographie de fond, retournee horizontalement pour placer l'enfant
+          a droite et le ciel clair sous la colonne de texte. */}
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src="/hero.webp"
+          alt={hero.imageAlt}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[70%_center] sm:object-center"
+        />
 
-      <Container className="relative grid items-center gap-12 py-14 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:py-20">
-        <div className="animate-rise">
-          <h1 className="font-display text-4xl leading-[1.08] font-extrabold text-navy sm:text-5xl lg:text-6xl">
+        {/* Voile clair : il porte le contraste du texte, plus dense a gauche
+            ou se trouve le titre, et s'efface vers le soleil. */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 bg-gradient-to-r from-canvas via-canvas/92 to-canvas/60 sm:to-canvas/20 lg:via-canvas/80 lg:to-transparent"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-canvas to-transparent"
+        />
+      </div>
+
+      <Container className="relative py-12 sm:py-16 lg:py-24">
+        <div className="max-w-xl animate-rise lg:max-w-2xl">
+          <h1 className="font-display text-[clamp(2rem,7vw,3.75rem)] leading-[1.08] font-extrabold text-navy">
             {hero.titleLine1}
             <br />
             {hero.titleLine2}
@@ -41,32 +55,32 @@ export function Hero({
             <span className="text-orange">.</span>
           </h1>
 
-          <p className="mt-7 max-w-xl text-base leading-relaxed text-ink-muted sm:text-lg">
+          <p className="mt-6 max-w-xl text-base leading-relaxed font-medium text-ink sm:mt-7 sm:text-lg">
             {hero.lead}
           </p>
 
-          <div className="mt-9 flex flex-col gap-3.5 sm:flex-row sm:items-center">
-            <ButtonLink href={path(locale, "programs")} size="lg">
-              {common.discover}
-              <ArrowRight className="size-4.5" aria-hidden="true" />
+          <div className="mt-8 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:items-center sm:gap-3.5">
+            <ButtonLink href={path(locale, "donate")} size="lg">
+              <Heart className="size-4.5" aria-hidden="true" />
+              {common.donate}
             </ButtonLink>
             <ButtonLink
-              href={path(locale, "contact")}
+              href={path(locale, "sponsorship")}
               variant="outline"
               size="lg"
             >
-              {common.volunteer}
-              <Heart className="size-4.5" aria-hidden="true" />
+              {common.sponsor}
+              <ArrowRight className="size-4.5" aria-hidden="true" />
             </ButtonLink>
           </div>
 
-          <ul className="mt-10 flex flex-wrap gap-x-10 gap-y-6">
+          <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-5 sm:mt-12 sm:gap-x-10 sm:gap-y-6">
             {hero.pillars.map((pillar, index) => {
               const Icon = pillarIcons[index];
               return (
                 <li key={pillar.title} className="flex items-center gap-3.5">
                   <span
-                    className={`flex size-12 items-center justify-center rounded-full text-white ${pillarColors[index]}`}
+                    className={`flex size-11 shrink-0 items-center justify-center rounded-full text-white shadow-soft sm:size-12 ${pillarColors[index]}`}
                   >
                     <Icon className="size-5.5" aria-hidden="true" />
                   </span>
@@ -82,28 +96,6 @@ export function Hero({
               );
             })}
           </ul>
-        </div>
-
-        {/* Le logo porte deja les arcs, le soleil et les trois enfants :
-            il sert directement de visuel, pose sur un disque clair.
-            Pour y placer une photo, remplacer ce bloc par un <Image>. */}
-        <div className="relative mx-auto w-full max-w-sm lg:max-w-md">
-          <div className="relative aspect-square">
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 rounded-full bg-gradient-to-br from-white via-white to-brand-50 shadow-lift"
-            />
-            <div className="absolute inset-0 flex items-center justify-center p-[14%]">
-              <Image
-                src="/logo-mark.png"
-                alt={dictionary.meta.siteName}
-                width={739}
-                height={618}
-                priority
-                className="animate-drift w-full drop-shadow-[0_18px_28px_rgba(18,10,94,0.16)]"
-              />
-            </div>
-          </div>
         </div>
       </Container>
     </section>

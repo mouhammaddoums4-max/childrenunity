@@ -27,14 +27,14 @@ export default async function NewsPage({ params }: LocaleParams) {
         lead={dictionary.news.hero.lead}
       />
 
-      <section className="py-20 sm:py-24">
+      <section className="py-14 sm:py-20 lg:py-24">
         <Container>
           {articles.length === 0 ? (
-            <p className="rounded-3xl border border-line bg-white p-10 text-center text-ink-muted">
+            <p className="rounded-3xl border border-line bg-white p-7 text-center text-ink-muted sm:p-10">
               {dictionary.news.empty}
             </p>
           ) : (
-            <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <ul className="grid gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
               {articles.map((article) => (
                 <li key={article.slug}>
                   <ArticleCard

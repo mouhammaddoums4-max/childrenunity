@@ -45,6 +45,7 @@ const en: typeof fr = {
     home: "Home",
     about: "About",
     programs: "Our programs",
+    sponsorship: "Sponsor a child",
     impact: "Impact",
     news: "News",
     contact: "Contact",
@@ -57,6 +58,7 @@ const en: typeof fr = {
   common: {
     donate: "Donate",
     volunteer: "Become a volunteer",
+    sponsor: "Sponsor a child",
     discover: "Discover our work",
     learnMore: "Learn more",
     readMore: "Read the article",
@@ -73,6 +75,8 @@ const en: typeof fr = {
       titleLine2: "the future of",
       titleHighlight: "every child",
       lead: "We support children through education, mentoring, vocational training and family support, so they can build a better future.",
+      imageAlt:
+        "A schoolboy, backpack on and books in hand, watches the sun rise over his village.",
       pillars: [
         { title: "Education", subtitle: "for all" },
         { title: "Mentoring", subtitle: "and guidance" },
@@ -91,6 +95,8 @@ const en: typeof fr = {
     about: {
       eyebrow: "Who we are",
       title: "A foundation born from a simple conviction",
+      imageAlt:
+        "Children supported by the foundation, in class and in the field.",
       body: "Convinced that every child holds a unique potential that deserves to be developed, the founding members created the non-governmental organisation Children's Unity Foundation (CUF). The organisation works for education, mentoring, vocational training, leadership, child protection and community development across Africa.",
       points: [
         "An independent, non-political and non-denominational organisation.",
@@ -124,6 +130,12 @@ const en: typeof fr = {
     testimonials: {
       eyebrow: "Testimonials",
       title: "What families tell us",
+    },
+    partners: {
+      eyebrow: "They support us",
+      title: "Our partners",
+      lead: "Schools, local authorities, companies and foundations: our programs move forward thanks to those who carry them with us.",
+      placeholder: "Slots reserved for our partners' logos.",
     },
     news: {
       eyebrow: "News",
@@ -173,6 +185,8 @@ const en: typeof fr = {
       ],
     },
     story: {
+      imageAlt:
+        "A foundation team alongside the children and families it supports.",
       eyebrow: "Our story",
       title: "A conviction that became an organisation",
       body: "Convinced that every child holds a unique potential that deserves to be developed, the founding members created the non-governmental organisation Children's Unity Foundation (CUF). The organisation works for education, mentoring, vocational training, leadership, child protection and community development across Africa.",
@@ -222,6 +236,64 @@ const en: typeof fr = {
     cta: {
       title: "Support a program",
       body: "You can direct your gift to the program that matters most to you.",
+    },
+  },
+
+  sponsorship: {
+    hero: {
+      eyebrow: "Sponsorship",
+      title: "Supporting one child, from the first day to the last",
+      lead: "Sponsorship funds a child's full schooling and guarantees regular follow-up. You receive two progress updates a year.",
+    },
+    meta: {
+      title: "Sponsor a child",
+      description:
+        "Meet the children supported by the foundation and fund one child's schooling throughout the year.",
+    },
+    card: {
+      age: "years old",
+      reference: "Reference",
+      grade: "Year",
+      collected: "raised",
+      goal: "annual goal",
+      funded: "funded",
+      discover: "See their journey",
+      sponsor: "Sponsor",
+      fullyFunded: "Fully funded",
+    },
+    detail: {
+      storyTitle: "Their journey",
+      videoTitle: "Their introduction video",
+      needsTitle: "What sponsorship funds",
+      objectivesTitle: "Their goals for the year",
+      back: "All children",
+      sponsorCta: "Sponsor this child",
+    },
+    privacy: {
+      title: "Child protection",
+      body: "Each profile carries only a first name, or a pseudonym, and a reference. No surname, no address and no school name is published. Photos and videos go online only with the written consent of the legal guardian, and are removed on request.",
+    },
+    how: {
+      eyebrow: "How it works",
+      title: "Sponsorship in four steps",
+      steps: [
+        {
+          title: "Choose a child",
+          body: "Browse the profiles and pick the child whose journey speaks to you.",
+        },
+        {
+          title: "Set up your support",
+          body: "We agree together on the amount and frequency of your contribution.",
+        },
+        {
+          title: "Follow their progress",
+          body: "You receive two updates a year: school results, health and projects.",
+        },
+        {
+          title: "Stay connected",
+          body: "You can send them a message, passed on by our teams on the ground.",
+        },
+      ],
     },
   },
 
@@ -323,7 +395,9 @@ const en: typeof fr = {
       monthly: "Monthly gift",
       custom: "Other amount",
       customPlaceholder: "Free amount",
-      customLabel: "Custom amount in euros",
+      customLabel: "Custom amount",
+      currencyLabel: "Currency",
+      frequencyLabel: "Donation frequency",
       perMonth: "/ month",
       continue: "Continue",
     },

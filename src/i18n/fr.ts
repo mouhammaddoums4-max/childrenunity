@@ -43,6 +43,7 @@ const fr = {
     home: "Accueil",
     about: "À propos",
     programs: "Nos programmes",
+    sponsorship: "Parrainage",
     impact: "Impact",
     news: "Actualités",
     contact: "Contact",
@@ -55,6 +56,7 @@ const fr = {
   common: {
     donate: "Faire un don",
     volunteer: "Devenir bénévole",
+    sponsor: "Parrainer un enfant",
     discover: "Découvrir nos actions",
     learnMore: "En savoir plus",
     readMore: "Lire l'article",
@@ -71,6 +73,8 @@ const fr = {
       titleLine2: "l'avenir de",
       titleHighlight: "chaque enfant",
       lead: "Nous accompagnons les enfants à travers l'éducation, le mentorat, la formation et le soutien aux familles pour construire un avenir meilleur.",
+      imageAlt:
+        "Un écolier, cartable au dos et cahiers à la main, regarde le soleil se lever sur son village.",
       pillars: [
         { title: "Éducation", subtitle: "pour tous" },
         { title: "Mentorat", subtitle: "et encadrement" },
@@ -89,6 +93,8 @@ const fr = {
     about: {
       eyebrow: "Qui nous sommes",
       title: "Une fondation née d'une conviction simple",
+      imageAlt:
+        "Des enfants accompagnés par la fondation, en classe et sur le terrain.",
       body: "Convaincus que chaque enfant possède un potentiel unique qui mérite d'être développé, les membres fondateurs ont créé l'Organisation Non Gouvernementale Children's Unity Foundation (CUF). L'organisation œuvre pour l'éducation, le mentorat, la formation professionnelle, le leadership, la protection de l'enfance et le développement des communautés en Afrique.",
       points: [
         "Une organisation indépendante, apolitique et non confessionnelle.",
@@ -122,6 +128,12 @@ const fr = {
     testimonials: {
       eyebrow: "Témoignages",
       title: "Ce que disent les familles",
+    },
+    partners: {
+      eyebrow: "Ils nous soutiennent",
+      title: "Nos partenaires",
+      lead: "Écoles, collectivités, entreprises et fondations : nos programmes avancent grâce à celles et ceux qui les portent avec nous.",
+      placeholder: "Emplacements réservés aux logos de nos partenaires.",
     },
     news: {
       eyebrow: "Actualités",
@@ -171,6 +183,8 @@ const fr = {
       ],
     },
     story: {
+      imageAlt:
+        "Une équipe de la fondation au contact des enfants et des familles accompagnées.",
       eyebrow: "Notre histoire",
       title: "Une conviction devenue une organisation",
       body: "Convaincus que chaque enfant possède un potentiel unique qui mérite d'être développé, les membres fondateurs créent l'Organisation Non Gouvernementale Children's Unity Foundation (CUF). L'organisation œuvre pour l'éducation, le mentorat, la formation professionnelle, le leadership, la protection de l'enfance et le développement des communautés en Afrique.",
@@ -220,6 +234,64 @@ const fr = {
     cta: {
       title: "Soutenir un programme",
       body: "Vous pouvez orienter votre don vers le programme qui vous tient le plus à cœur.",
+    },
+  },
+
+  sponsorship: {
+    hero: {
+      eyebrow: "Parrainage",
+      title: "Accompagner un enfant, du début à la fin de son parcours",
+      lead: "Le parrainage finance la scolarité complète d'un enfant et lui assure un suivi régulier. Vous recevez deux points d'étape par an sur ses progrès.",
+    },
+    meta: {
+      title: "Parrainer un enfant",
+      description:
+        "Découvrez les enfants accompagnés par la fondation et financez la scolarité de l'un d'eux tout au long de l'année.",
+    },
+    card: {
+      age: "ans",
+      reference: "Référence",
+      grade: "Niveau",
+      collected: "collecté",
+      goal: "objectif annuel",
+      funded: "financé",
+      discover: "Voir son parcours",
+      sponsor: "Parrainer",
+      fullyFunded: "Entièrement financé",
+    },
+    detail: {
+      storyTitle: "Son parcours",
+      videoTitle: "Sa vidéo de présentation",
+      needsTitle: "Ce que finance le parrainage",
+      objectivesTitle: "Ses objectifs pour l'année",
+      back: "Tous les enfants",
+      sponsorCta: "Parrainer cet enfant",
+    },
+    privacy: {
+      title: "Protection des enfants",
+      body: "Chaque fiche ne porte qu'un prénom, ou un pseudonyme, et un identifiant. Aucun nom de famille, aucune adresse, aucun nom d'école n'est publié. Les photos et vidéos ne sont mises en ligne qu'avec l'accord écrit du représentant légal, et sont retirées sur simple demande.",
+    },
+    how: {
+      eyebrow: "Comment ça marche",
+      title: "Le parrainage en quatre étapes",
+      steps: [
+        {
+          title: "Choisir un enfant",
+          body: "Parcourez les fiches et retenez l'enfant dont le parcours vous parle.",
+        },
+        {
+          title: "Mettre en place le soutien",
+          body: "Nous convenons ensemble du montant et de la périodicité de votre contribution.",
+        },
+        {
+          title: "Suivre ses progrès",
+          body: "Vous recevez deux points d'étape par an : résultats scolaires, santé, projets.",
+        },
+        {
+          title: "Rester en lien",
+          body: "Vous pouvez lui adresser un message, transmis par nos équipes sur place.",
+        },
+      ],
     },
   },
 
@@ -322,7 +394,9 @@ const fr = {
       monthly: "Don mensuel",
       custom: "Autre montant",
       customPlaceholder: "Montant libre",
-      customLabel: "Montant personnalisé en euros",
+      customLabel: "Montant personnalisé",
+      currencyLabel: "Devise",
+      frequencyLabel: "Fréquence du don",
       perMonth: "/ mois",
       continue: "Continuer",
     },

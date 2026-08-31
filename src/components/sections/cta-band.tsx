@@ -16,22 +16,22 @@ export function CtaBand({
   const { common } = dictionary;
 
   return (
-    <section className="py-20 sm:py-24">
+    <section className="py-14 sm:py-20 lg:py-24">
       <Container>
-        <div className="relative overflow-hidden rounded-[2rem] bg-brand px-8 py-14 text-white sm:px-14 sm:py-16">
+        <div className="relative overflow-hidden rounded-[1.75rem] bg-brand px-6 py-10 text-white sm:rounded-[2rem] sm:px-14 sm:py-16">
           <Arcs
-            className="pointer-events-none absolute -top-16 -right-10 w-80 opacity-20"
+            className="pointer-events-none absolute -top-12 -right-8 w-56 opacity-20 sm:-top-16 sm:-right-10 sm:w-80"
           />
 
           <div className="relative max-w-2xl">
-            <h2 className="font-display text-3xl leading-tight font-bold sm:text-4xl">
+            <h2 className="font-display text-[clamp(1.5rem,4.2vw,2.25rem)] leading-tight font-bold">
               {cta.title}
             </h2>
-            <p className="mt-5 text-base leading-relaxed text-white/85 sm:text-lg">
+            <p className="mt-4 text-base leading-relaxed text-white/85 sm:mt-5 sm:text-lg">
               {cta.body}
             </p>
 
-            <div className="mt-9 flex flex-col gap-3.5 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:gap-3.5">
               <ButtonLink
                 href={path(locale, "donate")}
                 variant="accent"

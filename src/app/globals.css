@@ -34,6 +34,8 @@
   --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
+  --breakpoint-xs: 25rem;
+
   --radius-card: 1.25rem;
 
   --shadow-soft: 0 1px 2px rgb(18 10 94 / 0.04), 0 8px 24px -8px rgb(18 10 94 / 0.10);
@@ -53,11 +55,23 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+  overflow-x: clip;
 }
 
 h1, h2, h3, h4, .font-display {
   font-family: var(--font-display);
   letter-spacing: -0.02em;
+}
+
+/* Titres repartis sur des lignes de longueur comparable, paragraphes
+   sans mot isole en derniere ligne : utile surtout aux largeurs mobiles. */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 /* Anneau de focus visible et cohérent partout (a11y clavier) */
@@ -69,7 +83,13 @@ h1, h2, h3, h4, .font-display {
 
 /* Le contenu passe sous le header fixe : on décale les ancres */
 :target {
-  scroll-margin-top: 7rem;
+  scroll-margin-top: 5.5rem;
+}
+
+@media (min-width: 1024px) {
+  :target {
+    scroll-margin-top: 7rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

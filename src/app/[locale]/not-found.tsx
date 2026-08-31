@@ -10,10 +10,10 @@ export default function NotFound() {
   const dictionary = getDictionary(defaultLocale);
 
   return (
-    <Container className="flex flex-col items-center py-28 text-center">
-      <Arcs className="w-64 opacity-70" />
-      <p className="font-display mt-8 text-6xl font-extrabold text-brand">404</p>
-      <h1 className="font-display mt-4 text-3xl font-bold text-navy">
+    <Container className="flex flex-col items-center py-20 text-center sm:py-28">
+      <Arcs className="w-48 opacity-70 sm:w-64" />
+      <p className="font-display mt-8 text-5xl font-extrabold text-brand sm:text-6xl">404</p>
+      <h1 className="font-display mt-4 text-2xl font-bold text-navy sm:text-3xl">
         {dictionary.notFound.title}
       </h1>
       <p className="mt-4 max-w-md leading-relaxed text-ink-muted">

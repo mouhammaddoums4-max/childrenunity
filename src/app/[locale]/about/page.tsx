@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { ArrowRight, Eye, Heart, Landmark, Scale, ShieldCheck, Sprout, Target } from "lucide-react";
 import { path } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
@@ -9,7 +10,7 @@ import { Container } from "@/components/ui/container";
 import { PageHero } from "@/components/ui/page-hero";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ButtonLink } from "@/components/ui/button";
-import { Arcs } from "@/components/ui/arcs";
+import { Photo } from "@/components/ui/photo";
 import { StatsBand } from "@/components/sections/stats-band";
 
 export async function generateMetadata({
@@ -39,11 +40,11 @@ export default async function AboutPage({ params }: LocaleParams) {
       />
 
       {/* Mission et vision */}
-      <section className="py-20 sm:py-24">
+      <section className="py-14 sm:py-20 lg:py-24">
         <Container>
-          <div className="grid gap-6 md:grid-cols-2">
-            <article className="rounded-3xl border border-line bg-white p-9 shadow-soft">
-              <span className="flex size-14 items-center justify-center rounded-2xl bg-brand-50">
+          <div className="grid gap-5 sm:gap-6 md:grid-cols-2">
+            <article className="rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-9">
+              <span className="flex size-12 items-center justify-center rounded-2xl bg-brand-50 sm:size-14">
                 <Target className="size-7 text-brand" aria-hidden="true" />
               </span>
               <h2 className="font-display mt-6 text-2xl font-bold text-navy">
@@ -54,8 +55,8 @@ export default async function AboutPage({ params }: LocaleParams) {
               </p>
             </article>
 
-            <article className="rounded-3xl border border-line bg-white p-9 shadow-soft">
-              <span className="flex size-14 items-center justify-center rounded-2xl bg-teal-50">
+            <article className="rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-9">
+              <span className="flex size-12 items-center justify-center rounded-2xl bg-teal-50 sm:size-14">
                 <Eye className="size-7 text-teal-ink" aria-hidden="true" />
               </span>
               <h2 className="font-display mt-6 text-2xl font-bold text-navy">
@@ -72,7 +73,7 @@ export default async function AboutPage({ params }: LocaleParams) {
       <StatsBand locale={locale} />
 
       {/* Valeurs */}
-      <section className="py-20 sm:py-24">
+      <section className="py-14 sm:py-20 lg:py-24">
         <Container>
           <SectionHeading
             eyebrow={about.values.eyebrow}
@@ -80,13 +81,13 @@ export default async function AboutPage({ params }: LocaleParams) {
             align="center"
           />
 
-          <ul className="mt-14 grid gap-6 sm:grid-cols-2">
+          <ul className="mt-10 grid gap-5 sm:mt-14 sm:grid-cols-2 sm:gap-6">
             {about.values.items.map((value, index) => {
               const accent = accentClasses[valueColors[index]];
               return (
                 <li
                   key={value.title}
-                  className="rounded-3xl border border-line bg-white p-8 shadow-soft"
+                  className="rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-8"
                 >
                   <div className={`h-1.5 w-12 rounded-full ${accent.bar}`} />
                   <h3 className="font-display mt-5 text-xl font-bold text-navy">
@@ -103,8 +104,8 @@ export default async function AboutPage({ params }: LocaleParams) {
       </section>
 
       {/* Histoire */}
-      <section className="bg-brand-50/50 py-20 sm:py-24">
-        <Container className="grid items-center gap-14 lg:grid-cols-2">
+      <section className="bg-brand-50/50 py-14 sm:py-20 lg:py-24">
+        <Container className="grid items-center gap-10 sm:gap-14 lg:grid-cols-2">
           <div>
             <SectionHeading
               eyebrow={about.story.eyebrow}
@@ -112,14 +113,18 @@ export default async function AboutPage({ params }: LocaleParams) {
               lead={about.story.body}
             />
           </div>
-          <div className="rounded-[2rem] bg-white p-10 shadow-soft">
-            <Arcs className="mx-auto w-full max-w-sm" />
-          </div>
+          <Photo
+            src="/images/story.webp"
+            alt={about.story.imageAlt}
+            ratio="aspect-[4/3]"
+            sizes="(min-width: 1024px) 45vw, 100vw"
+            className="shadow-soft"
+          />
         </Container>
       </section>
 
       {/* Statut de l'organisation */}
-      <section className="bg-navy py-20 text-white sm:py-24">
+      <section className="bg-navy py-14 text-white sm:py-20 lg:py-24">
         <Container>
           <SectionHeading
             eyebrow={about.charter.eyebrow}
@@ -129,13 +134,13 @@ export default async function AboutPage({ params }: LocaleParams) {
             tone="light"
           />
 
-          <ul className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="mt-10 grid gap-5 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
             {about.charter.items.map((item, index) => {
               const Icon = charterIcons[index];
               return (
                 <li
                   key={item.title}
-                  className="rounded-3xl bg-white/[0.07] p-7 ring-1 ring-white/10"
+                  className="rounded-3xl bg-white/[0.07] p-6 ring-1 ring-white/10 sm:p-7"
                 >
                   <span className="flex size-12 items-center justify-center rounded-2xl bg-white/10">
                     <Icon className="size-6 text-teal" aria-hidden="true" />
@@ -154,7 +159,7 @@ export default async function AboutPage({ params }: LocaleParams) {
       </section>
 
       {/* Equipe */}
-      <section className="py-20 sm:py-24">
+      <section className="py-14 sm:py-20 lg:py-24">
         <Container>
           <SectionHeading
             eyebrow={about.team.eyebrow}
@@ -163,7 +168,7 @@ export default async function AboutPage({ params }: LocaleParams) {
             align="center"
           />
 
-          <ul className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="mt-10 grid gap-5 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
             {team.map((member) => {
               const accent = accentClasses[member.accent];
               const initials = member.name
@@ -174,15 +179,25 @@ export default async function AboutPage({ params }: LocaleParams) {
               return (
                 <li
                   key={member.id}
-                  className="rounded-3xl border border-line bg-white p-7 text-center shadow-soft"
+                  className="rounded-3xl border border-line bg-white p-6 text-center shadow-soft sm:p-7"
                 >
-                  {/* Monogramme en attendant les portraits de l'equipe */}
-                  <span
-                    className={`font-display mx-auto flex size-20 items-center justify-center rounded-full text-2xl font-bold text-white ${accent.bg}`}
-                    aria-hidden="true"
-                  >
-                    {initials}
-                  </span>
+                  {/* Portrait s'il existe, monogramme sinon */}
+                  {member.photo ? (
+                    <Image
+                      src={member.photo}
+                      alt={member.name}
+                      width={160}
+                      height={160}
+                      className={`mx-auto size-20 rounded-full object-cover object-top ring-2 ${accent.ring}`}
+                    />
+                  ) : (
+                    <span
+                      className={`font-display mx-auto flex size-16 items-center justify-center rounded-full text-xl font-bold text-white sm:size-20 sm:text-2xl ${accent.bg}`}
+                      aria-hidden="true"
+                    >
+                      {initials}
+                    </span>
+                  )}
                   <h3 className="font-display mt-5 text-lg font-bold text-navy">
                     {member.name}
                   </h3>
@@ -195,10 +210,10 @@ export default async function AboutPage({ params }: LocaleParams) {
       </section>
 
       {/* Rejoindre */}
-      <section className="pb-24">
+      <section className="pb-16 sm:pb-24">
         <Container>
-          <div className="rounded-[2rem] border border-line bg-white p-10 text-center shadow-soft sm:p-14">
-            <span className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-orange-50">
+          <div className="rounded-[1.75rem] border border-line bg-white p-7 text-center shadow-soft sm:rounded-[2rem] sm:p-10 lg:p-14">
+            <span className="mx-auto flex size-12 items-center justify-center rounded-2xl bg-orange-50 sm:size-14">
               <Heart className="size-7 text-orange-ink" aria-hidden="true" />
             </span>
             <h2 className="font-display mt-6 text-2xl font-bold text-navy sm:text-3xl">
@@ -207,7 +222,7 @@ export default async function AboutPage({ params }: LocaleParams) {
             <p className="mx-auto mt-4 max-w-xl leading-relaxed text-ink-muted">
               {about.join.body}
             </p>
-            <div className="mt-8 flex flex-col justify-center gap-3.5 sm:flex-row">
+            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:gap-3.5">
               <ButtonLink href={path(locale, "contact")} size="lg">
                 {common.contactUs}
                 <ArrowRight className="size-4.5" aria-hidden="true" />

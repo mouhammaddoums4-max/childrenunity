@@ -17,6 +17,7 @@ const navKeys: NavKey[] = [
   "home",
   "about",
   "programs",
+  "sponsorship",
   "impact",
   "news",
   "contact",
@@ -81,7 +82,7 @@ export function SiteHeader({
           : "border-transparent bg-white",
       )}
     >
-      <Container className="flex h-20 items-center justify-between gap-6">
+      <Container className="flex h-16 items-center justify-between gap-3 sm:h-18 sm:gap-5 lg:h-20 lg:gap-6">
         <Logo locale={locale} className="shrink-0" />
 
         <nav
@@ -94,7 +95,7 @@ export function SiteHeader({
               href={item.href}
               aria-current={item.active ? "page" : undefined}
               className={cn(
-                "relative rounded-full px-3 py-2 text-[13px] font-semibold tracking-wide whitespace-nowrap uppercase transition-colors duration-200 xl:px-3.5",
+                "relative rounded-full px-2.5 py-2 text-[13px] font-semibold tracking-wide whitespace-nowrap uppercase transition-colors duration-200 xl:px-3.5",
                 item.active
                   ? "text-brand"
                   : "text-ink-muted hover:text-navy",
@@ -140,7 +141,7 @@ export function SiteHeader({
       {open ? (
         <div
           id="mobile-menu"
-          className="border-t border-line bg-white lg:hidden"
+          className="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-line bg-white lg:hidden"
         >
           <Container className="flex flex-col gap-1 py-5">
             {items.map((item) => (

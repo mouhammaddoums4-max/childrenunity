@@ -15,14 +15,19 @@ import { NewsletterForm } from "@/components/newsletter-form";
 
 type NavKey = Exclude<RouteKey, "donate">;
 
-const navKeys: NavKey[] = ["home", "about", "programs", "impact", "news", "contact"];
+const navKeys: NavKey[] = ["home", "about", "programs", "sponsorship", "impact", "news", "contact"];
 
-const socialLinks = [
-  { key: "facebook", href: organisation.social.facebook, Icon: FacebookIcon, label: "Facebook" },
-  { key: "instagram", href: organisation.social.instagram, Icon: InstagramIcon, label: "Instagram" },
-  { key: "linkedin", href: organisation.social.linkedin, Icon: LinkedinIcon, label: "LinkedIn" },
-  { key: "youtube", href: organisation.social.youtube, Icon: YoutubeIcon, label: "YouTube" },
-];
+const socialLinks = (
+  [
+    { key: "facebook", Icon: FacebookIcon, label: "Facebook" },
+    { key: "linkedin", Icon: LinkedinIcon, label: "LinkedIn" },
+    { key: "instagram", Icon: InstagramIcon, label: "Instagram" },
+    { key: "youtube", Icon: YoutubeIcon, label: "YouTube" },
+  ] as const
+)
+  .map((entry) => ({ ...entry, href: organisation.social[entry.key] }))
+  .filter((entry): entry is typeof entry & { href: string } => Boolean(entry.href));
+
 
 export function SiteFooter({
   locale,
@@ -36,11 +41,11 @@ export function SiteFooter({
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-24 bg-navy text-white">
-      <Container className="py-16 sm:py-20">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr] lg:gap-16">
+    <footer className="mt-16 bg-navy text-white sm:mt-24">
+      <Container className="py-12 sm:py-16 lg:py-20">
+        <div className="grid gap-10 sm:grid-cols-2 sm:gap-12 lg:grid-cols-[1.4fr_1fr_1fr] lg:gap-16">
           {/* Identite + newsletter */}
-          <div>
+          <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-3">
               <Image
                 src="/logo-mark.png"
@@ -164,7 +169,7 @@ export function SiteFooter({
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-white/15 pt-8 text-sm text-white/60 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-4 border-t border-white/15 pt-8 text-sm text-white/60 sm:mt-14 sm:flex-row sm:items-center sm:justify-between">
           <p>
             &copy; {year} {meta.siteName}. {footer.rights}
           </p>

@@ -7,13 +7,14 @@ import { resolveLocale, type LocaleParams } from "@/lib/locale-param";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ButtonLink } from "@/components/ui/button";
-import { Arcs } from "@/components/ui/arcs";
+import { Photo } from "@/components/ui/photo";
 import { Hero } from "@/components/sections/hero";
 import { ProgramGrid } from "@/components/sections/program-grid";
 import { StatsBand } from "@/components/sections/stats-band";
 import { Approach } from "@/components/sections/approach";
 import { Testimonials } from "@/components/sections/testimonials";
 import { ArticleCard } from "@/components/sections/article-card";
+import { Partners } from "@/components/sections/partners";
 import { CtaBand } from "@/components/sections/cta-band";
 
 export default async function HomePage({ params }: LocaleParams) {
@@ -27,7 +28,7 @@ export default async function HomePage({ params }: LocaleParams) {
       <Hero locale={locale} dictionary={dictionary} />
 
       {/* Programmes */}
-      <section className="py-16 sm:py-20">
+      <section className="py-14 sm:py-16 lg:py-20">
         <Container>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <SectionHeading
@@ -45,7 +46,7 @@ export default async function HomePage({ params }: LocaleParams) {
             </ButtonLink>
           </div>
 
-          <div className="mt-12">
+          <div className="mt-10 sm:mt-12">
             <ProgramGrid locale={locale} label={common.learnMore} />
           </div>
         </Container>
@@ -54,12 +55,16 @@ export default async function HomePage({ params }: LocaleParams) {
       <StatsBand locale={locale} />
 
       {/* Qui nous sommes */}
-      <section className="py-20 sm:py-24">
-        <Container className="grid items-center gap-14 lg:grid-cols-2">
-          <div className="relative order-2 lg:order-1">
-            <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand-50 to-teal-50 p-10">
-              <Arcs className="mx-auto w-full max-w-sm" />
-            </div>
+      <section className="py-14 sm:py-20 lg:py-24">
+        <Container className="grid items-center gap-10 sm:gap-14 lg:grid-cols-2">
+          <div className="order-2 lg:order-1">
+            <Photo
+              src={["/images/community.webp", "/hero.webp"]}
+              alt={home.about.imageAlt}
+              ratio="aspect-[4/3] lg:aspect-[5/4]"
+              sizes="(min-width: 1024px) 45vw, 100vw"
+              className="shadow-lift"
+            />
           </div>
 
           <div className="order-1 lg:order-2">
@@ -93,7 +98,7 @@ export default async function HomePage({ params }: LocaleParams) {
       <Testimonials locale={locale} dictionary={dictionary} />
 
       {/* Actualites */}
-      <section className="py-20 sm:py-24">
+      <section className="py-14 sm:py-20 lg:py-24">
         <Container>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <SectionHeading
@@ -110,7 +115,7 @@ export default async function HomePage({ params }: LocaleParams) {
             </Link>
           </div>
 
-          <ul className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-10 grid gap-5 sm:grid-cols-2 sm:gap-6 lg:mt-12 lg:grid-cols-3">
             {articles.map((article) => (
               <li key={article.slug} className="relative">
                 <ArticleCard
@@ -123,6 +128,8 @@ export default async function HomePage({ params }: LocaleParams) {
           </ul>
         </Container>
       </section>
+
+      <Partners dictionary={dictionary} />
 
       <CtaBand locale={locale} dictionary={dictionary} />
     </>

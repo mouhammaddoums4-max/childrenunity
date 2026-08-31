@@ -30,12 +30,12 @@ export default async function ContactPage({ params }: LocaleParams) {
         lead={contact.hero.lead}
       />
 
-      <section className="py-20 sm:py-24">
-        <Container className="grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:gap-14">
+      <section className="py-14 sm:py-20 lg:py-24">
+        <Container className="grid gap-8 sm:gap-10 lg:grid-cols-[1.3fr_1fr] lg:gap-14">
           <ContactForm dictionary={dictionary} />
 
           <div className="space-y-6">
-            <div className="rounded-3xl border border-line bg-white p-7 shadow-soft">
+            <div className="rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-7">
               <h2 className="font-display text-lg font-bold text-navy">
                 {contact.details.title}
               </h2>
@@ -109,7 +109,7 @@ export default async function ContactPage({ params }: LocaleParams) {
               </ul>
             </div>
 
-            <div className="rounded-3xl bg-brand p-7 text-white shadow-soft">
+            <div className="rounded-3xl bg-brand p-6 text-white shadow-soft sm:p-7">
               <span className="flex size-12 items-center justify-center rounded-2xl bg-white/15">
                 <HandHeart className="size-6" aria-hidden="true" />
               </span>

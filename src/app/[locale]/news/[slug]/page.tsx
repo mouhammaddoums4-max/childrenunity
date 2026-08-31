@@ -53,7 +53,7 @@ export default async function ArticlePage({ params }: ArticleParams) {
     <>
       <article>
         <header className="border-b border-line bg-gradient-to-b from-brand-50/60 to-canvas">
-          <Container className="py-14 sm:py-16">
+          <Container className="py-10 sm:py-14 lg:py-16">
             <Link
               href={path(locale, "news")}
               className="inline-flex items-center gap-2 text-sm font-semibold text-brand hover:underline"
@@ -68,7 +68,7 @@ export default async function ArticlePage({ params }: ArticleParams) {
               {article.category}
             </span>
 
-            <h1 className="font-display mt-4 max-w-3xl text-3xl leading-tight font-extrabold text-navy sm:text-4xl lg:text-5xl">
+            <h1 className="font-display mt-4 max-w-3xl text-[clamp(1.75rem,5vw,3rem)] leading-tight font-extrabold text-navy">
               {article.title}
             </h1>
 
@@ -87,9 +87,9 @@ export default async function ArticlePage({ params }: ArticleParams) {
           </Container>
         </header>
 
-        <Container className="py-14 sm:py-16">
+        <Container className="py-10 sm:py-14 lg:py-16">
           <div className="max-w-2xl">
-            <p className="text-lg leading-relaxed font-medium text-navy">
+            <p className="text-base leading-relaxed font-medium text-navy sm:text-lg">
               {article.excerpt}
             </p>
 

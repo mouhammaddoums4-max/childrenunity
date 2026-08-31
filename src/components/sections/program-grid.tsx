@@ -25,16 +25,16 @@ export function ProgramGrid({
           <li key={program.slug}>
             <Link
               href={`${path(locale, "programs")}#${program.slug}`}
-              className="group flex h-full flex-col rounded-3xl border border-line bg-white p-7 shadow-soft transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-transparent hover:shadow-lift"
+              className="group flex h-full flex-col rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-7 transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-transparent hover:shadow-lift"
             >
               <span
-                className={`flex size-14 items-center justify-center rounded-2xl ${accent.softBg}`}
+                className={`flex size-12 items-center justify-center rounded-2xl sm:size-14 ${accent.softBg}`}
               >
-                <Icon className={`size-7 ${accent.text}`} aria-hidden="true" />
+                <Icon className={`size-6 sm:size-7 ${accent.text}`} aria-hidden="true" />
               </span>
 
               <h3
-                className={`font-display mt-6 text-lg font-bold ${accent.text}`}
+                className={`font-display mt-5 text-lg font-bold sm:mt-6 ${accent.text}`}
               >
                 {program.title}
               </h3>

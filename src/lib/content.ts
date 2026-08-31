@@ -504,15 +504,18 @@ type MemberSource = {
   id: string;
   name: string;
   accent: Accent;
+  /** Fichier depose dans public/team/. A defaut, un monogramme est affiche. */
+  photo?: string;
   role: Localized<string>;
 };
 
 const memberSources: MemberSource[] = [
   {
-    id: "direction",
-    name: "Mariama Camara",
+    id: "president",
+    name: "Mouhammad Doumbouya",
     accent: "brand",
-    role: { fr: "Directrice générale", en: "Executive Director" },
+    photo: "/team/president.webp",
+    role: { fr: "Président de la fondation", en: "President of the foundation" },
   },
   {
     id: "programs",
@@ -534,13 +537,20 @@ const memberSources: MemberSource[] = [
   },
 ];
 
-export type Member = { id: string; name: string; accent: Accent; role: string };
+export type Member = {
+  id: string;
+  name: string;
+  accent: Accent;
+  photo?: string;
+  role: string;
+};
 
 export function getTeam(locale: Locale): Member[] {
   return memberSources.map((member) => ({
     id: member.id,
     name: member.name,
     accent: member.accent,
+    photo: member.photo,
     role: pick(member.role, locale),
   }));
 }
@@ -696,13 +706,37 @@ export const organisation = {
   phone: "+224 627 84 30 30",
   phoneHref: "+224627843030",
   address: ["Conakry", "République de Guinée"],
+  /* Seuls les reseaux reellement ouverts sont listes : le pied de page et
+     la barre laterale n'affichent que les entrees presentes ici. */
   social: {
-    facebook: "https://facebook.com/",
-    instagram: "https://instagram.com/",
-    linkedin: "https://linkedin.com/",
-    youtube: "https://youtube.com/",
-  },
+    facebook: "https://www.facebook.com/childrensunityfoundation",
+    linkedin: "https://www.linkedin.com/company/childrensunityfoundation",
+  } as Partial<Record<"facebook" | "instagram" | "linkedin" | "youtube", string>>,
 };
+
+
+/* ------------------------------------------------------------------ */
+/* Partenaires et soutiens                                             */
+/* ------------------------------------------------------------------ */
+/*
+ * Pour afficher un partenaire, ajouter une entrée ici :
+ *   { id: "unicef", name: "UNICEF", logo: "/partners/unicef.svg",
+ *     href: "https://..." }
+ * `logo` est un fichier déposé dans `public/partners/` (SVG de préférence,
+ * sinon PNG sur fond transparent, hauteur utile ~80 px). Sans `logo`, le
+ * nom du partenaire s'affiche en toutes lettres. Tant que la liste est
+ * vide, la section montre des emplacements vides.
+ */
+
+export type Partner = {
+  id: string;
+  name: string;
+  logo?: string;
+  href?: string;
+};
+
+export const partners: Partner[] = [];
+
 
 /* ------------------------------------------------------------------ */
 /* Montants de don proposés                                            */

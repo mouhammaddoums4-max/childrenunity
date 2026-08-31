@@ -40,7 +40,7 @@ export default async function ImpactPage({ params }: LocaleParams) {
       <StatsBand locale={locale} />
 
       {/* Resultats detailles */}
-      <section className="py-20 sm:py-24">
+      <section className="py-14 sm:py-20 lg:py-24">
         <Container>
           <SectionHeading
             eyebrow={impact.results.eyebrow}
@@ -48,16 +48,16 @@ export default async function ImpactPage({ params }: LocaleParams) {
             align="center"
           />
 
-          <ul className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-10 grid gap-5 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
             {results.map((result) => {
               const accent = accentClasses[result.accent];
               return (
                 <li
                   key={result.label}
-                  className="rounded-3xl border border-line bg-white p-8 shadow-soft"
+                  className="rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-8"
                 >
                   <p
-                    className={`font-display text-4xl font-extrabold tabular-nums ${accent.text}`}
+                    className={`font-display text-3xl font-extrabold tabular-nums sm:text-4xl ${accent.text}`}
                   >
                     {result.value}
                   </p>
@@ -75,7 +75,7 @@ export default async function ImpactPage({ params }: LocaleParams) {
       </section>
 
       {/* Repartition des depenses */}
-      <section className="bg-white py-20 sm:py-24">
+      <section className="bg-white py-14 sm:py-20 lg:py-24">
         <Container>
           <SectionHeading
             eyebrow={impact.allocation.eyebrow}
@@ -83,7 +83,7 @@ export default async function ImpactPage({ params }: LocaleParams) {
             lead={impact.allocation.lead}
           />
 
-          <ul className="mt-12 max-w-3xl space-y-7">
+          <ul className="mt-10 max-w-3xl space-y-6 sm:mt-12 sm:space-y-7">
             {impact.allocation.items.map((item, index) => (
               <li key={item.label}>
                 <div className="flex items-baseline justify-between gap-4">
@@ -110,7 +110,7 @@ export default async function ImpactPage({ params }: LocaleParams) {
       </section>
 
       {/* Pays d'intervention */}
-      <section className="py-20 sm:py-24">
+      <section className="py-14 sm:py-20 lg:py-24">
         <Container>
           <SectionHeading
             eyebrow={impact.countries.eyebrow}
@@ -119,11 +119,11 @@ export default async function ImpactPage({ params }: LocaleParams) {
             align="center"
           />
 
-          <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="mt-10 grid gap-3.5 sm:mt-14 sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
             {countries.map((country) => (
               <li
                 key={country.code}
-                className="flex items-center gap-4 rounded-2xl border border-line bg-white p-5 shadow-soft"
+                className="flex items-center gap-3.5 rounded-2xl border border-line bg-white p-4 shadow-soft sm:gap-4 sm:p-5"
               >
                 <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-brand-50">
                   <MapPin className="size-5 text-brand" aria-hidden="true" />

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { locales, routes, type RouteKey } from "@/i18n/config";
 import { getArticleSlugs } from "@/lib/content";
+import { getChildReferences } from "@/lib/sponsorship";
 import { siteUrl } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -27,5 +28,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
-  return [...pages, ...articles];
+  const children = locales.flatMap((locale) =>
+    getChildReferences().map((reference) => ({
+      url: `${siteUrl}/${locale}/${routes.sponsorship}/${reference}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
+  );
+
+  return [...pages, ...articles, ...children];
 }

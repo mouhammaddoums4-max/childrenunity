@@ -96,7 +96,7 @@ export function ContactForm({ dictionary }: { dictionary: Dictionary }) {
     <form
       onSubmit={onSubmit}
       noValidate
-      className="rounded-3xl border border-line bg-white p-7 shadow-soft sm:p-9"
+      className="rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-9"
     >
       <h2 className="font-display text-2xl font-bold text-navy">{form.title}</h2>
 

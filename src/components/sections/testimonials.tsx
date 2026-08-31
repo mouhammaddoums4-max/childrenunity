@@ -17,7 +17,7 @@ export function Testimonials({
   const { testimonials: copy } = dictionary.home;
 
   return (
-    <section className="bg-brand-50/50 py-20 sm:py-24">
+    <section className="bg-brand-50/50 py-14 sm:py-20 lg:py-24">
       <Container>
         <SectionHeading
           eyebrow={copy.eyebrow}
@@ -25,13 +25,13 @@ export function Testimonials({
           align="center"
         />
 
-        <ul className="mt-14 grid gap-6 lg:grid-cols-3">
+        <ul className="mt-10 grid gap-5 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           {testimonials.map((testimonial) => {
             const accent = accentClasses[testimonial.accent];
 
             return (
               <li key={testimonial.id}>
-                <figure className="flex h-full flex-col rounded-3xl bg-white p-7 shadow-soft">
+                <figure className="flex h-full flex-col rounded-3xl bg-white p-6 shadow-soft sm:p-7">
                   <Quote
                     className={`size-8 ${accent.text}`}
                     aria-hidden="true"

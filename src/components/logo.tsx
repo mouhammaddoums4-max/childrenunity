@@ -19,7 +19,7 @@ export function Logo({
   return (
     <Link
       href={`/${locale}`}
-      className={cn("group flex items-center gap-3", className)}
+      className={cn("group flex items-center gap-2.5 sm:gap-3", className)}
       aria-label="Children's Unity Foundation"
     >
       <Image
@@ -29,7 +29,7 @@ export function Logo({
         width={739}
         height={618}
         priority
-        className="h-11 w-auto transition-transform duration-300 group-hover:scale-105 sm:h-12"
+        className="h-9 w-auto transition-transform duration-300 group-hover:scale-105 sm:h-11 lg:h-12"
       />
 
       {withText ? (

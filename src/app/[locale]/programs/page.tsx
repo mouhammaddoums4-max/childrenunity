@@ -33,9 +33,9 @@ export default async function ProgramsPage({ params }: LocaleParams) {
       />
 
       {/* Sommaire cliquable des six programmes */}
-      <section className="border-b border-line bg-white py-6">
+      <section className="border-b border-line bg-white py-5 sm:py-6">
         <Container>
-          <ul className="flex flex-wrap gap-2.5">
+          <ul className="flex flex-wrap gap-2 sm:gap-2.5">
             {programs.map((program) => {
               const accent = accentClasses[program.accent];
               return (
@@ -65,21 +65,21 @@ export default async function ProgramsPage({ params }: LocaleParams) {
               id={program.slug}
               className={index % 2 === 1 ? "bg-white" : ""}
             >
-              <Container className="py-16 sm:py-20">
-                <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+              <Container className="py-12 sm:py-16 lg:py-20">
+                <div className="grid gap-8 sm:gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
                   <div className={reversed ? "lg:order-2" : undefined}>
                     <span
-                      className={`flex size-16 items-center justify-center rounded-3xl ${accent.softBg}`}
+                      className={`flex size-14 items-center justify-center rounded-3xl sm:size-16 ${accent.softBg}`}
                     >
-                      <Icon className={`size-8 ${accent.text}`} aria-hidden="true" />
+                      <Icon className={`size-7 sm:size-8 ${accent.text}`} aria-hidden="true" />
                     </span>
 
                     <h2
-                      className={`font-display mt-6 text-3xl font-bold sm:text-4xl ${accent.text}`}
+                      className={`font-display mt-5 text-[clamp(1.625rem,4.2vw,2.25rem)] font-bold sm:mt-6 ${accent.text}`}
                     >
                       {program.title}
                     </h2>
-                    <p className="mt-3 text-lg font-medium text-navy">
+                    <p className="mt-3 text-base font-medium text-navy sm:text-lg">
                       {program.summary}
                     </p>
                     <p className="mt-5 leading-relaxed text-ink-muted">
@@ -103,7 +103,7 @@ export default async function ProgramsPage({ params }: LocaleParams) {
                   </div>
 
                   <div className={reversed ? "lg:order-1" : undefined}>
-                    <div className="rounded-3xl border border-line bg-white p-8 shadow-soft">
+                    <div className="rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-8">
                       <h3 className="font-display text-lg font-bold text-navy">
                         {copy.detailTitle}
                       </h3>
@@ -133,9 +133,9 @@ export default async function ProgramsPage({ params }: LocaleParams) {
         })}
       </div>
 
-      <section className="py-20 sm:py-24">
+      <section className="py-14 sm:py-20 lg:py-24">
         <Container>
-          <div className="rounded-[2rem] bg-navy p-10 text-center text-white sm:p-14">
+          <div className="rounded-[1.75rem] bg-navy p-7 text-center text-white sm:rounded-[2rem] sm:p-10 lg:p-14">
             <h2 className="font-display text-2xl font-bold sm:text-3xl">
               {copy.cta.title}
             </h2>

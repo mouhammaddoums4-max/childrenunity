@@ -7,7 +7,7 @@ type Size = "md" | "lg";
 const base =
   "inline-flex items-center justify-center gap-2 rounded-full font-semibold " +
   "transition-[background-color,color,box-shadow,transform] duration-200 " +
-  "cursor-pointer select-none active:scale-[0.98] " +
+  "cursor-pointer select-none text-center active:scale-[0.98] " +
   "disabled:cursor-not-allowed disabled:opacity-50 disabled:active:scale-100";
 
 const variants: Record<Variant, string> = {
@@ -23,8 +23,8 @@ const variants: Record<Variant, string> = {
 
 /* Hauteurs >= 44px : cible tactile minimale recommandee. */
 const sizes: Record<Size, string> = {
-  md: "min-h-11 px-5 py-2.5 text-sm",
-  lg: "min-h-13 px-7 py-3.5 text-base",
+  md: "min-h-11 px-4 py-2.5 text-sm sm:px-5",
+  lg: "min-h-12 px-6 py-3 text-[0.9375rem] sm:min-h-13 sm:px-7 sm:py-3.5 sm:text-base",
 };
 
 type CommonProps = {

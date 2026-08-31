@@ -5,6 +5,7 @@ import { isLocale, locales, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { SocialRail } from "@/components/social-rail";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { siteUrl } from "@/lib/site";
 import "../globals.css";
@@ -84,12 +85,16 @@ export default async function LocaleLayout({
 
         <SiteHeader locale={typedLocale} dictionary={dictionary} />
 
+        <SocialRail label={dictionary.footer.social} />
+
         <main id="main" className="flex-1">
           {children}
         </main>
 
         <SiteFooter locale={typedLocale} dictionary={dictionary} />
 
+        {/* Deux pastilles flottantes symetriques : langue a droite,
+            reseaux sociaux a gauche. */}
         <LanguageSwitcher
           locale={typedLocale}
           label={dictionary.nav.changeLanguage}

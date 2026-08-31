@@ -23,14 +23,14 @@ export function ArticleCard({
       {/* Bandeau colore tenant lieu de visuel d'article */}
       <div className={`h-2.5 ${accent.bar}`} aria-hidden="true" />
 
-      <div className="flex flex-1 flex-col p-7">
+      <div className="flex flex-1 flex-col p-6 sm:p-7">
         <span
           className={`inline-flex w-fit rounded-full px-3 py-1.5 text-xs font-semibold ${accent.softBg} ${accent.text}`}
         >
           {article.category}
         </span>
 
-        <h3 className="font-display mt-4 text-xl leading-snug font-bold text-navy">
+        <h3 className="font-display mt-4 text-lg leading-snug font-bold text-navy sm:text-xl">
           <Link href={href} className="after:absolute after:inset-0">
             {article.title}
           </Link>

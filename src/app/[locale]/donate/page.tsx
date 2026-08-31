@@ -35,12 +35,12 @@ export default async function DonatePage({ params }: LocaleParams) {
         lead={donate.hero.lead}
       />
 
-      <section className="py-20 sm:py-24">
-        <Container className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
+      <section className="py-14 sm:py-20 lg:py-24">
+        <Container className="grid gap-8 sm:gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
           <DonationWidget locale={locale} dictionary={dictionary} />
 
-          <div className="rounded-3xl bg-navy p-8 text-white shadow-soft sm:p-10">
-            <span className="flex size-14 items-center justify-center rounded-2xl bg-white/10">
+          <div className="rounded-3xl bg-navy p-6 text-white shadow-soft sm:p-8 lg:p-10">
+            <span className="flex size-12 items-center justify-center rounded-2xl bg-white/10 sm:size-14">
               <ShieldCheck className="size-7 text-teal" aria-hidden="true" />
             </span>
             <h2 className="font-display mt-6 text-2xl font-bold">
@@ -72,7 +72,7 @@ export default async function DonatePage({ params }: LocaleParams) {
         </Container>
       </section>
 
-      <section className="bg-white py-20 sm:py-24">
+      <section className="bg-white py-14 sm:py-20 lg:py-24">
         <Container>
           <SectionHeading
             eyebrow={donate.other.eyebrow}
@@ -80,7 +80,7 @@ export default async function DonatePage({ params }: LocaleParams) {
             align="center"
           />
 
-          <ul className="mt-14 grid gap-6 lg:grid-cols-3">
+          <ul className="mt-10 grid gap-5 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
             {donate.other.items.map((item, index) => {
               const Icon = otherIcons[index];
               const style = otherStyles[index];
@@ -88,10 +88,10 @@ export default async function DonatePage({ params }: LocaleParams) {
               return (
                 <li
                   key={item.title}
-                  className="rounded-3xl border border-line bg-canvas p-8"
+                  className="rounded-3xl border border-line bg-canvas p-6 sm:p-8"
                 >
                   <span
-                    className={`flex size-14 items-center justify-center rounded-2xl ${style.bg}`}
+                    className={`flex size-12 items-center justify-center rounded-2xl sm:size-14 ${style.bg}`}
                   >
                     <Icon className={`size-7 ${style.text}`} aria-hidden="true" />
                   </span>
