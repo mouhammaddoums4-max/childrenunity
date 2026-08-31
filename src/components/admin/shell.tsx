@@ -12,6 +12,7 @@ const sections: { href: string; permission?: Permission }[] = [
   { href: "/admin/reports" },
   { href: "/admin/sponsorships", permission: "reviewChildren" },
   { href: "/admin/payments", permission: "confirmPayments" },
+  { href: "/admin/expenses", permission: "manageExpenses" },
   { href: "/admin/members", permission: "manageMembers" },
   { href: "/admin/gallery", permission: "manageGallery" },
   { href: "/admin/users", permission: "manageUsers" },
@@ -20,6 +21,7 @@ const sections: { href: string; permission?: Permission }[] = [
 const roleLabels: Record<SessionUser["role"], string> = {
   ADMIN: "Administrateur",
   COORDINATOR: "Coordination",
+  FINANCE: "Finances",
   MENTOR: "Mentor",
   VIEWER: "Lecture seule",
 };

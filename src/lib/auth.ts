@@ -212,6 +212,12 @@ export async function destroySession(): Promise<void> {
  * Un mentor ne voit que les enfants qui lui sont confiés et ne touche ni
  * aux montants, ni aux paiements, ni à la publication. Seul l'administrateur
  * ouvre un enfant au parrainage et fixe le coût annuel.
+ *
+ * Le rôle FINANCE tient la caisse — encaissements et dépenses — sans
+ * pouvoir modifier un dossier d'enfant. Et la personne qui saisit une
+ * dépense n'est pas celle qui l'approuve : `approveExpenses` est réservé
+ * à l'administration, pour qu'un même compte ne puisse pas engager et
+ * valider une dépense tout seul.
  */
 export const permissions = {
   manageUsers: ["ADMIN"],
@@ -221,7 +227,10 @@ export const permissions = {
   setAmounts: ["ADMIN"],
   managePlacements: ["ADMIN", "COORDINATOR"],
   writeReports: ["ADMIN", "COORDINATOR", "MENTOR"],
-  confirmPayments: ["ADMIN", "COORDINATOR"],
+  confirmPayments: ["ADMIN", "COORDINATOR", "FINANCE"],
+  manageExpenses: ["ADMIN", "COORDINATOR", "FINANCE"],
+  approveExpenses: ["ADMIN"],
+  viewFinances: ["ADMIN", "COORDINATOR", "FINANCE", "VIEWER"],
   manageGallery: ["ADMIN", "COORDINATOR"],
   viewAudit: ["ADMIN"],
 } as const satisfies Record<string, readonly Role[]>;

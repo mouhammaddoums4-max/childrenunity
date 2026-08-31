@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Banknote,
+  ReceiptText,
   GraduationCap,
   HeartHandshake,
   Images,
@@ -22,6 +23,7 @@ const items = [
   { href: "/admin/reports", label: "Rapports de suivi", icon: ScrollText },
   { href: "/admin/sponsorships", label: "Parrainages", icon: HeartHandshake },
   { href: "/admin/payments", label: "Encaissements", icon: Banknote },
+  { href: "/admin/expenses", label: "Dépenses", icon: ReceiptText },
   { href: "/admin/members", label: "Membres", icon: UsersRound },
   { href: "/admin/gallery", label: "Galerie", icon: Images },
   { href: "/admin/users", label: "Comptes", icon: Users },

@@ -32,6 +32,7 @@ datasource db {
 enum Role {
   ADMIN //        Contrôle tout : dossiers, parrainages, montants, galerie
   COORDINATOR //  Valide les dossiers, oriente les enfants, saisit les paiements
+  FINANCE //      Saisit et rapproche les encaissements et les dépenses
   MENTOR //       Enregistre ses enfants et rédige leurs rapports d'avancement
   VIEWER //       Lecture seule, pour un audit ou un bailleur
 }
@@ -54,6 +55,8 @@ model User {
   mentorships     Mentorship[]
   reports         ProgressReport[]
   paymentsChecked Payment[]        @relation("PaymentConfirmedBy")
+  expensesCreated  Expense[]       @relation("ExpenseCreatedBy")
+  expensesApproved Expense[]       @relation("ExpenseApprovedBy")
   auditEntries    AuditLog[]
 
   @@index([role, active])
@@ -220,6 +223,7 @@ model Child {
   reports      ProgressReport[]
   sponsorships Sponsorship[]
   payments     Payment[]
+  expenses     Expense[]
 
   @@index([status, openToSponsors])
   @@index([lastName, firstName])
@@ -487,10 +491,14 @@ model Project {
   programSlug   String?
 
   coverPath String?
+  /// Budget alloué à l'activité, en francs guinéens. À `0`, aucun budget
+  /// n'a été voté et les dépenses sont simplement cumulées.
+  budgetGnf Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  photos ProjectPhoto[]
+  photos   ProjectPhoto[]
+  expenses Expense[]
 
   @@index([status, happenedAt])
 }
@@ -514,6 +522,90 @@ model ProjectPhoto {
   createdAt DateTime @default(now())
 
   @@index([projectId, position])
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// Dépenses
+// ═══════════════════════════════════════════════════════════════════════
+
+enum ExpenseCategory {
+  SCHOOL_FEES //  Frais de scolarité et d'inscription
+  SUPPLIES //     Fournitures, manuels, uniformes
+  MEALS //        Cantine et repas
+  HEALTH //       Soins, visites médicales, médicaments
+  TRANSPORT //    Déplacements des enfants et des équipes
+  TRAINING //     Ateliers, formations, apprentissage
+  EQUIPMENT //    Outillage, mobilier, matériel
+  EVENT //        Rencontres, remises de diplômes, campagnes
+  ALLOWANCES //   Indemnités des mentors et du personnel
+  RENT //         Loyers et charges
+  ADMIN //        Fonctionnement courant
+  OTHER
+}
+
+enum ExpenseStatus {
+  DRAFT //      Saisie en cours
+  SUBMITTED //  Soumise à validation
+  APPROVED //   Validée, en attente de règlement
+  PAID //       Réglée
+  REJECTED //   Refusée
+}
+
+/// Dépense engagée par la fondation.
+///
+/// Le rapprochement avec les encaissements se fait en francs guinéens :
+/// `amountGnf` est la seule base des totaux, `amount` et `currency` ne
+/// gardent que la trace de ce qui a été réellement décaissé.
+///
+/// Une dépense peut être rattachée à une activité de la galerie, à un
+/// enfant, ou aux deux — ce qui permet de répondre à un bailleur qui
+/// demande ce qu'a coûté tel projet, ou ce qu'a reçu tel enfant.
+model Expense {
+  id        String          @id @default(cuid())
+  /// Référence interne, ex. « DEP-2026-0031 ».
+  reference String          @unique
+  category  ExpenseCategory
+  status    ExpenseStatus   @default(SUBMITTED)
+
+  label       String
+  description String?
+
+  amount    Int
+  currency  String @default("GNF")
+  /// Contre-valeur en francs guinéens, seule base des totaux.
+  amountGnf Int
+
+  /// Date de la dépense, pas celle de la saisie.
+  spentAt  DateTime
+  channel  PaymentChannel @default(CASH)
+  /// Fournisseur, école, atelier ou personne payée.
+  supplier String?
+  /// Justificatif conservé : facture, reçu, bon de commande.
+  receiptPath String?
+  receiptRef  String?
+
+  // ── Rattachement ─────────────────────────────────────────────────────
+  projectId String?
+  project   Project? @relation(fields: [projectId], references: [id])
+  childId   String?
+  child     Child?   @relation(fields: [childId], references: [id])
+
+  // ── Traçabilité ──────────────────────────────────────────────────────
+  createdById String?
+  createdBy   User?     @relation("ExpenseCreatedBy", fields: [createdById], references: [id])
+  approvedById String?
+  approvedBy   User?    @relation("ExpenseApprovedBy", fields: [approvedById], references: [id])
+  approvedAt   DateTime?
+  paidAt       DateTime?
+  notes        String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status, spentAt])
+  @@index([category, spentAt])
+  @@index([projectId])
+  @@index([childId])
 }
 
 // ═══════════════════════════════════════════════════════════════════════
