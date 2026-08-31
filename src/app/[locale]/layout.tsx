@@ -7,6 +7,8 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SocialRail } from "@/components/social-rail";
 import { CookieNotice } from "@/components/cookie-notice";
+import { EventModal } from "@/components/event-modal";
+import { getEvent } from "@/lib/event";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { siteUrl } from "@/lib/site";
 import "../globals.css";
@@ -73,6 +75,7 @@ export default async function LocaleLayout({
 
   const typedLocale: Locale = locale;
   const dictionary = getDictionary(typedLocale);
+  const foundationEvent = getEvent(typedLocale);
 
   return (
     <html lang={typedLocale} className={`${poppins.variable} ${inter.variable}`}>
@@ -102,6 +105,12 @@ export default async function LocaleLayout({
         />
 
         <CookieNotice locale={typedLocale} dictionary={dictionary} />
+
+        {/* Annonce d'evenement : rien n'est rendu s'il n'y en a pas, ou
+            si sa date est passee. */}
+        {foundationEvent ? (
+          <EventModal event={foundationEvent} dictionary={dictionary} />
+        ) : null}
       </body>
     </html>
   );

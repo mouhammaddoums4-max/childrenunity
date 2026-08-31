@@ -572,6 +572,19 @@ const en: typeof fr = {
     social: "Follow us",
   },
 
+  event: {
+    close: "Close the announcement",
+    name: "Your name",
+    email: "Your email address",
+    submit: "Count me in",
+    later: "Later",
+    success:
+      "Your registration is ready to send from your mail app. Send the message and we will reply with the full programme.",
+    errorName: "Please tell us your name.",
+    errorEmail: "That email address looks incomplete.",
+    notice:
+      "Your name and address are only used to send you information about this event. Never shared with anyone else.",
+  },
   consent: {
     title: "Your data, your choice",
     body: "This site sets no advertising cookies and sells no data. We only keep your display preferences, such as language and currency. You may also allow anonymous audience measurement, which helps us know which pages are useful.",

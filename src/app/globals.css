@@ -229,6 +229,28 @@ p {
   animation: rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+/* Ouverture de la fenêtre d'événement : le voile se fond, la carte
+   monte et se pose. Sortie plus courte que l'entrée n'est pas nécessaire
+   ici, la fermeture étant immédiate. Les deux respectent la règle
+   `prefers-reduced-motion` définie plus haut. */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(1.5rem) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+.animate-fade {
+  animation: fade-in 0.25s ease-out both;
+}
+
+.animate-pop {
+  animation: pop-in 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 @keyframes drift {
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(-12px); }

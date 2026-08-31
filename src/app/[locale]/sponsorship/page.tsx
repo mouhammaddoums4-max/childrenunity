@@ -56,7 +56,7 @@ export default async function SponsorshipPage({ params }: LocaleParams) {
           </ul>
 
           {/* Engagement de protection, affiche avec les fiches */}
-          <div className="mt-10 flex max-w-3xl items-start gap-3.5 rounded-card border border-line bg-white p-5 shadow-soft sm:mt-12 sm:gap-4 sm:p-6">
+          <div className="mt-10 flex items-start gap-3.5 rounded-card border border-line bg-white p-5 shadow-soft sm:mt-12 sm:gap-4 sm:p-6 lg:p-7">
             <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-teal-50">
               <ShieldCheck className="size-5 text-teal-ink" aria-hidden="true" />
             </span>

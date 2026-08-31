@@ -571,6 +571,19 @@ const fr = {
     social: "Suivez-nous",
   },
 
+  event: {
+    close: "Fermer l'annonce",
+    name: "Votre nom",
+    email: "Votre adresse e-mail",
+    submit: "Je participe",
+    later: "Plus tard",
+    success:
+      "Votre inscription est prête à partir dans votre logiciel de messagerie. Envoyez le message : nous vous répondrons avec le programme détaillé.",
+    errorName: "Merci d'indiquer votre nom.",
+    errorEmail: "Cette adresse e-mail semble incomplète.",
+    notice:
+      "Votre nom et votre adresse ne servent qu'à vous envoyer les informations de cet événement. Aucune diffusion à un tiers.",
+  },
   consent: {
     title: "Vos données, votre choix",
     body: "Ce site ne dépose aucun cookie publicitaire et ne revend aucune donnée. Nous conservons seulement vos préférences d'affichage, comme la langue et la devise. Vous pouvez aussi autoriser une mesure d'audience anonyme, qui nous aide à savoir quelles pages sont utiles.",
