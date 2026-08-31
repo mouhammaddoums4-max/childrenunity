@@ -95,7 +95,30 @@ const en: typeof fr = {
         title: "Our answer",
         body: "We step in where the family can no longer keep up: enrolment fees, supplies, entry into an apprenticeship and support all the way to a trade. A trained mentor stays present year after year. We do not replace parents, we back them and keep them at the centre of every decision.",
       },
-      stake: "A child supported in time becomes an adult who provides for their family and their community. Without that support, the only horizons left are the street, early work or exile. It all comes down to a handful of years.",
+      stake: {
+        eyebrow: "What is at stake for society",
+        title: "These children are tomorrow's society",
+        lead: "A child who is guided and a child who is left aside do not cost a country the same. The difference plays out over a few years, and it is paid over a generation.",
+        without: {
+          title: "Without guidance",
+          items: [
+            "Leaving school before fifteen, with neither reading nor a trade.",
+            "Early work, the street, exposure to every form of exploitation.",
+            "Delinquency or exile as the only ways out, for want of having seen others.",
+            "Poverty handed down unchanged to their own children.",
+          ],
+        },
+        with: {
+          title: "With guidance",
+          items: [
+            "A diploma, or a trade learned alongside a craftsperson.",
+            "An income that supports a family instead of depending on one.",
+            "An adult who trains, employs and passes it on in turn.",
+            "A community that gains a contributor rather than a burden.",
+          ],
+        },
+        conclusion: "What a society does not fund for a child today, it pays for tomorrow: in insecurity, in inherited poverty, in wasted potential. Guiding a child always costs less than repairing an adult life.",
+      },
     },
     programs: {
       eyebrow: "What we do",
@@ -523,6 +546,7 @@ const en: typeof fr = {
       sendHint:
         "If your email app did not open, write to us directly at {email}, quoting your reference.",
       backHome: "Back to home",
+      settlement: "Amount to transfer, in Guinean francs:",
     },
     notice:
       "Automatic payment is not open yet: you make the transfer from your own app, and the foundation matches it using your reference. No banking data passes through this site.",

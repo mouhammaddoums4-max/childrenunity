@@ -93,7 +93,30 @@ const fr = {
         title: "Notre réponse",
         body: "Nous prenons le relais là où la famille ne peut plus suivre : frais de scolarité, fournitures, entrée en apprentissage et accompagnement vers un métier. Un mentor formé reste présent année après année. Nous ne remplaçons pas les parents, nous les soutenons et les gardons au centre des décisions.",
       },
-      stake: "Un enfant soutenu à temps devient un adulte qui fait vivre sa famille et sa communauté. Sans cet appui, il n'a d'autre horizon que la rue, le travail précoce ou l'exil. Tout se joue sur quelques années.",
+      stake: {
+        eyebrow: "L'enjeu pour la société",
+        title: "Ces enfants seront la société de demain",
+        lead: "Un enfant encadré et un enfant laissé de côté ne coûtent pas la même chose à un pays. La différence se joue sur quelques années, et elle se paie sur une génération.",
+        without: {
+          title: "Sans encadrement",
+          items: [
+            "Une sortie de l'école avant quinze ans, sans lecture ni métier.",
+            "Le travail précoce, la rue, l'exposition à toutes les formes d'exploitation.",
+            "La délinquance ou l'exil comme seules issues, faute d'en avoir vu d'autres.",
+            "Une pauvreté transmise telle quelle à ses propres enfants.",
+          ],
+        },
+        with: {
+          title: "Avec un encadrement",
+          items: [
+            "Un diplôme, ou un métier appris auprès d'un artisan.",
+            "Un revenu qui fait vivre une famille au lieu d'en dépendre.",
+            "Un adulte qui forme, emploie et transmet à son tour.",
+            "Une communauté qui gagne un contributeur plutôt qu'une charge.",
+          ],
+        },
+        conclusion: "Ce qu'une société ne finance pas aujourd'hui pour un enfant, elle le paie demain : en insécurité, en pauvreté transmise, en potentiel perdu. Encadrer un enfant coûte toujours moins cher que de réparer une vie d'adulte.",
+      },
     },
     programs: {
       eyebrow: "Ce que nous faisons",
@@ -522,6 +545,7 @@ const fr = {
       sendHint:
         "Si votre logiciel de messagerie ne s'est pas ouvert, écrivez-nous directement à {email} en rappelant votre référence.",
       backHome: "Retour à l'accueil",
+      settlement: "Montant à transférer, en francs guinéens :",
     },
     notice:
       "Le paiement automatique n'est pas encore ouvert : le transfert se fait depuis votre application, et la fondation le rapproche grâce à votre référence. Aucune donnée bancaire ne transite par ce site.",

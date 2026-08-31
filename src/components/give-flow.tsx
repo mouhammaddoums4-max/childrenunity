@@ -15,7 +15,13 @@ import {
 } from "lucide-react";
 import { path, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
-import { currencies, currencyCodes, formatMoney, fromGnf } from "@/lib/currency";
+import {
+  currencies,
+  currencyCodes,
+  formatMoney,
+  fromGnf,
+  toGnf,
+} from "@/lib/currency";
 import { useCurrency } from "@/lib/currency-store";
 import {
   createReference,
@@ -85,7 +91,7 @@ export function GiveFlow({
   const [reference, setReference] = useState("");
   const [copied, setCopied] = useState(false);
 
-  const methods = useMemo(() => getPaymentMethods(currency), [currency]);
+  const methods = useMemo(() => getPaymentMethods(), []);
   const chosen = methods.find((entry) => entry.id === method);
 
   const amount =
@@ -491,6 +497,11 @@ export function GiveFlow({
               locale={locale}
               reference={reference}
               amountLabel={amountLabel}
+              settlementLabel={
+                chosen?.settlementCurrency === "GNF" && currency !== "GNF"
+                  ? formatMoney(toGnf(amount, currency), "GNF", locale)
+                  : undefined
+              }
               method={method}
               donor={donor}
               target={target}
@@ -559,6 +570,7 @@ function Instructions({
   locale,
   reference,
   amountLabel,
+  settlementLabel,
   method,
   donor,
   target,
@@ -570,6 +582,8 @@ function Instructions({
   locale: Locale;
   reference: string;
   amountLabel: string;
+  /** Montant en francs guinéens, quand le transfert se fait en local. */
+  settlementLabel?: string;
   method: PaymentMethodId | null;
   donor: { name: string; email: string; phone: string; message: string };
   target?: GiveTarget;
@@ -652,6 +666,16 @@ function Instructions({
             {resolved.value}
           </p>
           <p className="mt-1 text-sm text-ink-muted">{resolved.holder}</p>
+
+          {/* Le transfert local se fait en francs guineens */}
+          {settlementLabel ? (
+            <p className="mt-4 rounded-xl bg-canvas p-4 text-sm text-ink">
+              {give.done.settlement}{" "}
+              <span className="font-display font-bold tabular-nums">
+                {settlementLabel}
+              </span>
+            </p>
+          ) : null}
         </div>
       ) : null}
 

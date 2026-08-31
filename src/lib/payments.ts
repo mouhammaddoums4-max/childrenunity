@@ -50,35 +50,37 @@ const accounts: Partial<Record<PaymentMethodId, Account>> = {
 
 export type PaymentMethod = {
   id: PaymentMethodId;
-  /** Devises acceptées ; `null` signifie « toutes ». */
-  currencies: string[] | null;
+  /** Devise dans laquelle le transfert est effectué ; `null` = toutes. */
+  settlementCurrency: "GNF" | null;
   account?: Account;
   available: boolean;
 };
 
-const order: { id: PaymentMethodId; currencies: string[] | null }[] = [
-  { id: "orange-money", currencies: ["GNF"] },
-  { id: "mtn-momo", currencies: ["GNF"] },
-  { id: "wave", currencies: ["GNF"] },
-  { id: "card", currencies: null },
-  { id: "paypal", currencies: null },
-  { id: "bank", currencies: null },
+const order: { id: PaymentMethodId; settlementCurrency: "GNF" | null }[] = [
+  { id: "orange-money", settlementCurrency: "GNF" },
+  { id: "mtn-momo", settlementCurrency: "GNF" },
+  { id: "wave", settlementCurrency: "GNF" },
+  { id: "card", settlementCurrency: null },
+  { id: "paypal", settlementCurrency: null },
+  { id: "bank", settlementCurrency: null },
 ];
 
-export function getPaymentMethods(currency: string): PaymentMethod[] {
-  return order
-    .filter(
-      (method) => method.currencies === null || method.currencies.includes(currency),
-    )
-    .map((method) => {
-      const account = accounts[method.id];
-      return {
-        id: method.id,
-        currencies: method.currencies,
-        account,
-        available: Boolean(account),
-      };
-    });
+/**
+ * Tous les moyens sont proposés quelle que soit la devise affichée : un
+ * donateur qui lit les montants en euros peut parfaitement payer par
+ * Orange Money, le montant à transférer lui étant indiqué en francs
+ * guinéens à la dernière étape.
+ */
+export function getPaymentMethods(): PaymentMethod[] {
+  return order.map((method) => {
+    const account = accounts[method.id];
+    return {
+      id: method.id,
+      settlementCurrency: method.settlementCurrency,
+      account,
+      available: Boolean(account),
+    };
+  });
 }
 
 export function getAccount(id: PaymentMethodId): Account | undefined {

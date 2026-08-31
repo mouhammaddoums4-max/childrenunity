@@ -213,3 +213,13 @@ export function fromGnf(valueInGnf: number, currency: CurrencyCode): number {
   const converted = valueInGnf / gnfPerUnit;
   return Math.max(step, Math.round(converted / step) * step);
 }
+
+/**
+ * Convertit un montant saisi dans la devise du visiteur vers le franc
+ * guinéen, arrondi au millier : c'est la somme réellement transférée
+ * quand le don passe par Orange Money, MTN ou Wave.
+ */
+export function toGnf(value: number, currency: CurrencyCode): number {
+  const converted = value * currencies[currency].gnfPerUnit;
+  return Math.max(1_000, Math.round(converted / 1_000) * 1_000);
+}
