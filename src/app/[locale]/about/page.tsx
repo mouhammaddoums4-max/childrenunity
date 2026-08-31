@@ -6,6 +6,7 @@ import { getDictionary } from "@/i18n/dictionaries";
 import { getTeam } from "@/lib/content";
 import { accentClasses } from "@/lib/accents";
 import { resolveLocale, type LocaleParams } from "@/lib/locale-param";
+import { resolvePhoto } from "@/lib/public-photo";
 import { Container } from "@/components/ui/container";
 import { PageHero } from "@/components/ui/page-hero";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -175,6 +176,8 @@ export default async function AboutPage({ params }: LocaleParams) {
                 .split(" ")
                 .map((part) => part[0])
                 .join("");
+              /* Photo affichee seulement si le fichier existe reellement */
+              const photo = resolvePhoto(member.photo);
 
               return (
                 <li
@@ -182,9 +185,9 @@ export default async function AboutPage({ params }: LocaleParams) {
                   className="rounded-3xl border border-line bg-white p-6 text-center shadow-soft sm:p-7"
                 >
                   {/* Portrait s'il existe, monogramme sinon */}
-                  {member.photo ? (
+                  {photo ? (
                     <Image
-                      src={member.photo}
+                      src={photo}
                       alt={member.name}
                       width={160}
                       height={160}

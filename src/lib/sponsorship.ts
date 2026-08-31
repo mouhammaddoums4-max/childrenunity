@@ -28,7 +28,7 @@ type ChildSource = {
   grade: Localized<string>;
   country: Localized<string>;
   accent: Accent;
-  /** Fichier dans public/sponsorship/, si une autorisation existe. */
+  /** Chemin sans extension dans public/sponsorship/, si autorisation. */
   photo?: string;
   /** Identifiant de la vidéo YouTube de présentation, si elle existe. */
   videoId?: string;

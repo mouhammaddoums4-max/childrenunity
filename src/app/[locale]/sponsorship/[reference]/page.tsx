@@ -8,6 +8,7 @@ import { getDictionary } from "@/i18n/dictionaries";
 import { getChild, getChildReferences } from "@/lib/sponsorship";
 import { accentClasses } from "@/lib/accents";
 import { formatAmount } from "@/lib/format";
+import { resolvePhoto } from "@/lib/public-photo";
 import { resolveLocale } from "@/lib/locale-param";
 import { Container } from "@/components/ui/container";
 import { ButtonLink } from "@/components/ui/button";
@@ -44,6 +45,7 @@ export default async function ChildPage({ params }: ChildParams) {
   if (!child) notFound();
 
   const accent = accentClasses[child.accent];
+  const photo = resolvePhoto(child.photo);
   const { sponsorship, common } = dictionary;
   const { detail, card } = sponsorship;
 
@@ -79,9 +81,9 @@ export default async function ChildPage({ params }: ChildParams) {
           <div
             className={`mt-8 aspect-[16/9] overflow-hidden rounded-3xl ${accent.softBg}`}
           >
-            {child.photo ? (
+            {photo ? (
               <Image
-                src={child.photo}
+                src={photo}
                 alt={child.firstName}
                 width={960}
                 height={540}

@@ -6,6 +6,7 @@ import type { Dictionary } from "@/i18n/dictionaries";
 import type { Child } from "@/lib/sponsorship";
 import { accentClasses } from "@/lib/accents";
 import { formatAmount } from "@/lib/format";
+import { resolvePhoto } from "@/lib/public-photo";
 
 export function ChildCard({
   child,
@@ -17,6 +18,7 @@ export function ChildCard({
   dictionary: Dictionary;
 }) {
   const accent = accentClasses[child.accent];
+  const photo = resolvePhoto(child.photo);
   const { card } = dictionary.sponsorship;
   const href = `${path(locale, "sponsorship")}/${child.reference.toLowerCase()}`;
   const complete = child.progress >= 100;
@@ -24,9 +26,9 @@ export function ChildCard({
   return (
     <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-soft transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lift">
       <div className={`relative aspect-[4/3] ${accent.softBg}`}>
-        {child.photo ? (
+        {photo ? (
           <Image
-            src={child.photo}
+            src={photo}
             alt={child.firstName}
             fill
             sizes="(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw"

@@ -504,7 +504,7 @@ type MemberSource = {
   id: string;
   name: string;
   accent: Accent;
-  /** Fichier depose dans public/team/. A defaut, un monogramme est affiche. */
+  /** Chemin sans extension, ex. "/team/president". Monogramme si absent. */
   photo?: string;
   role: Localized<string>;
 };
@@ -514,7 +514,7 @@ const memberSources: MemberSource[] = [
     id: "president",
     name: "Mouhammad Doumbouya",
     accent: "brand",
-    photo: "/team/president.webp",
+    photo: "/team/president",
     role: { fr: "Président de la fondation", en: "President of the foundation" },
   },
   {
