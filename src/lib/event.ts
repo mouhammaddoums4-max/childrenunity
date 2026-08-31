@@ -1,4 +1,5 @@
 import type { Locale } from "@/i18n/config";
+import { resolvePhoto } from "@/lib/public-photo";
 
 /**
  * Événement mis en avant à l'ouverture du site.
@@ -41,7 +42,7 @@ type EventSource = {
 };
 
 const source: EventSource = {
-  active: true,
+  active: false,
   id: "panel-instruction-education",
   eyebrow: { fr: "Panel · Thème", en: "Panel · Theme" },
   title: {
@@ -105,6 +106,13 @@ export type FoundationEvent = {
   id: string;
   /** Change dès que le contenu annoncé change. */
   version: string;
+  /**
+   * Affiche du panel, si le fichier a été déposé dans 
+   * sous le nom  (webp, png, jpg ou avif). Quand elle est
+   * là, la fenêtre la montre telle quelle ; sinon elle rend la même
+   * annonce en texte.
+   */
+  poster?: string;
   eyebrow: string;
   title: string;
   tagline: string;
@@ -131,9 +139,14 @@ export function getEvent(locale: Locale): FoundationEvent | undefined {
     if (today > source.until) return undefined;
   }
 
+  /* Le rendu texte reste la reference : l'affiche ne fait que le
+     remplacer visuellement quand elle existe. */
+  const poster = resolvePhoto("/images/event-panel");
+
   return {
     id: source.id,
-    version: contentVersion(source),
+    version: contentVersion({ ...source, poster }),
+    poster,
     eyebrow: source.eyebrow[locale],
     title: source.title[locale],
     tagline: source.tagline[locale],

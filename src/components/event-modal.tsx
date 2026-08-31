@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
+import Image from "next/image";
 import { CalendarDays, CheckCircle2, MapPin, Send, X } from "lucide-react";
 import type { Dictionary } from "@/i18n/dictionaries";
 import type { FoundationEvent } from "@/lib/event";
@@ -182,46 +183,64 @@ export function EventModal({
           type="button"
           onClick={close}
           aria-label={copy.close}
-          className="absolute top-3 right-3 z-10 flex size-11 cursor-pointer items-center justify-center rounded-full text-white/80 transition-colors duration-200 ease-soft hover:bg-white/15 hover:text-white"
+          className="absolute top-3 right-3 z-10 flex size-11 cursor-pointer items-center justify-center rounded-full bg-navy/45 text-white backdrop-blur-sm transition-colors duration-200 ease-soft hover:bg-navy/70"
         >
           <X className="size-5" aria-hidden="true" />
         </button>
 
-        {/* Bandeau de tete : le theme du panel, comme sur l'affiche */}
-        <div className="bg-gradient-to-br from-brand to-navy px-6 pt-7 pb-6 text-white sm:px-8">
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <p className="text-eyebrow font-semibold text-teal uppercase">
-              {event.eyebrow}
+        {event.poster ? (
+          /* L'affiche officielle, telle quelle. Le titre reste presente aux
+             lecteurs d'ecran : une image seule ne dit rien a qui ne la voit
+             pas, et c'est elle qui nomme la boite de dialogue. */
+          <>
+            <h2 id={ids.title} className="sr-only">
+              {`${event.eyebrow} — ${event.title}. ${event.tagline}`}
+            </h2>
+            <Image
+              src={event.poster}
+              alt={`${event.title}. ${event.tagline} ${event.lead}`}
+              width={1536}
+              height={1024}
+              sizes="(min-width: 640px) 36rem, 100vw"
+              className="h-auto w-full"
+            />
+          </>
+        ) : (
+          /* Sans affiche, la meme annonce en texte. */
+          <div className="bg-gradient-to-br from-brand to-navy px-6 pt-7 pb-6 text-white sm:px-8">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <p className="text-eyebrow font-semibold text-teal uppercase">
+                {event.eyebrow}
+              </p>
+              <p className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 text-xs font-semibold">
+                <CalendarDays className="size-3.5 shrink-0" aria-hidden="true" />
+                {event.date ? (
+                  <time dateTime={event.date}>{event.date}</time>
+                ) : (
+                  event.soon
+                )}
+              </p>
+            </div>
+
+            <h2
+              id={ids.title}
+              className="font-display mt-4 text-h2 font-bold uppercase"
+            >
+              {event.title}
+            </h2>
+
+            <p className="mt-3 text-base font-medium text-sun italic">
+              {event.tagline}
             </p>
-            {/* La date n'est pas encore arretee : on annonce le statut. */}
-            <p className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 text-xs font-semibold">
-              <CalendarDays className="size-3.5 shrink-0" aria-hidden="true" />
-              {event.date ? (
-                <time dateTime={event.date}>{event.date}</time>
-              ) : (
-                event.soon
-              )}
-            </p>
+
+            {event.place ? (
+              <p className="mt-4 flex items-center gap-2.5 text-sm text-white/85">
+                <MapPin className="size-4 shrink-0" aria-hidden="true" />
+                {event.place}
+              </p>
+            ) : null}
           </div>
-
-          <h2
-            id={ids.title}
-            className="font-display mt-4 text-h2 font-bold uppercase"
-          >
-            {event.title}
-          </h2>
-
-          <p className="mt-3 text-base font-medium text-sun italic">
-            {event.tagline}
-          </p>
-
-          {event.place ? (
-            <p className="mt-4 flex items-center gap-2.5 text-sm text-white/85">
-              <MapPin className="size-4 shrink-0" aria-hidden="true" />
-              {event.place}
-            </p>
-          ) : null}
-        </div>
+        )}
 
         <div className="px-6 py-6 sm:px-8">
           {sent ? (
@@ -237,25 +256,38 @@ export function EventModal({
             </p>
           ) : (
             <>
-              <p id={ids.lead} className="text-sm leading-relaxed text-ink-muted">
-                {event.lead}
-              </p>
+              {event.poster ? (
+                /* L'affiche porte deja le programme : on n'en remet pas. */
+                <p id={ids.lead} className="sr-only">
+                  {event.lead}
+                </p>
+              ) : (
+                <>
+                  <p
+                    id={ids.lead}
+                    className="text-sm leading-relaxed text-ink-muted"
+                  >
+                    {event.lead}
+                  </p>
 
-              {/* Au programme */}
-              <h3 className="font-display mt-6 text-eyebrow font-semibold text-brand uppercase">
-                {event.programmeTitle}
-              </h3>
-              <ul className="mt-3 grid gap-2">
-                {event.programme.map((item) => (
-                  <li key={item} className="flex gap-2.5">
-                    <CheckCircle2
-                      className="mt-0.5 size-4 shrink-0 text-teal-ink"
-                      aria-hidden="true"
-                    />
-                    <span className="text-sm leading-snug text-ink">{item}</span>
-                  </li>
-                ))}
-              </ul>
+                  <h3 className="font-display mt-6 text-eyebrow font-semibold text-brand uppercase">
+                    {event.programmeTitle}
+                  </h3>
+                  <ul className="mt-3 grid gap-2">
+                    {event.programme.map((item) => (
+                      <li key={item} className="flex gap-2.5">
+                        <CheckCircle2
+                          className="mt-0.5 size-4 shrink-0 text-teal-ink"
+                          aria-hidden="true"
+                        />
+                        <span className="text-sm leading-snug text-ink">
+                          {item}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
 
               <form onSubmit={onSubmit} noValidate className="mt-5">
                 <div className="flex flex-col gap-3 sm:flex-row">
