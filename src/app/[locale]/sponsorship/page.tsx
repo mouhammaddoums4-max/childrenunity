@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { ShieldCheck } from "lucide-react";
+import { ShieldCheck, Users } from "lucide-react";
 import { getDictionary } from "@/i18n/dictionaries";
-import { getChildren } from "@/lib/sponsorship";
+import { eligibleAges, getChildren } from "@/lib/sponsorship";
 import { resolveLocale, type LocaleParams } from "@/lib/locale-param";
 import { Container } from "@/components/ui/container";
 import { PageHero } from "@/components/ui/page-hero";
@@ -43,6 +43,14 @@ export default async function SponsorshipPage({ params }: LocaleParams) {
       {/* Enfants proposes au parrainage */}
       <section className="section-sm">
         <Container>
+          {/* Condition d'age, annoncee avant la liste */}
+          <p className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-line bg-white px-4 py-2.5 text-sm font-medium text-navy sm:mb-10">
+            <Users className="size-4 shrink-0 text-brand" aria-hidden="true" />
+            {sponsorship.eligibility
+              .replace("{min}", String(eligibleAges.min))
+              .replace("{max}", String(eligibleAges.max))}
+          </p>
+
           {children.length === 0 ? (
             <p className="rounded-card border border-line bg-white p-7 text-center text-ink-muted sm:p-10">
               {sponsorship.empty}

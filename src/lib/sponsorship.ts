@@ -40,6 +40,15 @@ type ChildSource = {
   content: Localized<ChildContent>;
 };
 
+/**
+ * Tranche d'âge des enfants éligibles au parrainage.
+ *
+ * Elle est affichée sur la page de parrainage et sert de garde-fou aux
+ * fiches : une fiche hors de cette tranche n'est pas proposée, plutôt que
+ * de contredire en silence ce que la page annonce.
+ */
+export const eligibleAges = { min: 5, max: 13 } as const;
+
 type Localized<T> = Record<Locale, T>;
 
 function pick<T>(value: Localized<T>, locale: Locale): T {
@@ -92,7 +101,7 @@ const childSources: ChildSource[] = [
   {
     reference: "CUF-2026-027",
     firstName: "Sékou",
-    age: 14,
+    age: 13,
     accent: "teal",
     grade: { fr: "4e", en: "Year 9" },
     country: { fr: "Guinée", en: "Guinea" },
@@ -191,7 +200,12 @@ export type Child = ChildContent & {
 };
 
 export function getChildren(locale: Locale): Child[] {
-  return publicData(childSources).map((child) => ({
+  return publicData(childSources)
+    .filter(
+      (child) =>
+        child.age >= eligibleAges.min && child.age <= eligibleAges.max,
+    )
+    .map((child) => ({
     reference: child.reference,
     firstName: child.firstName,
     age: child.age,

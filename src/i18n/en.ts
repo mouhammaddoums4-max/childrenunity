@@ -2,8 +2,6 @@ import type fr from "./fr";
 
 const en: typeof fr = {
   meta: {
-    draftNotice:
-      "Demonstration site: figures, testimonials and profiles are samples, not real data.",
     siteName: "Children's Unity Foundation",
     tagline: "United for every child's future.",
     home: {
@@ -280,6 +278,8 @@ const en: typeof fr = {
   },
 
   sponsorship: {
+    eligibility:
+      "Sponsorship is open to children aged {min} to {max}, in school or returning to it.",
     empty:
       "No sponsorship files are open at the moment. Write to us and we will let you know when the next round opens.",
     hero: {
@@ -288,8 +288,6 @@ const en: typeof fr = {
       lead: "Sponsorship funds a child's full schooling and guarantees regular follow-up. You receive two progress updates a year.",
     },
     meta: {
-    draftNotice:
-      "Demonstration site: figures, testimonials and profiles are samples, not real data.",
       title: "Sponsor a child",
       description:
         "Meet the children supported by the foundation and fund one child's schooling throughout the year.",
@@ -313,58 +311,6 @@ const en: typeof fr = {
       back: "All children",
       sponsorCta: "Sponsor this child",
     },
-    legal: {
-    meta: {
-      title: "Legal notice",
-      description:
-        "Publisher, host, intellectual property and liability for the Children's Unity Foundation website.",
-    },
-    hero: {
-      eyebrow: "Legal information",
-      title: "Legal notice",
-      lead: "Who publishes this site, who hosts it, and on what terms its content may be reused.",
-    },
-    fields: {
-      name: "Publisher",
-      status: "Legal status",
-      address: "Registered office",
-      email: "Email address",
-      phone: "Telephone",
-      director: "Publication director",
-      registration: "Registration",
-      host: "Host",
-    },
-    values: {
-      status:
-        "Non-governmental, non-profit organisation — independent, non-political and non-denominational.",
-      director: "Mouhammad Doumbouya, president of the foundation",
-      registration: "TO BE COMPLETED — the organisation's registration number and date",
-      host: "Railway Corporation, 80 Bloor St W, Toronto, Ontario, Canada — railway.com",
-    },
-    sections: [
-      {
-        title: "Intellectual property",
-        body: "The text, logo, visual identity and imagery on this site belong to the Children's Unity Foundation unless stated otherwise. Reusing them to report on our work is allowed provided the source is cited and the material is not altered. Any other use, commercial use in particular, requires our written agreement.",
-      },
-      {
-        title: "Photographs and children",
-        body: "No photograph of a child is published without the written consent of their legal guardian. Sponsorship profiles carry only a first name, or a pseudonym, and an identifier. Any image can be taken down on request to the address below, and we will not ask why.",
-      },
-      {
-        title: "Liability",
-        body: "We check what we publish here, but cannot guarantee it is free of error or current at every moment. Links to outside sites are offered for convenience; their content is not our responsibility.",
-      },
-      {
-        title: "Donations and receipts",
-        body: "Donations go through the payment methods listed on the donation page. The foundation matches each transfer to its reference and confirms receipt. Whether a tax receipt can be issued depends on the donor's country: write to us and we will tell you what applies to your situation.",
-      },
-      {
-        title: "Reporting a problem",
-        body: "An error, content you find abusive, a security flaw: write to us. Security reports have a dedicated address, published in the /.well-known/security.txt file.",
-      },
-    ],
-    contactTitle: "Write to us",
-  },
   privacy: {
       title: "Child protection",
       body: "Each profile carries only a first name, or a pseudonym, and a reference. No surname, no address and no school name is published. Photos and videos go online only with the written consent of the legal guardian, and are removed on request.",
@@ -395,8 +341,6 @@ const en: typeof fr = {
 
   membership: {
     meta: {
-    draftNotice:
-      "Demonstration site: figures, testimonials and profiles are samples, not real data.",
       title: "Become a member",
       description:
         "Join the Children's Unity Foundation: joining fee, annual dues and application form.",
@@ -612,8 +556,6 @@ const en: typeof fr = {
 
   give: {
     meta: {
-    draftNotice:
-      "Demonstration site: figures, testimonials and profiles are samples, not real data.",
       title: "Complete your support",
       description:
         "Choose an amount and a payment method, then receive the instructions to complete your donation or sponsorship.",
@@ -796,8 +738,6 @@ const en: typeof fr = {
   },
   privacy: {
     meta: {
-    draftNotice:
-      "Demonstration site: figures, testimonials and profiles are samples, not real data.",
       title: "Privacy policy",
       description:
         "What this site records, what it does not, and how to exercise your rights.",
