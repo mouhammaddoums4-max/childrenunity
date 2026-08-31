@@ -1,4 +1,5 @@
 import type { Locale } from "@/i18n/config";
+import { publicData } from "./publication";
 
 /**
  * Contenu éditorial du site, bilingue.
@@ -308,7 +309,7 @@ export type Stat = {
 };
 
 export function getStats(locale: Locale): Stat[] {
-  return statSources.map((stat) => ({
+  return publicData(statSources).map((stat) => ({
     value: stat.value,
     icon: stat.icon,
     accent: stat.accent,
@@ -393,7 +394,7 @@ export type Result = {
 };
 
 export function getResults(locale: Locale): Result[] {
-  return resultSources.map((result) => ({
+  return publicData(resultSources).map((result) => ({
     value: result.value,
     accent: result.accent,
     label: pick(result.label, locale),
@@ -425,7 +426,7 @@ const countrySources: CountrySource[] = [
 export type Country = { code: string; since: string; name: string };
 
 export function getCountries(locale: Locale): Country[] {
-  return countrySources.map((country) => ({
+  return publicData(countrySources).map((country) => ({
     code: country.code,
     since: country.since,
     name: pick(country.name, locale),
@@ -486,7 +487,7 @@ export type Testimonial = {
 };
 
 export function getTestimonials(locale: Locale): Testimonial[] {
-  return testimonialSources.map((testimonial) => ({
+  return publicData(testimonialSources).map((testimonial) => ({
     id: testimonial.id,
     author: testimonial.author,
     accent: testimonial.accent,
@@ -546,7 +547,7 @@ export type Member = {
 };
 
 export function getTeam(locale: Locale): Member[] {
-  return memberSources.map((member) => ({
+  return publicData(memberSources).map((member) => ({
     id: member.id,
     name: member.name,
     accent: member.accent,
@@ -675,7 +676,7 @@ export type Article = ArticleContent & {
 };
 
 export function getArticles(locale: Locale): Article[] {
-  return articleSources
+  return publicData(articleSources)
     .map((article) => ({
       slug: article.slug,
       date: article.date,

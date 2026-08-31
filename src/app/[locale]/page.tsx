@@ -101,36 +101,38 @@ export default async function HomePage({ params }: LocaleParams) {
       <Testimonials locale={locale} dictionary={dictionary} />
 
       {/* Actualites */}
-      <section className="section">
-        <Container>
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <SectionHeading
-              eyebrow={home.news.eyebrow}
-              title={home.news.title}
-              lead={home.news.lead}
-            />
-            <Link
-              href={path(locale, "news")}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-brand hover:underline"
-            >
-              {common.allNews}
-              <ArrowRight className="size-4" aria-hidden="true" />
-            </Link>
-          </div>
+      {articles.length > 0 ? (
+        <section className="section">
+          <Container>
+            <div className="flex flex-wrap items-end justify-between gap-6">
+              <SectionHeading
+                eyebrow={home.news.eyebrow}
+                title={home.news.title}
+                lead={home.news.lead}
+              />
+              <Link
+                href={path(locale, "news")}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-brand hover:underline"
+              >
+                {common.allNews}
+                <ArrowRight className="size-4" aria-hidden="true" />
+              </Link>
+            </div>
 
-          <ul className="mt-10 grid gap-5 sm:grid-cols-2 sm:gap-6 lg:mt-12 lg:grid-cols-3">
-            {articles.map((article) => (
-              <li key={article.slug} className="relative">
-                <ArticleCard
-                  article={article}
-                  locale={locale}
-                  dictionary={dictionary}
-                />
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </section>
+            <ul className="mt-10 grid gap-5 sm:grid-cols-2 sm:gap-6 lg:mt-12 lg:grid-cols-3">
+              {articles.map((article) => (
+                <li key={article.slug} className="relative">
+                  <ArticleCard
+                    article={article}
+                    locale={locale}
+                    dictionary={dictionary}
+                  />
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </section>
+      ) : null}
 
       <Partners dictionary={dictionary} />
 

@@ -15,6 +15,7 @@ export function Testimonials({
 }) {
   const testimonials = getTestimonials(locale);
   const { testimonials: copy } = dictionary.home;
+  if (testimonials.length === 0) return null;
 
   return (
     <section className="bg-brand-50/50 section">

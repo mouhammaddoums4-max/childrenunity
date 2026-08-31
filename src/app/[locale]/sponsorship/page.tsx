@@ -43,6 +43,12 @@ export default async function SponsorshipPage({ params }: LocaleParams) {
       {/* Enfants proposes au parrainage */}
       <section className="section-sm">
         <Container>
+          {children.length === 0 ? (
+            <p className="rounded-card border border-line bg-white p-7 text-center text-ink-muted sm:p-10">
+              {sponsorship.empty}
+            </p>
+          ) : null}
+
           <ul className="grid gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
             {children.map((child) => (
               <li key={child.reference}>

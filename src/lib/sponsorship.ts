@@ -1,5 +1,6 @@
 import type { Locale } from "@/i18n/config";
 import type { Accent } from "./content";
+import { publicData } from "./publication";
 
 /**
  * Enfants proposés au parrainage.
@@ -190,7 +191,7 @@ export type Child = ChildContent & {
 };
 
 export function getChildren(locale: Locale): Child[] {
-  return childSources.map((child) => ({
+  return publicData(childSources).map((child) => ({
     reference: child.reference,
     firstName: child.firstName,
     age: child.age,

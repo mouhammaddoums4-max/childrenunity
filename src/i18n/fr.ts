@@ -311,7 +311,59 @@ const fr = {
       back: "Tous les enfants",
       sponsorCta: "Parrainer cet enfant",
     },
-    privacy: {
+    legal: {
+    meta: {
+      title: "Mentions légales",
+      description:
+        "Éditeur, hébergeur, propriété intellectuelle et responsabilité du site de la Children's Unity Foundation.",
+    },
+    hero: {
+      eyebrow: "Informations légales",
+      title: "Mentions légales",
+      lead: "Qui édite ce site, qui l'héberge, et à quelles conditions son contenu peut être repris.",
+    },
+    fields: {
+      name: "Éditeur du site",
+      status: "Statut juridique",
+      address: "Siège social",
+      email: "Adresse électronique",
+      phone: "Téléphone",
+      director: "Directeur de la publication",
+      registration: "Enregistrement",
+      host: "Hébergeur",
+    },
+    values: {
+      status:
+        "Organisation non gouvernementale à but non lucratif, indépendante, apolitique et non confessionnelle.",
+      director: "Mouhammad Doumbouya, président de la fondation",
+      registration: "À COMPLÉTER — numéro et date d'enregistrement de l'organisation",
+      host: "Railway Corporation, 80 Bloor St W, Toronto, Ontario, Canada — railway.com",
+    },
+    sections: [
+      {
+        title: "Propriété intellectuelle",
+        body: "Les textes, le logo, la charte graphique et les visuels de ce site sont la propriété de la Children's Unity Foundation, sauf mention contraire. Leur reprise à des fins d'information sur nos actions est autorisée à condition de citer la source et de ne pas les modifier. Toute autre réutilisation, notamment commerciale, demande notre accord écrit.",
+      },
+      {
+        title: "Photographies et enfants",
+        body: "Aucune photographie d'enfant n'est publiée sans l'accord écrit de son représentant légal. Les fiches de parrainage ne portent qu'un prénom, ou un pseudonyme, et un identifiant. Toute image peut être retirée sur simple demande adressée à l'adresse ci-dessous, sans que nous ayons à en connaître le motif.",
+      },
+      {
+        title: "Responsabilité",
+        body: "Nous vérifions les informations publiées ici, sans pouvoir garantir qu'elles soient exemptes d'erreur ni à jour à chaque instant. Les liens vers des sites extérieurs sont fournis pour votre commodité : leur contenu ne relève pas de notre responsabilité.",
+      },
+      {
+        title: "Dons et reçus",
+        body: "Les dons transitent par les moyens de paiement indiqués sur la page de don. La fondation rapproche chaque versement de sa référence et confirme sa réception. Les conditions de délivrance d'un reçu fiscal dépendent du pays du donateur : écrivez-nous pour connaître celles qui s'appliquent à votre situation.",
+      },
+      {
+        title: "Signalement",
+        body: "Une erreur, un contenu qui vous semble abusif, une faille de sécurité : écrivez-nous. Les signalements de sécurité disposent d'une adresse dédiée, publiée dans le fichier /.well-known/security.txt.",
+      },
+    ],
+    contactTitle: "Nous écrire",
+  },
+  privacy: {
       title: "Protection des enfants",
       body: "Chaque fiche ne porte qu'un prénom, ou un pseudonyme, et un identifiant. Aucun nom de famille, aucune adresse, aucun nom d'école n'est publié. Les photos et vidéos ne sont mises en ligne qu'avec l'accord écrit du représentant légal, et sont retirées sur simple demande.",
     },
@@ -689,6 +741,58 @@ const fr = {
     openExternally: "Ouvrir sur YouTube",
   },
 
+  legal: {
+    meta: {
+      title: "Mentions légales",
+      description:
+        "Éditeur, hébergeur, propriété intellectuelle et responsabilité du site de la Children's Unity Foundation.",
+    },
+    hero: {
+      eyebrow: "Informations légales",
+      title: "Mentions légales",
+      lead: "Qui édite ce site, qui l'héberge, et à quelles conditions son contenu peut être repris.",
+    },
+    fields: {
+      name: "Éditeur du site",
+      status: "Statut juridique",
+      address: "Siège social",
+      email: "Adresse électronique",
+      phone: "Téléphone",
+      director: "Directeur de la publication",
+      registration: "Enregistrement",
+      host: "Hébergeur",
+    },
+    values: {
+      status:
+        "Organisation non gouvernementale à but non lucratif, indépendante, apolitique et non confessionnelle.",
+      director: "Mouhammad Doumbouya, président de la fondation",
+      registration: "À COMPLÉTER — numéro et date d'enregistrement de l'organisation",
+      host: "Railway Corporation, 80 Bloor St W, Toronto, Ontario, Canada — railway.com",
+    },
+    sections: [
+      {
+        title: "Propriété intellectuelle",
+        body: "Les textes, le logo, la charte graphique et les visuels de ce site sont la propriété de la Children's Unity Foundation, sauf mention contraire. Leur reprise à des fins d'information sur nos actions est autorisée à condition de citer la source et de ne pas les modifier. Toute autre réutilisation, notamment commerciale, demande notre accord écrit.",
+      },
+      {
+        title: "Photographies et enfants",
+        body: "Aucune photographie d'enfant n'est publiée sans l'accord écrit de son représentant légal. Les fiches de parrainage ne portent qu'un prénom, ou un pseudonyme, et un identifiant. Toute image peut être retirée sur simple demande adressée à l'adresse ci-dessous, sans que nous ayons à en connaître le motif.",
+      },
+      {
+        title: "Responsabilité",
+        body: "Nous vérifions les informations publiées ici, sans pouvoir garantir qu'elles soient exemptes d'erreur ni à jour à chaque instant. Les liens vers des sites extérieurs sont fournis pour votre commodité : leur contenu ne relève pas de notre responsabilité.",
+      },
+      {
+        title: "Dons et reçus",
+        body: "Les dons transitent par les moyens de paiement indiqués sur la page de don. La fondation rapproche chaque versement de sa référence et confirme sa réception. Les conditions de délivrance d'un reçu fiscal dépendent du pays du donateur : écrivez-nous pour connaître celles qui s'appliquent à votre situation.",
+      },
+      {
+        title: "Signalement",
+        body: "Une erreur, un contenu qui vous semble abusif, une faille de sécurité : écrivez-nous. Les signalements de sécurité disposent d'une adresse dédiée, publiée dans le fichier /.well-known/security.txt.",
+      },
+    ],
+    contactTitle: "Nous écrire",
+  },
   privacy: {
     meta: {
     draftNotice:

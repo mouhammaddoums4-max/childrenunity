@@ -4,6 +4,7 @@ import { Inter, Poppins } from "next/font/google";
 import { isLocale, locales, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { SiteHeader } from "@/components/site-header";
+import { DraftBanner } from "@/components/draft-banner";
 import { SiteFooter } from "@/components/site-footer";
 import { SocialRail } from "@/components/social-rail";
 import { CookieNotice } from "@/components/cookie-notice";
@@ -11,6 +12,7 @@ import { EventModal } from "@/components/event-modal";
 import { getEvent } from "@/lib/event";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { siteUrl } from "@/lib/site";
+import { isDraft } from "@/lib/publication";
 import "../globals.css";
 
 const poppins = Poppins({
@@ -48,6 +50,9 @@ export async function generateMetadata({
     },
     description: dictionary.meta.home.description,
     applicationName: dictionary.meta.siteName,
+    robots: isDraft
+      ? { index: false, follow: false, nocache: true }
+      : { index: true, follow: true },
     icons: { icon: "/logo-mark.png" },
     openGraph: {
       type: "website",
@@ -55,7 +60,6 @@ export async function generateMetadata({
       locale: locale === "fr" ? "fr_FR" : "en_GB",
       title: dictionary.meta.home.title,
       description: dictionary.meta.home.description,
-      images: [{ url: "/logo.png", width: 1254, height: 1254 }],
     },
     alternates: {
       languages: { fr: "/fr", en: "/en" },
@@ -86,6 +90,8 @@ export default async function LocaleLayout({
         >
           {dictionary.nav.skipToContent}
         </a>
+
+        <DraftBanner label={dictionary.meta.draftNotice} />
 
         <SiteHeader locale={typedLocale} dictionary={dictionary} />
 

@@ -3,6 +3,27 @@ import type { NextConfig } from "next";
 const isProduction = process.env.NODE_ENV === "production";
 
 /**
+ * Le formulaire d'infolettre poste vers le prestataire choisi. Sans cette
+ * autorisation, `connect-src 'self'` bloquerait la requête en silence : le
+ * visiteur croirait s'être inscrit et rien ne partirait. L'origine est donc
+ * dérivée de la variable d'environnement, et rien n'est ouvert tant
+ * qu'aucun prestataire n'est configuré.
+ */
+function newsletterOrigin(): string | undefined {
+  const endpoint = process.env.NEXT_PUBLIC_NEWSLETTER_ENDPOINT;
+  if (!endpoint) return undefined;
+
+  try {
+    return new URL(endpoint).origin;
+  } catch {
+    /* Échouer au build plutôt qu'en silence chez le visiteur. */
+    throw new Error(
+      `NEXT_PUBLIC_NEWSLETTER_ENDPOINT n'est pas une URL valide : ${endpoint}`,
+    );
+  }
+}
+
+/**
  * Politique de sécurité du contenu.
  *
  * `'unsafe-inline'` reste nécessaire pour les scripts : Next.js sérialise
@@ -30,7 +51,7 @@ const contentSecurityPolicy = [
   "style-src-attr 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self' data:",
-  "connect-src 'self'",
+  ["connect-src 'self'", newsletterOrigin()].filter(Boolean).join(" "),
   "frame-src https://www.youtube-nocookie.com",
   "media-src 'self'",
   "manifest-src 'self'",

@@ -7,6 +7,7 @@ const iconColors = ["text-brand", "text-teal", "text-orange", "text-brand"];
 
 export function StatsBand({ locale }: { locale: Locale }) {
   const stats = getStats(locale);
+  if (stats.length === 0) return null;
 
   return (
     <section className="bg-navy py-12 text-white sm:py-14 lg:py-16">

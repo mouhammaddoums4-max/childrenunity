@@ -160,57 +160,59 @@ export default async function AboutPage({ params }: LocaleParams) {
       </section>
 
       {/* Equipe */}
-      <section className="section">
-        <Container>
-          <SectionHeading
-            eyebrow={about.team.eyebrow}
-            title={about.team.title}
-            lead={about.team.lead}
-            align="center"
-          />
+      {team.length > 0 ? (
+        <section className="section">
+          <Container>
+            <SectionHeading
+              eyebrow={about.team.eyebrow}
+              title={about.team.title}
+              lead={about.team.lead}
+              align="center"
+            />
 
-          <ul className="mt-10 grid gap-5 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
-            {team.map((member) => {
-              const accent = accentClasses[member.accent];
-              const initials = member.name
-                .split(" ")
-                .map((part) => part[0])
-                .join("");
-              /* Photo affichee seulement si le fichier existe reellement */
-              const photo = resolvePhoto(member.photo);
+            <ul className="mt-10 grid gap-5 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+              {team.map((member) => {
+                const accent = accentClasses[member.accent];
+                const initials = member.name
+                  .split(" ")
+                  .map((part) => part[0])
+                  .join("");
+                /* Photo affichee seulement si le fichier existe reellement */
+                const photo = resolvePhoto(member.photo);
 
-              return (
-                <li
-                  key={member.id}
-                  className="rounded-card border border-line bg-white p-6 text-center sm:p-7"
-                >
-                  {/* Portrait s'il existe, monogramme sinon */}
-                  {photo ? (
-                    <Image
-                      src={photo}
-                      alt={member.name}
-                      width={160}
-                      height={160}
-                      className={`mx-auto size-16 rounded-full object-cover object-top ring-2 sm:size-20 ${accent.ring}`}
-                    />
-                  ) : (
-                    <span
-                      className={`font-display mx-auto flex size-16 items-center justify-center rounded-full text-xl font-bold text-white sm:size-20 sm:text-2xl ${accent.bg}`}
-                      aria-hidden="true"
-                    >
-                      {initials}
-                    </span>
-                  )}
-                  <h3 className="font-display mt-5 text-h3 font-bold text-navy">
-                    {member.name}
-                  </h3>
-                  <p className="mt-1.5 text-sm text-ink-muted">{member.role}</p>
-                </li>
-              );
-            })}
-          </ul>
-        </Container>
-      </section>
+                return (
+                  <li
+                    key={member.id}
+                    className="rounded-card border border-line bg-white p-6 text-center sm:p-7"
+                  >
+                    {/* Portrait s'il existe, monogramme sinon */}
+                    {photo ? (
+                      <Image
+                        src={photo}
+                        alt={member.name}
+                        width={160}
+                        height={160}
+                        className={`mx-auto size-16 rounded-full object-cover object-top ring-2 sm:size-20 ${accent.ring}`}
+                      />
+                    ) : (
+                      <span
+                        className={`font-display mx-auto flex size-16 items-center justify-center rounded-full text-xl font-bold text-white sm:size-20 sm:text-2xl ${accent.bg}`}
+                        aria-hidden="true"
+                      >
+                        {initials}
+                      </span>
+                    )}
+                    <h3 className="font-display mt-5 text-h3 font-bold text-navy">
+                      {member.name}
+                    </h3>
+                    <p className="mt-1.5 text-sm text-ink-muted">{member.role}</p>
+                  </li>
+                );
+              })}
+            </ul>
+          </Container>
+        </section>
+      ) : null}
 
       {/* Rejoindre */}
       <section className="pb-16 sm:pb-24">

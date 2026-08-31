@@ -313,7 +313,59 @@ const en: typeof fr = {
       back: "All children",
       sponsorCta: "Sponsor this child",
     },
-    privacy: {
+    legal: {
+    meta: {
+      title: "Legal notice",
+      description:
+        "Publisher, host, intellectual property and liability for the Children's Unity Foundation website.",
+    },
+    hero: {
+      eyebrow: "Legal information",
+      title: "Legal notice",
+      lead: "Who publishes this site, who hosts it, and on what terms its content may be reused.",
+    },
+    fields: {
+      name: "Publisher",
+      status: "Legal status",
+      address: "Registered office",
+      email: "Email address",
+      phone: "Telephone",
+      director: "Publication director",
+      registration: "Registration",
+      host: "Host",
+    },
+    values: {
+      status:
+        "Non-governmental, non-profit organisation — independent, non-political and non-denominational.",
+      director: "Mouhammad Doumbouya, president of the foundation",
+      registration: "TO BE COMPLETED — the organisation's registration number and date",
+      host: "Railway Corporation, 80 Bloor St W, Toronto, Ontario, Canada — railway.com",
+    },
+    sections: [
+      {
+        title: "Intellectual property",
+        body: "The text, logo, visual identity and imagery on this site belong to the Children's Unity Foundation unless stated otherwise. Reusing them to report on our work is allowed provided the source is cited and the material is not altered. Any other use, commercial use in particular, requires our written agreement.",
+      },
+      {
+        title: "Photographs and children",
+        body: "No photograph of a child is published without the written consent of their legal guardian. Sponsorship profiles carry only a first name, or a pseudonym, and an identifier. Any image can be taken down on request to the address below, and we will not ask why.",
+      },
+      {
+        title: "Liability",
+        body: "We check what we publish here, but cannot guarantee it is free of error or current at every moment. Links to outside sites are offered for convenience; their content is not our responsibility.",
+      },
+      {
+        title: "Donations and receipts",
+        body: "Donations go through the payment methods listed on the donation page. The foundation matches each transfer to its reference and confirms receipt. Whether a tax receipt can be issued depends on the donor's country: write to us and we will tell you what applies to your situation.",
+      },
+      {
+        title: "Reporting a problem",
+        body: "An error, content you find abusive, a security flaw: write to us. Security reports have a dedicated address, published in the /.well-known/security.txt file.",
+      },
+    ],
+    contactTitle: "Write to us",
+  },
+  privacy: {
       title: "Child protection",
       body: "Each profile carries only a first name, or a pseudonym, and a reference. No surname, no address and no school name is published. Photos and videos go online only with the written consent of the legal guardian, and are removed on request.",
     },
@@ -690,6 +742,58 @@ const en: typeof fr = {
     openExternally: "Open on YouTube",
   },
 
+  legal: {
+    meta: {
+      title: "Legal notice",
+      description:
+        "Publisher, host, intellectual property and liability for the Children's Unity Foundation website.",
+    },
+    hero: {
+      eyebrow: "Legal information",
+      title: "Legal notice",
+      lead: "Who publishes this site, who hosts it, and on what terms its content may be reused.",
+    },
+    fields: {
+      name: "Publisher",
+      status: "Legal status",
+      address: "Registered office",
+      email: "Email address",
+      phone: "Telephone",
+      director: "Publication director",
+      registration: "Registration",
+      host: "Host",
+    },
+    values: {
+      status:
+        "Non-governmental, non-profit organisation — independent, non-political and non-denominational.",
+      director: "Mouhammad Doumbouya, president of the foundation",
+      registration: "TO BE COMPLETED — the organisation's registration number and date",
+      host: "Railway Corporation, 80 Bloor St W, Toronto, Ontario, Canada — railway.com",
+    },
+    sections: [
+      {
+        title: "Intellectual property",
+        body: "The text, logo, visual identity and imagery on this site belong to the Children's Unity Foundation unless stated otherwise. Reusing them to report on our work is allowed provided the source is cited and the material is not altered. Any other use, commercial use in particular, requires our written agreement.",
+      },
+      {
+        title: "Photographs and children",
+        body: "No photograph of a child is published without the written consent of their legal guardian. Sponsorship profiles carry only a first name, or a pseudonym, and an identifier. Any image can be taken down on request to the address below, and we will not ask why.",
+      },
+      {
+        title: "Liability",
+        body: "We check what we publish here, but cannot guarantee it is free of error or current at every moment. Links to outside sites are offered for convenience; their content is not our responsibility.",
+      },
+      {
+        title: "Donations and receipts",
+        body: "Donations go through the payment methods listed on the donation page. The foundation matches each transfer to its reference and confirms receipt. Whether a tax receipt can be issued depends on the donor's country: write to us and we will tell you what applies to your situation.",
+      },
+      {
+        title: "Reporting a problem",
+        body: "An error, content you find abusive, a security flaw: write to us. Security reports have a dedicated address, published in the /.well-known/security.txt file.",
+      },
+    ],
+    contactTitle: "Write to us",
+  },
   privacy: {
     meta: {
     draftNotice:

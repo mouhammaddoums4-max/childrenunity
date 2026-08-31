@@ -12,7 +12,7 @@ import { Logo } from "@/components/logo";
 import { cn } from "@/lib/cn";
 
 /* Le tunnel de paiement et la page de don ne sont pas des onglets. */
-type NavKey = Exclude<RouteKey, "donate" | "give" | "privacy">;
+type NavKey = Exclude<RouteKey, "donate" | "give" | "privacy" | "legal">;
 
 const navKeys: NavKey[] = [
   "home",

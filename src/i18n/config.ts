@@ -30,6 +30,7 @@ export const routes = {
   donate: "donate",
   give: "give",
   privacy: "privacy",
+  legal: "legal",
 } as const;
 
 export type RouteKey = keyof typeof routes;

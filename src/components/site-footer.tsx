@@ -14,7 +14,7 @@ import { Container } from "@/components/ui/container";
 import { NewsletterForm } from "@/components/newsletter-form";
 
 /* Le tunnel de paiement et la page de don ne sont pas des onglets. */
-type NavKey = Exclude<RouteKey, "donate" | "give" | "privacy">;
+type NavKey = Exclude<RouteKey, "donate" | "give" | "privacy" | "legal">;
 
 const navKeys: NavKey[] = ["home", "about", "programs", "sponsorship", "membership", "impact", "news", "contact"];
 
@@ -180,6 +180,12 @@ export function SiteFooter({
               className="text-white/60 transition-colors duration-150 hover:text-white"
             >
               {footer.privacy}
+            </Link>
+            <Link
+              href={path(locale, "legal")}
+              className="transition-colors duration-150 hover:text-white"
+            >
+              {footer.legal}
             </Link>
             <span className="hidden text-white/40 sm:inline">·</span>
             <span className="hidden text-white/50 sm:inline">{meta.tagline}</span>
