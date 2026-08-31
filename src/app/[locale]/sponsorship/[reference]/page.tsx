@@ -13,6 +13,8 @@ import { resolveLocale } from "@/lib/locale-param";
 import { Container } from "@/components/ui/container";
 import { YoutubeEmbed } from "@/components/ui/youtube-embed";
 import { ButtonLink } from "@/components/ui/button";
+import { ShareButtons } from "@/components/share-buttons";
+import { siteUrl } from "@/lib/site";
 
 type ChildParams = { params: Promise<{ locale: string; reference: string }> };
 
@@ -127,6 +129,14 @@ export default async function ChildPage({ params }: ChildParams) {
               </div>
             </>
           ) : null}
+
+          <ShareButtons
+            url={`${siteUrl}${path(locale, "sponsorship")}/${reference.toLowerCase()}`}
+            text={dictionary.share.childText
+              .replace("{name}", child.firstName)
+              .replace("{age}", String(child.age))}
+            copy={dictionary.share}
+          />
         </div>
 
         {/* Collecte et engagement */}

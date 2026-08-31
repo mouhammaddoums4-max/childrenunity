@@ -704,6 +704,16 @@ const en: typeof fr = {
     notice:
       "Your name and address are only used to send you information about this event. Never shared with anyone else.",
   },
+  share: {
+    title: "Spread the word",
+    lead: "One share is sometimes all it takes to find a child's sponsor. The link publishes only what this page already shows: a first name, an age and a country.",
+    on: "Share on",
+    copyLink: "Copy link",
+    copied: "Link copied",
+    more: "Share",
+    shared: "Shared",
+    childText: "{name}, aged {age}, is waiting for a sponsor to stay in school.",
+  },
   consent: {
     title: "Your data, your choice",
     body: "This site sets no advertising cookies and sells no data. We only keep your display preferences, such as language and currency. You may also allow anonymous audience measurement, which helps us know which pages are useful.",

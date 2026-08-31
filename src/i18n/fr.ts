@@ -703,6 +703,16 @@ const fr = {
     notice:
       "Votre nom et votre adresse ne servent qu'à vous envoyer les informations de cet événement. Aucune diffusion à un tiers.",
   },
+  share: {
+    title: "Faire connaître ce parrainage",
+    lead: "Un partage suffit parfois à trouver le parrain d'un enfant. Le lien ne publie que ce que cette page montre déjà : un prénom, un âge et un pays.",
+    on: "Partager sur",
+    copyLink: "Copier le lien",
+    copied: "Lien copié",
+    more: "Partager",
+    shared: "Partagé",
+    childText: "{name}, {age} ans, attend un parrain pour poursuivre sa scolarité.",
+  },
   consent: {
     title: "Vos données, votre choix",
     body: "Ce site ne dépose aucun cookie publicitaire et ne revend aucune donnée. Nous conservons seulement vos préférences d'affichage, comme la langue et la devise. Vous pouvez aussi autoriser une mesure d'audience anonyme, qui nous aide à savoir quelles pages sont utiles.",
