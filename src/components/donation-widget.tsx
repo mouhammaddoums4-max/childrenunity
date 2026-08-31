@@ -166,7 +166,7 @@ export function DonationWidget({
       ) : null}
 
       <ButtonLink
-        href={path(locale, "contact")}
+        href={path(locale, "give")}
         size="lg"
         className="mt-7 w-full"
       >

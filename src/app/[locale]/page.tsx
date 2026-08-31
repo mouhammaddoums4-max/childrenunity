@@ -9,6 +9,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { ButtonLink } from "@/components/ui/button";
 import { Photo } from "@/components/ui/photo";
 import { Hero } from "@/components/sections/hero";
+import { Why } from "@/components/sections/why";
 import { ProgramGrid } from "@/components/sections/program-grid";
 import { StatsBand } from "@/components/sections/stats-band";
 import { Approach } from "@/components/sections/approach";
@@ -26,6 +27,8 @@ export default async function HomePage({ params }: LocaleParams) {
   return (
     <>
       <Hero locale={locale} dictionary={dictionary} />
+
+      <Why locale={locale} dictionary={dictionary} />
 
       {/* Programmes */}
       <section className="py-14 sm:py-16 lg:py-20">

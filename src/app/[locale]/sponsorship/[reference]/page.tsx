@@ -162,7 +162,7 @@ export default async function ChildPage({ params }: ChildParams) {
             </p>
 
             <ButtonLink
-              href={path(locale, "contact")}
+              href={`${path(locale, "give")}?child=${child.reference.toLowerCase()}`}
               size="lg"
               className="mt-7 w-full"
             >

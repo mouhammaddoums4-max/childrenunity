@@ -83,6 +83,20 @@ const en: typeof fr = {
         { title: "Support", subtitle: "for families" },
       ],
     },
+    why: {
+      eyebrow: "Why we exist",
+      title: "No child should leave school for lack of money",
+      lead: "Across Africa, parents who want to keep their children in school simply cannot afford it. It is not a lack of will, and the cost is paid over a lifetime.",
+      problem: {
+        title: "What we see",
+        body: "An unpaid enrolment, supplies out of reach, an apprenticeship no family can fund: every year, thousands of children leave school and never return. They are left to the street, to early work and to the exploitation that comes with it, while the doors close one by one.",
+      },
+      answer: {
+        title: "Our answer",
+        body: "We step in where the family can no longer keep up: enrolment fees, supplies, entry into an apprenticeship and support all the way to a trade. A trained mentor stays present year after year. We do not replace parents, we back them and keep them at the centre of every decision.",
+      },
+      stake: "A child supported in time becomes an adult who provides for their family and their community. Without that support, the only horizons left are the street, early work or exile. It all comes down to a handful of years.",
+    },
     programs: {
       eyebrow: "What we do",
       title: "Our programs",

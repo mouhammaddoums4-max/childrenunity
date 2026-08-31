@@ -81,6 +81,20 @@ const fr = {
         { title: "Soutien", subtitle: "aux familles" },
       ],
     },
+    why: {
+      eyebrow: "Pourquoi nous existons",
+      title: "Aucun enfant ne devrait quitter l'école faute de moyens",
+      lead: "Partout en Afrique, des parents qui veulent scolariser leurs enfants n'en ont tout simplement pas les moyens. Ce n'est pas un manque de volonté, et cela se paie sur toute une vie.",
+      problem: {
+        title: "Le constat",
+        body: "Une rentrée impayée, des fournitures hors de portée, un apprentissage qu'aucune famille ne peut financer : chaque année, des milliers d'enfants sortent du système scolaire sans jamais y revenir. Ils se retrouvent livrés à la rue, au travail précoce et aux formes d'exploitation qui vont avec, pendant que les portes se referment une à une.",
+      },
+      answer: {
+        title: "Notre réponse",
+        body: "Nous prenons le relais là où la famille ne peut plus suivre : frais de scolarité, fournitures, entrée en apprentissage et accompagnement vers un métier. Un mentor formé reste présent année après année. Nous ne remplaçons pas les parents, nous les soutenons et les gardons au centre des décisions.",
+      },
+      stake: "Un enfant soutenu à temps devient un adulte qui fait vivre sa famille et sa communauté. Sans cet appui, il n'a d'autre horizon que la rue, le travail précoce ou l'exil. Tout se joue sur quelques années.",
+    },
     programs: {
       eyebrow: "Ce que nous faisons",
       title: "Nos programmes",
