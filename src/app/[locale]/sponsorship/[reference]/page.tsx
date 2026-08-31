@@ -205,7 +205,7 @@ export default async function ChildPage({ params }: ChildParams) {
             </ul>
           </div>
 
-          <p className="mt-6 flex items-start gap-3 rounded-xl bg-teal-50 p-5 text-xs leading-relaxed text-ink-muted">
+          <p className="mt-6 flex items-start gap-3 rounded-xl bg-teal-50 p-5 text-sm leading-relaxed text-ink-muted">
             <ShieldCheck
               className="mt-0.5 size-4 shrink-0 text-teal-ink"
               aria-hidden="true"

@@ -29,21 +29,15 @@ import {
   getPaymentMethods,
   type PaymentMethodId,
 } from "@/lib/payments";
-import { organisation } from "@/lib/content";
-import { Button, ButtonLink } from "@/components/ui/button";
+import {
+  fill,
+  methodNames,
+  PaymentInstructions,
+} from "@/components/payment-instructions";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-/** Libellés commerciaux : ce sont des marques, identiques dans les deux langues. */
-const methodNames: Record<PaymentMethodId, string> = {
-  "orange-money": "Orange Money",
-  "mtn-momo": "MTN Mobile Money",
-  wave: "Wave",
-  card: "Carte bancaire · Visa / Mastercard",
-  paypal: "PayPal",
-  bank: "Virement bancaire",
-};
 
 const methodIcons: Record<PaymentMethodId, typeof Smartphone> = {
   "orange-money": Smartphone,
@@ -63,10 +57,6 @@ export type GiveTarget = {
   /** Reste à financer, en francs guinéens. */
   remainingGnf: number;
 };
-
-function fill(template: string, values: Record<string, string>): string {
-  return template.replace(/\{(\w+)\}/g, (_, key) => values[key] ?? `{${key}}`);
-}
 
 export function GiveFlow({
   locale,
@@ -492,22 +482,33 @@ export function GiveFlow({
           ) : null}
 
           {step === "done" ? (
-            <Instructions
+            <PaymentInstructions
               give={give}
               locale={locale}
               reference={reference}
-              amountLabel={amountLabel}
+              method={method}
+              subject={`${reference} — ${amountLabel}`}
+              recapLines={[
+                `${give.summary.reference}: ${reference}`,
+                `${give.summary.amount}: ${amountLabel}`,
+                `${give.summary.frequency}: ${
+                  frequency === "once" ? give.amount.once : give.amount.monthly
+                }`,
+                `${give.summary.method}: ${method ? methodNames[method] : ""}`,
+                target
+                  ? `${give.summary.child}: ${target.name} (${target.reference})`
+                  : "",
+                "",
+                donor.name,
+                donor.email,
+                donor.phone,
+                donor.message,
+              ]}
               settlementLabel={
                 chosen?.settlementCurrency === "GNF" && currency !== "GNF"
                   ? formatMoney(toGnf(amount, currency), "GNF", locale)
                   : undefined
               }
-              method={method}
-              donor={donor}
-              target={target}
-              frequency={frequency}
-              copied={copied}
-              setCopied={setCopied}
             />
           ) : null}
         </div>
@@ -557,157 +558,6 @@ export function GiveFlow({
           </Link>
         </p>
       </aside>
-    </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Ecran final : instructions de transfert                             */
-/* ------------------------------------------------------------------ */
-
-function Instructions({
-  give,
-  locale,
-  reference,
-  amountLabel,
-  settlementLabel,
-  method,
-  donor,
-  target,
-  frequency,
-  copied,
-  setCopied,
-}: {
-  give: Dictionary["give"];
-  locale: Locale;
-  reference: string;
-  amountLabel: string;
-  /** Montant en francs guinéens, quand le transfert se fait en local. */
-  settlementLabel?: string;
-  method: PaymentMethodId | null;
-  donor: { name: string; email: string; phone: string; message: string };
-  target?: GiveTarget;
-  frequency: "once" | "monthly";
-  copied: boolean;
-  setCopied: (value: boolean) => void;
-}) {
-  const resolved = method ? getAccount(method) : undefined;
-
-  const recap = [
-    `${give.summary.reference}: ${reference}`,
-    `${give.summary.amount}: ${amountLabel}`,
-    `${give.summary.frequency}: ${frequency === "once" ? give.amount.once : give.amount.monthly}`,
-    `${give.summary.method}: ${method ? methodNames[method] : ""}`,
-    target ? `${give.summary.child}: ${target.name} (${target.reference})` : "",
-    "",
-    donor.name,
-    donor.email,
-    donor.phone,
-    donor.message,
-  ]
-    .filter(Boolean)
-    .join("\n");
-
-  const mailto =
-    `mailto:${organisation.email}` +
-    `?subject=${encodeURIComponent(`${reference} — ${amountLabel}`)}` +
-    `&body=${encodeURIComponent(recap)}`;
-
-  async function copyReference() {
-    try {
-      await navigator.clipboard.writeText(reference);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2000);
-    } catch {
-      /* Presse-papiers refuse : la reference reste lisible a l'ecran. */
-    }
-  }
-
-  return (
-    <div>
-      <h2 className="font-display text-xl font-bold text-navy sm:text-2xl">
-        {give.done.title}
-      </h2>
-      <p className="mt-3 leading-relaxed text-ink-muted">{give.done.lead}</p>
-
-      {/* Reference a rappeler */}
-      <div className="mt-7 rounded-xl border-2 border-brand bg-brand-50 p-5">
-        <p className="text-xs font-semibold tracking-[0.16em] text-brand uppercase">
-          {give.summary.reference}
-        </p>
-        <div className="mt-2 flex flex-wrap items-center gap-3">
-          <span className="font-display text-2xl font-extrabold tabular-nums text-navy">
-            {reference}
-          </span>
-          <Button variant="outline" onClick={copyReference}>
-            {copied ? (
-              <Check className="size-4" aria-hidden="true" />
-            ) : (
-              <Copy className="size-4" aria-hidden="true" />
-            )}
-            {copied ? give.done.copied : give.done.copy}
-          </Button>
-        </div>
-        <p className="mt-3 text-sm leading-relaxed text-ink">
-          {give.done.referenceHint}
-        </p>
-      </div>
-
-      {/* Coordonnees du compte a crediter */}
-      {resolved?.kind === "phone" ? (
-        <div className="mt-6 rounded-xl border border-line p-5">
-          <p className="text-sm leading-relaxed text-ink-muted">
-            {fill(give.done.phoneInstruction, {
-              method: method ? methodNames[method] : "",
-              holder: resolved.holder,
-            })}
-          </p>
-          <p className="font-display mt-3 text-xl font-bold tabular-nums text-navy">
-            {resolved.value}
-          </p>
-          <p className="mt-1 text-sm text-ink-muted">{resolved.holder}</p>
-
-          {/* Le transfert local se fait en francs guineens */}
-          {settlementLabel ? (
-            <p className="mt-4 rounded-xl bg-canvas p-4 text-sm text-ink">
-              {give.done.settlement}{" "}
-              <span className="font-display font-bold tabular-nums">
-                {settlementLabel}
-              </span>
-            </p>
-          ) : null}
-        </div>
-      ) : null}
-
-      {resolved?.kind === "bank" ? (
-        <div className="mt-6 rounded-xl border border-line p-5">
-          <p className="text-sm leading-relaxed text-ink-muted">
-            {give.done.bankInstruction}
-          </p>
-          <dl className="mt-4 space-y-2 text-sm">
-            <div className="flex justify-between gap-4">
-              <dt className="text-ink-muted">{resolved.bank}</dt>
-              <dd className="font-semibold tabular-nums text-navy">
-                {resolved.iban}
-              </dd>
-            </div>
-          </dl>
-          <p className="mt-2 text-sm text-ink-muted">{resolved.holder}</p>
-        </div>
-      ) : null}
-
-      <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-        <ButtonLink href={mailto} size="lg" className="flex-1">
-          {give.done.sendRecap}
-        </ButtonLink>
-        <ButtonLink href={`/${locale}`} variant="outline" size="lg">
-          {give.done.backHome}
-        </ButtonLink>
-      </div>
-
-      <p className="mt-5 text-xs leading-relaxed text-ink-muted">
-        {fill(give.done.sendHint, { email: organisation.email })}
-      </p>
     </div>
   );
 }

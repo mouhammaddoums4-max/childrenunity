@@ -57,10 +57,10 @@ export default async function SponsorshipPage({ params }: LocaleParams) {
 
           {/* Engagement de protection, affiche avec les fiches */}
           <div className="mt-10 flex items-start gap-3.5 rounded-card border border-line bg-white p-5 shadow-soft sm:mt-12 sm:gap-4 sm:p-6 lg:p-7">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-teal-50">
-              <ShieldCheck className="size-5 text-teal-ink" aria-hidden="true" />
+            <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-teal-50 sm:size-12">
+              <ShieldCheck className="size-5 text-teal-ink sm:size-6" aria-hidden="true" />
             </span>
-            <p className="text-sm leading-relaxed text-ink-muted">
+            <p className="max-w-4xl text-[0.9375rem] leading-relaxed text-ink-muted sm:text-base">
               <span className="font-semibold text-navy">
                 {sponsorship.privacy.title} —{" "}
               </span>
