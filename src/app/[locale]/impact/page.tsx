@@ -40,7 +40,7 @@ export default async function ImpactPage({ params }: LocaleParams) {
       <StatsBand locale={locale} />
 
       {/* Resultats detailles */}
-      <section className="py-14 sm:py-20 lg:py-24">
+      <section className="section">
         <Container>
           <SectionHeading
             eyebrow={impact.results.eyebrow}
@@ -54,14 +54,14 @@ export default async function ImpactPage({ params }: LocaleParams) {
               return (
                 <li
                   key={result.label}
-                  className="rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-8"
+                  className="rounded-card border border-line bg-white p-6 sm:p-8"
                 >
                   <p
-                    className={`font-display text-3xl font-extrabold tabular-nums sm:text-4xl ${accent.text}`}
+                    className={`font-display text-h2 font-extrabold tabular-nums ${accent.text}`}
                   >
                     {result.value}
                   </p>
-                  <h3 className="font-display mt-3 text-lg font-bold text-navy">
+                  <h3 className="font-display mt-3 text-h3 font-bold text-navy">
                     {result.label}
                   </h3>
                   <p className="mt-2.5 text-sm leading-relaxed text-ink-muted">
@@ -75,7 +75,7 @@ export default async function ImpactPage({ params }: LocaleParams) {
       </section>
 
       {/* Repartition des depenses */}
-      <section className="bg-white py-14 sm:py-20 lg:py-24">
+      <section className="bg-white section">
         <Container>
           <SectionHeading
             eyebrow={impact.allocation.eyebrow}
@@ -94,7 +94,7 @@ export default async function ImpactPage({ params }: LocaleParams) {
                 </div>
                 <div className="mt-2.5 h-3 overflow-hidden rounded-full bg-canvas">
                   <div
-                    className={`h-full rounded-full ${allocationBars[index % allocationBars.length]}`}
+                    className={`reveal-bar h-full rounded-full ${allocationBars[index % allocationBars.length]}`}
                     style={{ width: `${item.value}%` }}
                   />
                 </div>
@@ -102,7 +102,7 @@ export default async function ImpactPage({ params }: LocaleParams) {
             ))}
           </ul>
 
-          <p className="mt-10 flex max-w-3xl items-start gap-3 rounded-2xl bg-canvas p-5 text-sm leading-relaxed text-ink-muted">
+          <p className="mt-10 flex max-w-3xl items-start gap-3 rounded-xl bg-canvas p-5 text-sm leading-relaxed text-ink-muted">
             <Info className="mt-0.5 size-5 shrink-0 text-brand" aria-hidden="true" />
             {impact.allocation.note}
           </p>
@@ -110,7 +110,7 @@ export default async function ImpactPage({ params }: LocaleParams) {
       </section>
 
       {/* Pays d'intervention */}
-      <section className="py-14 sm:py-20 lg:py-24">
+      <section className="section">
         <Container>
           <SectionHeading
             eyebrow={impact.countries.eyebrow}
@@ -123,7 +123,7 @@ export default async function ImpactPage({ params }: LocaleParams) {
             {countries.map((country) => (
               <li
                 key={country.code}
-                className="flex items-center gap-3.5 rounded-2xl border border-line bg-white p-4 shadow-soft sm:gap-4 sm:p-5"
+                className="flex items-center gap-3.5 rounded-xl border border-line bg-white p-4 shadow-soft sm:gap-4 sm:p-5"
               >
                 <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-brand-50">
                   <MapPin className="size-5 text-brand" aria-hidden="true" />

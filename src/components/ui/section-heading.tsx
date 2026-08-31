@@ -1,5 +1,12 @@
 import { cn } from "@/lib/cn";
 
+/**
+ * Titre de section, unique modele pour tout le site.
+ *
+ * Le sur-titre porte seul l'accent de couleur : le filet decoratif qui
+ * suivait chaque titre a ete retire, il revenait une dizaine de fois par
+ * page et chargeait la lecture sans rien hierarchiser.
+ */
 export function SectionHeading({
   eyebrow,
   title,
@@ -19,18 +26,12 @@ export function SectionHeading({
   const light = tone === "light";
 
   return (
-    <div
-      className={cn(
-        "max-w-2xl",
-        centered && "mx-auto text-center",
-        className,
-      )}
-    >
+    <div className={cn("reveal max-w-2xl", centered && "mx-auto text-center", className)}>
       {eyebrow ? (
         <p
           className={cn(
-            "text-xs font-semibold uppercase tracking-[0.18em]",
-            light ? "text-white/70" : "text-brand",
+            "text-eyebrow font-semibold uppercase",
+            light ? "text-teal" : "text-brand",
           )}
         >
           {eyebrow}
@@ -39,27 +40,18 @@ export function SectionHeading({
 
       <h2
         className={cn(
-          "mt-3 text-[clamp(1.5rem,4.2vw,2.25rem)] leading-tight font-bold",
+          "font-display mt-4 text-h2 font-bold",
           light ? "text-white" : "text-navy",
         )}
       >
         {title}
       </h2>
 
-      {/* Petit trait de rappel de la charte, sous le titre */}
-      <div
-        className={cn(
-          "mt-4 h-1 w-14 rounded-full",
-          centered && "mx-auto",
-          light ? "bg-white/50" : "bg-brand",
-        )}
-      />
-
       {lead ? (
         <p
           className={cn(
-            "mt-4 text-base leading-relaxed sm:mt-5 sm:text-lg",
-            light ? "text-white/80" : "text-ink-muted",
+            "mt-4 text-lead",
+            light ? "text-white/75" : "text-ink-muted",
           )}
         >
           {lead}

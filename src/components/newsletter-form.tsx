@@ -1,37 +1,66 @@
 "use client";
 
 import { useId, useState } from "react";
-import { CheckCircle2, Send } from "lucide-react";
+import { CheckCircle2, Loader2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Dictionary } from "@/i18n/dictionaries";
+import { organisation } from "@/lib/content";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+/**
+ * Point d'entrée du prestataire d'emailing (Brevo, Mailchimp…).
+ *
+ * Renseignez `NEXT_PUBLIC_NEWSLETTER_ENDPOINT` avec l'URL du formulaire
+ * d'inscription fourni par le prestataire, et l'adresse sera envoyée
+ * directement chez lui. Tant que la variable est vide, le bouton ouvre le
+ * logiciel de messagerie du visiteur avec une demande d'inscription : rien
+ * n'est perdu, et rien ne prétend fonctionner sans être branché.
+ */
+const ENDPOINT = process.env.NEXT_PUBLIC_NEWSLETTER_ENDPOINT;
+
+type Status = "idle" | "sending" | "error" | "done";
 
 export function NewsletterForm({ footer }: { footer: Dictionary["footer"] }) {
   const inputId = useId();
   const messageId = useId();
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "error" | "done">("idle");
+  const [status, setStatus] = useState<Status>("idle");
 
-  function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const value = email.trim();
 
-    if (!EMAIL_PATTERN.test(email.trim())) {
+    if (!EMAIL_PATTERN.test(value)) {
       setStatus("error");
       return;
     }
 
-    /* Aucun service d'emailing n'est encore branche : l'inscription est
-       validee cote client seulement. Brancher ici l'appel a l'API du
-       prestataire (Brevo, Mailchimp, ...) quand il sera choisi. */
-    setStatus("done");
-    setEmail("");
+    if (!ENDPOINT) {
+      /* Aucun prestataire branché : on passe par la messagerie du visiteur. */
+      const subject = encodeURIComponent(footer.newsletterTitle);
+      window.location.href = `mailto:${organisation.email}?subject=${subject}&body=${encodeURIComponent(value)}`;
+      setStatus("done");
+      setEmail("");
+      return;
+    }
+
+    setStatus("sending");
+    try {
+      const body = new FormData();
+      body.append("email", value);
+      await fetch(ENDPOINT, { method: "POST", body, mode: "no-cors" });
+      setStatus("done");
+      setEmail("");
+    } catch {
+      setStatus("error");
+    }
   }
 
   if (status === "done") {
     return (
       <p
-        className="flex items-start gap-2.5 rounded-2xl bg-white/10 p-4 text-sm text-white"
+        className="mt-5 flex items-start gap-2.5 rounded-2xl bg-white/10 p-4 text-sm text-white"
         role="status"
       >
         <CheckCircle2
@@ -66,8 +95,17 @@ export function NewsletterForm({ footer }: { footer: Dictionary["footer"] }) {
           aria-describedby={status === "error" ? messageId : undefined}
           className="min-h-12 flex-1 rounded-full border border-white/20 bg-white/10 px-5 text-sm text-white placeholder:text-white/50 focus:border-white/50 focus:outline-none"
         />
-        <Button type="submit" variant="accent" className="shrink-0">
-          <Send className="size-4" aria-hidden="true" />
+        <Button
+          type="submit"
+          variant="accent"
+          className="shrink-0"
+          disabled={status === "sending"}
+        >
+          {status === "sending" ? (
+            <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+          ) : (
+            <Send className="size-4" aria-hidden="true" />
+          )}
           {footer.newsletterSubmit}
         </Button>
       </div>

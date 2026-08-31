@@ -571,6 +571,62 @@ const fr = {
     social: "Suivez-nous",
   },
 
+  consent: {
+    title: "Vos données, votre choix",
+    body: "Ce site ne dépose aucun cookie publicitaire et ne revend aucune donnée. Nous conservons seulement vos préférences d'affichage, comme la langue et la devise. Vous pouvez aussi autoriser une mesure d'audience anonyme, qui nous aide à savoir quelles pages sont utiles.",
+    acceptAll: "Tout accepter",
+    essential: "Essentiel uniquement",
+    learnMore: "Politique de confidentialité",
+    label: "Choix concernant vos données",
+  },
+  video: {
+    consentTitle: "Vidéo hébergée par YouTube",
+    consentBody: "La lecture ouvre une connexion vers YouTube, qui peut déposer ses propres traceurs. Rien n'est chargé tant que vous ne l'avez pas demandé.",
+    play: "Charger et lire la vidéo",
+    openExternally: "Ouvrir sur YouTube",
+  },
+
+  privacy: {
+    meta: {
+      title: "Politique de confidentialité",
+      description:
+        "Ce que ce site enregistre, ce qu'il n'enregistre pas, et comment exercer vos droits.",
+    },
+    hero: {
+      eyebrow: "Confidentialité",
+      title: "Ce que ce site sait de vous",
+      lead: "Aussi peu que possible. Cette page dit exactement quoi, pourquoi, et comment revenir sur vos choix.",
+    },
+    updated: "Dernière mise à jour",
+    sections: [
+      {
+        title: "Ce que nous n'enregistrons pas",
+        body: "Aucun cookie publicitaire, aucun pixel de réseau social, aucune revente de données. Nous n'avons pas de régie publicitaire et nous n'en aurons pas. Le site ne crée pas de profil de navigation et ne suit pas votre parcours d'un site à l'autre.",
+      },
+      {
+        title: "Ce qui reste dans votre navigateur",
+        body: "Vos préférences d'affichage — la langue, la devise et votre réponse à ce bandeau — sont conservées sur votre appareil, dans le stockage local. Elles n'en sortent jamais et ne nous sont pas transmises. Vider les données du site les efface.",
+      },
+      {
+        title: "Ce que vous nous envoyez vous-même",
+        body: "Le formulaire de contact et le tunnel de don ouvrent votre logiciel de messagerie avec un message pré-rempli : c'est vous qui l'envoyez, et rien n'est enregistré sur ce site. Nous recevons alors les informations que vous avez choisi d'écrire, et nous ne les utilisons que pour vous répondre et assurer le suivi de votre don.",
+      },
+      {
+        title: "Les vidéos",
+        body: "Les vidéos sont hébergées par YouTube. Elles ne se chargent pas toutes seules : tant que vous n'avez pas cliqué pour lancer la lecture, aucune connexion n'est ouverte vers YouTube et aucun de ses traceurs ne peut être déposé.",
+      },
+      {
+        title: "Les enfants parrainés",
+        body: "Les fiches de parrainage ne portent qu'un prénom, ou un pseudonyme, et un identifiant. Ni nom de famille, ni adresse, ni nom d'école. Une photo ou une vidéo n'est publiée qu'avec l'accord écrit du représentant légal, et elle est retirée sur simple demande.",
+      },
+      {
+        title: "Vos droits",
+        body: "Vous pouvez nous demander à tout moment quelles informations nous détenons sur vous, les faire corriger ou les faire effacer. Écrivez-nous, nous répondons sous 48 heures ouvrées.",
+      },
+    ],
+    contactTitle: "Une question sur vos données ?",
+  },
+
   notFound: {
     title: "Page introuvable",
     body: "La page que vous cherchez a peut-être été déplacée ou n'existe plus.",

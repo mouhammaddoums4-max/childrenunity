@@ -20,7 +20,7 @@ export function Partners({ dictionary }: { dictionary: Dictionary }) {
   const empty = partners.length === 0;
 
   return (
-    <section className="border-y border-line bg-white py-14 sm:py-16 lg:py-20">
+    <section className="section-sm border-y border-line bg-white">
       <Container>
         <SectionHeading
           eyebrow={copy.eyebrow}
@@ -33,7 +33,7 @@ export function Partners({ dictionary }: { dictionary: Dictionary }) {
           {empty
             ? Array.from({ length: PLACEHOLDER_SLOTS }, (_, index) => (
                 <li key={index}>
-                  <div className="flex h-20 items-center justify-center rounded-2xl border-2 border-dashed border-line bg-canvas px-3 sm:h-24">
+                  <div className="flex h-20 items-center justify-center rounded-xl border-2 border-dashed border-line bg-canvas px-3 sm:h-24">
                     <ImageIcon
                       className="size-6 text-ink-muted/50"
                       aria-hidden="true"
@@ -44,7 +44,7 @@ export function Partners({ dictionary }: { dictionary: Dictionary }) {
               ))
             : partners.map((partner) => {
                 const card = (
-                  <div className="flex h-20 items-center justify-center rounded-2xl border border-line bg-white px-4 transition-[border-color,box-shadow] duration-200 group-hover:border-brand/30 group-hover:shadow-soft sm:h-24">
+                  <div className="flex h-20 items-center justify-center rounded-xl border border-line bg-white px-4 transition-[border-color,box-shadow] duration-200 group-hover:border-brand/30 group-hover:shadow-soft sm:h-24">
                     {partner.logo ? (
                       <Image
                         src={partner.logo}

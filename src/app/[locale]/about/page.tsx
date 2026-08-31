@@ -41,14 +41,14 @@ export default async function AboutPage({ params }: LocaleParams) {
       />
 
       {/* Mission et vision */}
-      <section className="py-14 sm:py-20 lg:py-24">
+      <section className="section">
         <Container>
           <div className="grid gap-5 sm:gap-6 md:grid-cols-2">
-            <article className="rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-9">
-              <span className="flex size-12 items-center justify-center rounded-2xl bg-brand-50 sm:size-14">
+            <article className="rounded-card border border-line bg-white p-6 sm:p-9">
+              <span className="flex size-11 items-center justify-center rounded-xl bg-brand-50">
                 <Target className="size-7 text-brand" aria-hidden="true" />
               </span>
-              <h2 className="font-display mt-6 text-2xl font-bold text-navy">
+              <h2 className="font-display mt-5 text-h2 font-bold text-navy">
                 {about.mission.title}
               </h2>
               <p className="mt-4 leading-relaxed text-ink-muted">
@@ -56,11 +56,11 @@ export default async function AboutPage({ params }: LocaleParams) {
               </p>
             </article>
 
-            <article className="rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-9">
-              <span className="flex size-12 items-center justify-center rounded-2xl bg-teal-50 sm:size-14">
+            <article className="rounded-card border border-line bg-white p-6 sm:p-9">
+              <span className="flex size-11 items-center justify-center rounded-xl bg-teal-50">
                 <Eye className="size-7 text-teal-ink" aria-hidden="true" />
               </span>
-              <h2 className="font-display mt-6 text-2xl font-bold text-navy">
+              <h2 className="font-display mt-5 text-h2 font-bold text-navy">
                 {about.vision.title}
               </h2>
               <p className="mt-4 leading-relaxed text-ink-muted">
@@ -74,7 +74,7 @@ export default async function AboutPage({ params }: LocaleParams) {
       <StatsBand locale={locale} />
 
       {/* Valeurs */}
-      <section className="py-14 sm:py-20 lg:py-24">
+      <section className="section">
         <Container>
           <SectionHeading
             eyebrow={about.values.eyebrow}
@@ -88,10 +88,10 @@ export default async function AboutPage({ params }: LocaleParams) {
               return (
                 <li
                   key={value.title}
-                  className="rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-8"
+                  className="rounded-card border border-line bg-white p-6 sm:p-8"
                 >
                   <div className={`h-1.5 w-12 rounded-full ${accent.bar}`} />
-                  <h3 className="font-display mt-5 text-xl font-bold text-navy">
+                  <h3 className="font-display mt-5 text-h3 font-bold text-navy">
                     {value.title}
                   </h3>
                   <p className="mt-3 leading-relaxed text-ink-muted">
@@ -105,7 +105,7 @@ export default async function AboutPage({ params }: LocaleParams) {
       </section>
 
       {/* Histoire */}
-      <section className="bg-brand-50/50 py-14 sm:py-20 lg:py-24">
+      <section className="bg-brand-50/50 section">
         <Container className="grid items-center gap-10 sm:gap-14 lg:grid-cols-2">
           <div>
             <SectionHeading
@@ -141,12 +141,12 @@ export default async function AboutPage({ params }: LocaleParams) {
               return (
                 <li
                   key={item.title}
-                  className="rounded-3xl bg-white/[0.07] p-6 ring-1 ring-white/10 sm:p-7"
+                  className="rounded-card bg-white/[0.07] p-6 ring-1 ring-white/10 sm:p-7"
                 >
-                  <span className="flex size-12 items-center justify-center rounded-2xl bg-white/10">
+                  <span className="flex size-11 items-center justify-center rounded-xl bg-white/10">
                     <Icon className="size-6 text-teal" aria-hidden="true" />
                   </span>
-                  <h3 className="font-display mt-5 text-lg font-bold">
+                  <h3 className="font-display mt-5 text-h3 font-bold">
                     {item.title}
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-white/75">
@@ -160,7 +160,7 @@ export default async function AboutPage({ params }: LocaleParams) {
       </section>
 
       {/* Equipe */}
-      <section className="py-14 sm:py-20 lg:py-24">
+      <section className="section">
         <Container>
           <SectionHeading
             eyebrow={about.team.eyebrow}
@@ -182,7 +182,7 @@ export default async function AboutPage({ params }: LocaleParams) {
               return (
                 <li
                   key={member.id}
-                  className="rounded-3xl border border-line bg-white p-6 text-center shadow-soft sm:p-7"
+                  className="rounded-card border border-line bg-white p-6 text-center sm:p-7"
                 >
                   {/* Portrait s'il existe, monogramme sinon */}
                   {photo ? (
@@ -201,7 +201,7 @@ export default async function AboutPage({ params }: LocaleParams) {
                       {initials}
                     </span>
                   )}
-                  <h3 className="font-display mt-5 text-lg font-bold text-navy">
+                  <h3 className="font-display mt-5 text-h3 font-bold text-navy">
                     {member.name}
                   </h3>
                   <p className="mt-1.5 text-sm text-ink-muted">{member.role}</p>
@@ -215,11 +215,11 @@ export default async function AboutPage({ params }: LocaleParams) {
       {/* Rejoindre */}
       <section className="pb-16 sm:pb-24">
         <Container>
-          <div className="rounded-[1.75rem] border border-line bg-white p-7 text-center shadow-soft sm:rounded-[2rem] sm:p-10 lg:p-14">
-            <span className="mx-auto flex size-12 items-center justify-center rounded-2xl bg-orange-50 sm:size-14">
+          <div className="rounded-panel border border-line bg-white p-7 text-center sm:p-10 lg:p-14">
+            <span className="mx-auto flex size-11 items-center justify-center rounded-xl bg-orange-50">
               <Heart className="size-7 text-orange-ink" aria-hidden="true" />
             </span>
-            <h2 className="font-display mt-6 text-2xl font-bold text-navy sm:text-3xl">
+            <h2 className="font-display mt-6 text-h2 font-bold text-navy">
               {about.join.title}
             </h2>
             <p className="mx-auto mt-4 max-w-xl leading-relaxed text-ink-muted">

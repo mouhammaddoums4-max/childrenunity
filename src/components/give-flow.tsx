@@ -186,7 +186,7 @@ export function GiveFlow({
           })}
         </ol>
 
-        <div className="mt-8 rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-8">
+        <div className="mt-8 rounded-card border border-line bg-white p-6 sm:p-8">
           {step === "amount" ? (
             <>
               <h2 className="font-display text-xl font-bold text-navy sm:text-2xl">
@@ -258,7 +258,7 @@ export function GiveFlow({
                         setErrors({});
                       }}
                       className={cn(
-                        "font-display min-h-14 cursor-pointer rounded-2xl border-2 px-2 text-sm font-bold tabular-nums transition-colors duration-200 sm:text-base",
+                        "font-display min-h-14 cursor-pointer rounded-xl border-2 px-2 text-sm font-bold tabular-nums transition-colors duration-200 sm:text-base",
                         selected
                           ? "border-brand bg-brand-50 text-brand"
                           : "border-line text-navy hover:border-brand/40",
@@ -290,7 +290,7 @@ export function GiveFlow({
                       setErrors({});
                     }}
                     aria-invalid={Boolean(errors.amount)}
-                    className="min-h-12 w-full rounded-2xl border border-line bg-white px-4 text-base tabular-nums text-ink focus:border-brand focus:outline-none"
+                    className="min-h-12 w-full rounded-xl border border-line bg-white px-4 text-base tabular-nums text-ink focus:border-brand focus:outline-none"
                   />
                   <span className="font-display shrink-0 font-bold text-ink-muted">
                     {currency}
@@ -300,7 +300,7 @@ export function GiveFlow({
               </div>
 
               {target ? (
-                <p className="mt-6 rounded-2xl bg-brand-50 p-5 text-sm leading-relaxed text-ink">
+                <p className="mt-6 rounded-xl bg-brand-50 p-5 text-sm leading-relaxed text-ink">
                   {fill(give.amount.goalRemaining, { name: target.name })} :{" "}
                   <span className="font-semibold tabular-nums">
                     {formatMoney(
@@ -341,7 +341,7 @@ export function GiveFlow({
                           setErrors({});
                         }}
                         className={cn(
-                          "flex w-full items-center gap-4 rounded-2xl border-2 p-4 text-left transition-colors duration-200",
+                          "flex w-full items-center gap-4 rounded-xl border-2 p-4 text-left transition-colors duration-200",
                           selected
                             ? "border-brand bg-brand-50"
                             : "border-line hover:border-brand/40",
@@ -351,7 +351,7 @@ export function GiveFlow({
                       >
                         <span
                           className={cn(
-                            "flex size-11 shrink-0 items-center justify-center rounded-2xl",
+                            "flex size-10 shrink-0 items-center justify-center rounded-xl",
                             selected ? "bg-brand text-white" : "bg-canvas text-brand",
                           )}
                         >
@@ -515,7 +515,7 @@ export function GiveFlow({
 
       {/* Recapitulatif permanent */}
       <aside className="lg:sticky lg:top-24 lg:self-start">
-        <div className="rounded-3xl bg-navy p-6 text-white shadow-soft sm:p-7">
+        <div className="rounded-card bg-navy p-6 text-white shadow-soft sm:p-7">
           <h2 className="font-display text-lg font-bold">{give.summary.title}</h2>
 
           <dl className="mt-6 space-y-4 text-sm">
@@ -631,7 +631,7 @@ function Instructions({
       <p className="mt-3 leading-relaxed text-ink-muted">{give.done.lead}</p>
 
       {/* Reference a rappeler */}
-      <div className="mt-7 rounded-2xl border-2 border-brand bg-brand-50 p-5">
+      <div className="mt-7 rounded-xl border-2 border-brand bg-brand-50 p-5">
         <p className="text-xs font-semibold tracking-[0.16em] text-brand uppercase">
           {give.summary.reference}
         </p>
@@ -655,7 +655,7 @@ function Instructions({
 
       {/* Coordonnees du compte a crediter */}
       {resolved?.kind === "phone" ? (
-        <div className="mt-6 rounded-2xl border border-line p-5">
+        <div className="mt-6 rounded-xl border border-line p-5">
           <p className="text-sm leading-relaxed text-ink-muted">
             {fill(give.done.phoneInstruction, {
               method: method ? methodNames[method] : "",
@@ -680,7 +680,7 @@ function Instructions({
       ) : null}
 
       {resolved?.kind === "bank" ? (
-        <div className="mt-6 rounded-2xl border border-line p-5">
+        <div className="mt-6 rounded-xl border border-line p-5">
           <p className="text-sm leading-relaxed text-ink-muted">
             {give.done.bankInstruction}
           </p>
@@ -718,7 +718,7 @@ function Instructions({
 
 function fieldClass(invalid?: string) {
   return cn(
-    "mt-2 w-full rounded-2xl border bg-white px-4 py-3.5 text-base text-ink focus:outline-none",
+    "mt-2 w-full rounded-xl border bg-white px-4 py-3.5 text-base text-ink focus:outline-none",
     invalid ? "border-red-500 focus:border-red-600" : "border-line focus:border-brand",
   );
 }

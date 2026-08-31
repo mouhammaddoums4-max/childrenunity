@@ -39,9 +39,9 @@ export function DonationWidget({
     index !== null ? impactLabels[active.impactKeys[index]] : undefined;
 
   return (
-    <div className="rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-9">
+    <div className="rounded-card border border-line bg-white p-6 sm:p-9">
       <div className="flex flex-wrap items-start justify-between gap-4">
-        <h2 className="font-display text-2xl font-bold text-navy">
+        <h2 className="font-display text-h2 font-bold text-navy">
           {amounts.title}
         </h2>
 
@@ -111,7 +111,7 @@ export function DonationWidget({
                 setCustom("");
               }}
               className={cn(
-                "font-display min-h-14 cursor-pointer rounded-2xl border-2 px-2 text-base font-bold tabular-nums transition-[border-color,background-color,color] duration-200",
+                "font-display min-h-14 cursor-pointer rounded-xl border-2 px-2 text-base font-bold tabular-nums transition-[border-color,background-color,color] duration-200",
                 selected
                   ? "border-brand bg-brand-50 text-brand"
                   : "border-line text-navy hover:border-brand/40",
@@ -147,7 +147,7 @@ export function DonationWidget({
             }}
             placeholder={amounts.customPlaceholder}
             aria-label={amounts.customLabel}
-            className="min-h-12 w-full rounded-2xl border border-line bg-white px-4 text-base tabular-nums text-ink transition-colors duration-150 focus:border-brand focus:outline-none"
+            className="min-h-12 w-full rounded-xl border border-line bg-white px-4 text-base tabular-nums text-ink transition-colors duration-150 focus:border-brand focus:outline-none"
           />
           <span className="font-display shrink-0 font-bold text-ink-muted">
             {currency}
@@ -159,7 +159,7 @@ export function DonationWidget({
       {impact ? (
         <p
           aria-live="polite"
-          className="mt-6 rounded-2xl bg-brand-50 p-5 text-sm leading-relaxed text-ink"
+          className="mt-6 rounded-xl bg-brand-50 p-5 text-sm leading-relaxed text-ink"
         >
           {impact}
         </p>

@@ -19,7 +19,7 @@ export function ArticleCard({
   const href = `${path(locale, "news")}/${article.slug}`;
 
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-soft transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lift">
+    <article className="reveal group relative flex h-full flex-col overflow-hidden rounded-card border border-line bg-white transition-[border-color,box-shadow,transform] duration-200 ease-soft hover:-translate-y-0.5 hover:border-brand/25 hover:shadow-soft">
       {/* Bandeau colore tenant lieu de visuel d'article */}
       <div className={`h-2.5 ${accent.bar}`} aria-hidden="true" />
 
@@ -30,7 +30,7 @@ export function ArticleCard({
           {article.category}
         </span>
 
-        <h3 className="font-display mt-4 text-lg leading-snug font-bold text-navy sm:text-xl">
+        <h3 className="font-display mt-4 text-h3 font-bold text-navy">
           <Link href={href} className="after:absolute after:inset-0">
             {article.title}
           </Link>

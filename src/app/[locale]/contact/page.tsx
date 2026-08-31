@@ -30,19 +30,19 @@ export default async function ContactPage({ params }: LocaleParams) {
         lead={contact.hero.lead}
       />
 
-      <section className="py-14 sm:py-20 lg:py-24">
+      <section className="section">
         <Container className="grid gap-8 sm:gap-10 lg:grid-cols-[1.3fr_1fr] lg:gap-14">
           <ContactForm dictionary={dictionary} />
 
           <div className="space-y-6">
-            <div className="rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-7">
+            <div className="rounded-card border border-line bg-white p-6 sm:p-7">
               <h2 className="font-display text-lg font-bold text-navy">
                 {contact.details.title}
               </h2>
 
               <ul className="mt-6 space-y-6 text-sm">
                 <li className="flex gap-4">
-                  <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-brand-50">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-brand-50">
                     <MapPin className="size-5 text-brand" aria-hidden="true" />
                   </span>
                   <span>
@@ -60,7 +60,7 @@ export default async function ContactPage({ params }: LocaleParams) {
                 </li>
 
                 <li className="flex gap-4">
-                  <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-teal-50">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-teal-50">
                     <Mail className="size-5 text-teal-ink" aria-hidden="true" />
                   </span>
                   <span>
@@ -77,7 +77,7 @@ export default async function ContactPage({ params }: LocaleParams) {
                 </li>
 
                 <li className="flex gap-4">
-                  <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-orange-50">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-orange-50">
                     <Phone className="size-5 text-orange-ink" aria-hidden="true" />
                   </span>
                   <span>
@@ -94,7 +94,7 @@ export default async function ContactPage({ params }: LocaleParams) {
                 </li>
 
                 <li className="flex gap-4">
-                  <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-brand-50">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-brand-50">
                     <Clock className="size-5 text-brand" aria-hidden="true" />
                   </span>
                   <span>
@@ -109,11 +109,11 @@ export default async function ContactPage({ params }: LocaleParams) {
               </ul>
             </div>
 
-            <div className="rounded-3xl bg-brand p-6 text-white shadow-soft sm:p-7">
-              <span className="flex size-12 items-center justify-center rounded-2xl bg-white/15">
+            <div className="rounded-card bg-brand p-6 text-white sm:p-7">
+              <span className="flex size-11 items-center justify-center rounded-xl bg-white/15">
                 <HandHeart className="size-6" aria-hidden="true" />
               </span>
-              <h2 className="font-display mt-5 text-lg font-bold">
+              <h2 className="font-display mt-5 text-h3 font-bold">
                 {contact.volunteer.title}
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-white/85">

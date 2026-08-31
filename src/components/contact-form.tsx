@@ -84,7 +84,7 @@ export function ContactForm({ dictionary }: { dictionary: Dictionary }) {
 
   const fieldClass = (invalid?: string) =>
     cn(
-      "mt-2 w-full rounded-2xl border bg-white px-4 py-3.5 text-base text-ink transition-colors duration-150 placeholder:text-ink-muted/60 focus:outline-none",
+      "mt-2 w-full rounded-xl border bg-white px-4 py-3.5 text-base text-ink transition-colors duration-150 placeholder:text-ink-muted/60 focus:outline-none",
       invalid
         ? "border-red-500 focus:border-red-600"
         : "border-line focus:border-brand",
@@ -96,14 +96,14 @@ export function ContactForm({ dictionary }: { dictionary: Dictionary }) {
     <form
       onSubmit={onSubmit}
       noValidate
-      className="rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-9"
+      className="rounded-card border border-line bg-white p-6 sm:p-9"
     >
-      <h2 className="font-display text-2xl font-bold text-navy">{form.title}</h2>
+      <h2 className="font-display text-h2 font-bold text-navy">{form.title}</h2>
 
       {sent ? (
         <p
           role="status"
-          className="mt-6 flex items-start gap-3 rounded-2xl bg-teal-50 p-5 text-sm leading-relaxed text-ink"
+          className="mt-6 flex items-start gap-3 rounded-xl bg-teal-50 p-5 text-sm leading-relaxed text-ink"
         >
           <CheckCircle2
             className="mt-0.5 size-5 shrink-0 text-teal-ink"

@@ -46,7 +46,7 @@ export function Hero({
 
       <Container className="relative py-12 sm:py-16 lg:py-24">
         <div className="max-w-xl animate-rise lg:max-w-2xl">
-          <h1 className="font-display text-[clamp(2rem,7vw,3.75rem)] leading-[1.08] font-extrabold text-navy">
+          <h1 className="font-display text-display font-extrabold text-navy">
             {hero.titleLine1}
             <br />
             {hero.titleLine2}
@@ -55,7 +55,7 @@ export function Hero({
             <span className="text-orange">.</span>
           </h1>
 
-          <p className="mt-6 max-w-xl text-base leading-relaxed font-medium text-ink sm:mt-7 sm:text-lg">
+          <p className="mt-6 max-w-xl text-lead font-medium text-ink sm:mt-7">
             {hero.lead}
           </p>
 

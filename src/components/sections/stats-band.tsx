@@ -18,7 +18,7 @@ export function StatsBand({ locale }: { locale: Locale }) {
             return (
               <li
                 key={stat.label}
-                className="flex items-center gap-4 lg:justify-center"
+                className="reveal flex items-center gap-4 lg:justify-center"
               >
                 <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-white/10 sm:size-14">
                   <Icon

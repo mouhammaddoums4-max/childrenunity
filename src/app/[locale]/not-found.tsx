@@ -13,7 +13,7 @@ export default function NotFound() {
     <Container className="flex flex-col items-center py-20 text-center sm:py-28">
       <Arcs className="w-48 opacity-70 sm:w-64" />
       <p className="font-display mt-8 text-5xl font-extrabold text-brand sm:text-6xl">404</p>
-      <h1 className="font-display mt-4 text-2xl font-bold text-navy sm:text-3xl">
+      <h1 className="font-display mt-4 text-h2 font-bold text-navy">
         {dictionary.notFound.title}
       </h1>
       <p className="mt-4 max-w-md leading-relaxed text-ink-muted">

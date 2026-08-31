@@ -12,7 +12,7 @@ import { Logo } from "@/components/logo";
 import { cn } from "@/lib/cn";
 
 /* Le tunnel de paiement et la page de don ne sont pas des onglets. */
-type NavKey = Exclude<RouteKey, "donate" | "give">;
+type NavKey = Exclude<RouteKey, "donate" | "give" | "privacy">;
 
 const navKeys: NavKey[] = [
   "home",
@@ -81,10 +81,8 @@ export function SiteHeader({
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 border-b transition-[background-color,box-shadow,border-color] duration-300",
-        scrolled
-          ? "border-line bg-white/95 shadow-soft backdrop-blur-md"
-          : "border-transparent bg-white",
+        "sticky top-0 z-40 border-b border-line transition-colors duration-300 ease-soft",
+        scrolled ? "bg-white/85 backdrop-blur-xl" : "bg-white",
       )}
     >
       <Container className="flex h-16 items-center justify-between gap-3 sm:h-18 sm:gap-5 lg:h-20 lg:gap-6">
@@ -100,19 +98,13 @@ export function SiteHeader({
               href={item.href}
               aria-current={item.active ? "page" : undefined}
               className={cn(
-                "relative rounded-full px-2.5 py-2 text-[13px] font-semibold tracking-wide whitespace-nowrap uppercase transition-colors duration-200 xl:px-3.5",
+                "rounded-full px-3 py-2 text-[0.9375rem] font-medium whitespace-nowrap transition-colors duration-200 ease-soft xl:px-3.5",
                 item.active
-                  ? "text-brand"
-                  : "text-ink-muted hover:text-navy",
+                  ? "bg-brand-50 text-brand"
+                  : "text-ink-muted hover:bg-canvas hover:text-navy",
               )}
             >
               {item.label}
-              <span
-                className={cn(
-                  "absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-brand transition-transform duration-200",
-                  item.active ? "scale-x-100" : "scale-x-0",
-                )}
-              />
             </Link>
           ))}
         </nav>
@@ -132,7 +124,7 @@ export function SiteHeader({
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? nav.closeMenu : nav.openMenu}
-            className="flex size-11 cursor-pointer items-center justify-center rounded-full border border-line text-navy transition-colors duration-200 hover:bg-brand-50 lg:hidden"
+            className="flex size-11 cursor-pointer items-center justify-center rounded-full border border-line text-navy transition-colors duration-200 ease-soft hover:bg-canvas lg:hidden"
           >
             {open ? (
               <X className="size-5" aria-hidden="true" />
@@ -155,7 +147,7 @@ export function SiteHeader({
                 href={item.href}
                 aria-current={item.active ? "page" : undefined}
                 className={cn(
-                  "rounded-2xl px-4 py-3.5 text-base font-semibold transition-colors duration-150",
+                  "rounded-xl px-4 py-3.5 text-base font-semibold transition-colors duration-150",
                   item.active
                     ? "bg-brand-50 text-brand"
                     : "text-navy hover:bg-canvas",

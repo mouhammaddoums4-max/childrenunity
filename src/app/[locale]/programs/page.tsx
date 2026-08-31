@@ -65,17 +65,17 @@ export default async function ProgramsPage({ params }: LocaleParams) {
               id={program.slug}
               className={index % 2 === 1 ? "bg-white" : ""}
             >
-              <Container className="py-12 sm:py-16 lg:py-20">
+              <Container className="section-sm">
                 <div className="grid gap-8 sm:gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
                   <div className={reversed ? "lg:order-2" : undefined}>
                     <span
-                      className={`flex size-14 items-center justify-center rounded-3xl sm:size-16 ${accent.softBg}`}
+                      className={`flex size-14 items-center justify-center rounded-card sm:size-16 ${accent.softBg}`}
                     >
-                      <Icon className={`size-7 sm:size-8 ${accent.text}`} aria-hidden="true" />
+                      <Icon className={`size-6 ${accent.text}`} aria-hidden="true" />
                     </span>
 
                     <h2
-                      className={`font-display mt-5 text-[clamp(1.625rem,4.2vw,2.25rem)] font-bold sm:mt-6 ${accent.text}`}
+                      className={`font-display mt-5 text-h2 font-bold sm:mt-6 ${accent.text}`}
                     >
                       {program.title}
                     </h2>
@@ -87,7 +87,7 @@ export default async function ProgramsPage({ params }: LocaleParams) {
                     </p>
 
                     <div
-                      className={`mt-8 flex items-start gap-3.5 rounded-2xl p-5 ${accent.softBg}`}
+                      className={`mt-8 flex items-start gap-3.5 rounded-xl p-5 ${accent.softBg}`}
                     >
                       <TrendingUp
                         className={`mt-0.5 size-5 shrink-0 ${accent.text}`}
@@ -103,7 +103,7 @@ export default async function ProgramsPage({ params }: LocaleParams) {
                   </div>
 
                   <div className={reversed ? "lg:order-1" : undefined}>
-                    <div className="rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-8">
+                    <div className="rounded-card border border-line bg-white p-6 sm:p-8">
                       <h3 className="font-display text-lg font-bold text-navy">
                         {copy.detailTitle}
                       </h3>
@@ -133,10 +133,10 @@ export default async function ProgramsPage({ params }: LocaleParams) {
         })}
       </div>
 
-      <section className="py-14 sm:py-20 lg:py-24">
+      <section className="section">
         <Container>
-          <div className="rounded-[1.75rem] bg-navy p-7 text-center text-white sm:rounded-[2rem] sm:p-10 lg:p-14">
-            <h2 className="font-display text-2xl font-bold sm:text-3xl">
+          <div className="rounded-panel bg-navy p-7 text-center text-white sm:p-10 lg:p-14">
+            <h2 className="font-display text-h2 font-bold">
               {copy.cta.title}
             </h2>
             <p className="mx-auto mt-4 max-w-xl leading-relaxed text-white/80">

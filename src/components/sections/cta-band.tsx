@@ -16,15 +16,15 @@ export function CtaBand({
   const { common } = dictionary;
 
   return (
-    <section className="py-14 sm:py-20 lg:py-24">
+    <section className="section">
       <Container>
-        <div className="relative overflow-hidden rounded-[1.75rem] bg-brand px-6 py-10 text-white sm:rounded-[2rem] sm:px-14 sm:py-16">
+        <div className="relative overflow-hidden rounded-panel bg-brand px-6 py-10 text-white sm:px-14 sm:py-16">
           <Arcs
             className="pointer-events-none absolute -top-12 -right-8 w-56 opacity-20 sm:-top-16 sm:-right-10 sm:w-80"
           />
 
           <div className="relative max-w-2xl">
-            <h2 className="font-display text-[clamp(1.5rem,4.2vw,2.25rem)] leading-tight font-bold">
+            <h2 className="font-display text-h2 font-bold">
               {cta.title}
             </h2>
             <p className="mt-4 text-base leading-relaxed text-white/85 sm:mt-5 sm:text-lg">

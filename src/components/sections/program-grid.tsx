@@ -22,19 +22,19 @@ export function ProgramGrid({
         const accent = accentClasses[program.accent];
 
         return (
-          <li key={program.slug}>
+          <li key={program.slug} className="reveal">
             <Link
               href={`${path(locale, "programs")}#${program.slug}`}
-              className="group flex h-full flex-col rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-7 transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-transparent hover:shadow-lift"
+              className="group flex h-full flex-col rounded-card border border-line bg-white p-6 transition-[border-color,box-shadow,transform] duration-200 ease-soft hover:-translate-y-0.5 hover:border-brand/25 hover:shadow-soft sm:p-7"
             >
               <span
-                className={`flex size-12 items-center justify-center rounded-2xl sm:size-14 ${accent.softBg}`}
+                className={`flex size-11 items-center justify-center rounded-xl ${accent.softBg}`}
               >
-                <Icon className={`size-6 sm:size-7 ${accent.text}`} aria-hidden="true" />
+                <Icon className={`size-5.5 ${accent.text}`} aria-hidden="true" />
               </span>
 
               <h3
-                className={`font-display mt-5 text-lg font-bold sm:mt-6 ${accent.text}`}
+                className={`font-display mt-5 text-h3 font-bold ${accent.text}`}
               >
                 {program.title}
               </h3>

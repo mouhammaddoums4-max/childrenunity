@@ -572,6 +572,62 @@ const en: typeof fr = {
     social: "Follow us",
   },
 
+  consent: {
+    title: "Your data, your choice",
+    body: "This site sets no advertising cookies and sells no data. We only keep your display preferences, such as language and currency. You may also allow anonymous audience measurement, which helps us know which pages are useful.",
+    acceptAll: "Accept all",
+    essential: "Essential only",
+    learnMore: "Privacy policy",
+    label: "Choices about your data",
+  },
+  video: {
+    consentTitle: "Video hosted by YouTube",
+    consentBody: "Playing it opens a connection to YouTube, which may set its own trackers. Nothing loads until you ask for it.",
+    play: "Load and play the video",
+    openExternally: "Open on YouTube",
+  },
+
+  privacy: {
+    meta: {
+      title: "Privacy policy",
+      description:
+        "What this site records, what it does not, and how to exercise your rights.",
+    },
+    hero: {
+      eyebrow: "Privacy",
+      title: "What this site knows about you",
+      lead: "As little as possible. This page says exactly what, why, and how to change your mind.",
+    },
+    updated: "Last updated",
+    sections: [
+      {
+        title: "What we do not record",
+        body: "No advertising cookies, no social network pixels, no data resale. We have no ad network and we will not have one. The site builds no browsing profile and does not follow you from site to site.",
+      },
+      {
+        title: "What stays in your browser",
+        body: "Your display preferences — language, currency and your answer to the banner — are kept on your own device, in local storage. They never leave it and are never sent to us. Clearing the site data erases them.",
+      },
+      {
+        title: "What you send us yourself",
+        body: "The contact form and the donation flow open your own email app with a pre-filled message: you send it, and nothing is stored on this site. We then receive the information you chose to write, and use it only to reply to you and follow up on your gift.",
+      },
+      {
+        title: "Videos",
+        body: "Videos are hosted by YouTube. They do not load on their own: until you click to play, no connection to YouTube is opened and none of its trackers can be set.",
+      },
+      {
+        title: "Sponsored children",
+        body: "Sponsorship profiles carry only a first name, or a pseudonym, and a reference. No surname, no address, no school name. A photo or video is published only with the written consent of the legal guardian, and is removed on request.",
+      },
+      {
+        title: "Your rights",
+        body: "You may ask us at any time what information we hold about you, have it corrected, or have it erased. Write to us and we reply within two working days.",
+      },
+    ],
+    contactTitle: "A question about your data?",
+  },
+
   notFound: {
     title: "Page not found",
     body: "The page you are looking for may have moved or no longer exists.",

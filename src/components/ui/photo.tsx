@@ -33,7 +33,7 @@ export function Photo({
   return (
     <div
       className={cn(
-        "relative w-full overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-brand-50 to-teal-50 sm:rounded-[2rem]",
+        "relative w-full overflow-hidden rounded-panel bg-gradient-to-br from-brand-50 to-teal-50",
         ratio,
         className,
       )}

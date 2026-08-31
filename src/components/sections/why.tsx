@@ -27,7 +27,7 @@ export function Why({
   const { common } = dictionary;
 
   return (
-    <section className="border-y border-line bg-white py-14 sm:py-20 lg:py-24">
+    <section className="section border-y border-line bg-white">
       <Container>
         <SectionHeading
           eyebrow={why.eyebrow}
@@ -38,14 +38,14 @@ export function Why({
 
         <div className="mt-10 grid gap-5 sm:mt-14 sm:gap-6 lg:grid-cols-2">
           {/* Le constat */}
-          <article className="rounded-3xl border border-line bg-canvas p-6 sm:p-8">
-            <span className="flex size-12 items-center justify-center rounded-2xl bg-orange-50 sm:size-14">
+          <article className="reveal rounded-card border border-line bg-canvas p-6 sm:p-8">
+            <span className="flex size-11 items-center justify-center rounded-xl bg-orange-50">
               <TriangleAlert
-                className="size-6 text-orange-ink sm:size-7"
+                className="size-5.5 text-orange-ink"
                 aria-hidden="true"
               />
             </span>
-            <h3 className="font-display mt-5 text-xl font-bold text-navy sm:mt-6">
+            <h3 className="font-display mt-5 text-h3 font-bold text-navy">
               {why.problem.title}
             </h3>
             <p className="mt-3 leading-relaxed text-ink-muted">
@@ -54,14 +54,14 @@ export function Why({
           </article>
 
           {/* Notre reponse */}
-          <article className="rounded-3xl border border-brand/15 bg-brand-50/60 p-6 sm:p-8">
-            <span className="flex size-12 items-center justify-center rounded-2xl bg-white sm:size-14">
+          <article className="reveal rounded-card border border-brand/15 bg-brand-50/60 p-6 sm:p-8">
+            <span className="flex size-11 items-center justify-center rounded-xl bg-white">
               <HandHeart
-                className="size-6 text-brand sm:size-7"
+                className="size-5.5 text-brand"
                 aria-hidden="true"
               />
             </span>
-            <h3 className="font-display mt-5 text-xl font-bold text-navy sm:mt-6">
+            <h3 className="font-display mt-5 text-h3 font-bold text-navy">
               {why.answer.title}
             </h3>
             <p className="mt-3 leading-relaxed text-ink-muted">
@@ -71,7 +71,7 @@ export function Why({
         </div>
 
         {/* L'enjeu : les deux trajectoires d'un meme enfant */}
-        <div className="mt-8 overflow-hidden rounded-[1.75rem] bg-navy px-6 py-10 text-white sm:mt-10 sm:rounded-[2rem] sm:px-10 sm:py-12 lg:px-14">
+        <div className="reveal-panel mt-8 overflow-hidden rounded-panel bg-navy px-6 py-10 text-white sm:mt-10 sm:px-10 sm:py-12 lg:px-14">
           <SectionHeading
             eyebrow={stake.eyebrow}
             title={stake.title}
@@ -129,11 +129,11 @@ function Trajectory({
     <div
       className={
         without
-          ? "rounded-3xl bg-white/[0.06] p-6 ring-1 ring-white/10 sm:p-8"
-          : "rounded-3xl bg-teal/15 p-6 ring-1 ring-teal/30 sm:p-8"
+          ? "rounded-card bg-white/[0.06] p-6 ring-1 ring-white/10 sm:p-8"
+          : "rounded-card bg-teal/15 p-6 ring-1 ring-teal/30 sm:p-8"
       }
     >
-      <h3 className="font-display text-lg font-bold sm:text-xl">{title}</h3>
+      <h3 className="font-display text-h3 font-bold">{title}</h3>
 
       <ul className="mt-5 space-y-3.5">
         {items.map((item) => (

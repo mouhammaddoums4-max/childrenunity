@@ -35,15 +35,15 @@ export default async function DonatePage({ params }: LocaleParams) {
         lead={donate.hero.lead}
       />
 
-      <section className="py-14 sm:py-20 lg:py-24">
+      <section className="section">
         <Container className="grid gap-8 sm:gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
           <DonationWidget locale={locale} dictionary={dictionary} />
 
-          <div className="rounded-3xl bg-navy p-6 text-white shadow-soft sm:p-8 lg:p-10">
-            <span className="flex size-12 items-center justify-center rounded-2xl bg-white/10 sm:size-14">
+          <div className="rounded-card bg-navy p-6 text-white sm:p-8 lg:p-10">
+            <span className="flex size-11 items-center justify-center rounded-xl bg-white/10">
               <ShieldCheck className="size-7 text-teal" aria-hidden="true" />
             </span>
-            <h2 className="font-display mt-6 text-2xl font-bold">
+            <h2 className="font-display mt-5 text-h2 font-bold">
               {donate.transparency.title}
             </h2>
             <p className="mt-4 leading-relaxed text-white/80">
@@ -61,7 +61,7 @@ export default async function DonatePage({ params }: LocaleParams) {
                   </div>
                   <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/15">
                     <div
-                      className="h-full rounded-full bg-teal"
+                      className="reveal-bar h-full rounded-full bg-teal"
                       style={{ width: `${item.value}%` }}
                     />
                   </div>
@@ -72,7 +72,7 @@ export default async function DonatePage({ params }: LocaleParams) {
         </Container>
       </section>
 
-      <section className="bg-white py-14 sm:py-20 lg:py-24">
+      <section className="bg-white section">
         <Container>
           <SectionHeading
             eyebrow={donate.other.eyebrow}
@@ -88,14 +88,14 @@ export default async function DonatePage({ params }: LocaleParams) {
               return (
                 <li
                   key={item.title}
-                  className="rounded-3xl border border-line bg-canvas p-6 sm:p-8"
+                  className="rounded-card border border-line bg-canvas p-6 sm:p-8"
                 >
                   <span
-                    className={`flex size-12 items-center justify-center rounded-2xl sm:size-14 ${style.bg}`}
+                    className={`flex size-11 items-center justify-center rounded-xl ${style.bg}`}
                   >
                     <Icon className={`size-7 ${style.text}`} aria-hidden="true" />
                   </span>
-                  <h3 className="font-display mt-6 text-lg font-bold text-navy">
+                  <h3 className="font-display mt-5 text-h3 font-bold text-navy">
                     {item.title}
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-ink-muted">

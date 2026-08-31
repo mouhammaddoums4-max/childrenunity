@@ -31,7 +31,7 @@ export default async function HomePage({ params }: LocaleParams) {
       <Why locale={locale} dictionary={dictionary} />
 
       {/* Programmes */}
-      <section className="py-14 sm:py-16 lg:py-20">
+      <section className="section-sm">
         <Container>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <SectionHeading
@@ -58,7 +58,7 @@ export default async function HomePage({ params }: LocaleParams) {
       <StatsBand locale={locale} />
 
       {/* Qui nous sommes */}
-      <section className="py-14 sm:py-20 lg:py-24">
+      <section className="section">
         <Container className="grid items-center gap-10 sm:gap-14 lg:grid-cols-2">
           <div className="order-2 lg:order-1">
             <Photo
@@ -101,7 +101,7 @@ export default async function HomePage({ params }: LocaleParams) {
       <Testimonials locale={locale} dictionary={dictionary} />
 
       {/* Actualites */}
-      <section className="py-14 sm:py-20 lg:py-24">
+      <section className="section">
         <Container>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <SectionHeading

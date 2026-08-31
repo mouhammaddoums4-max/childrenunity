@@ -14,7 +14,7 @@ import { Container } from "@/components/ui/container";
 import { NewsletterForm } from "@/components/newsletter-form";
 
 /* Le tunnel de paiement et la page de don ne sont pas des onglets. */
-type NavKey = Exclude<RouteKey, "donate" | "give">;
+type NavKey = Exclude<RouteKey, "donate" | "give" | "privacy">;
 
 const navKeys: NavKey[] = ["home", "about", "programs", "sponsorship", "impact", "news", "contact"];
 
@@ -43,7 +43,7 @@ export function SiteFooter({
 
   return (
     <footer className="mt-16 bg-navy text-white sm:mt-24">
-      <Container className="py-12 sm:py-16 lg:py-20">
+      <Container className="section-sm">
         <div className="grid gap-10 sm:grid-cols-2 sm:gap-12 lg:grid-cols-[1.4fr_1fr_1fr] lg:gap-16">
           {/* Identite + newsletter */}
           <div className="sm:col-span-2 lg:col-span-1">

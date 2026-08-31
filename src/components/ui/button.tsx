@@ -4,21 +4,24 @@ import { cn } from "@/lib/cn";
 type Variant = "primary" | "outline" | "accent" | "quiet";
 type Size = "md" | "lg";
 
+/*
+ * Boutons volontairement plats : la hierarchie passe par la couleur et le
+ * contraste, pas par l'ombre portee. Seul le survol assombrit legerement
+ * le fond, ce qui suffit a signaler l'etat sans faire bouger la mise en
+ * page (aucune ombre ni translation qui decalerait les voisins).
+ */
 const base =
   "inline-flex items-center justify-center gap-2 rounded-full font-semibold " +
-  "transition-[background-color,color,box-shadow,transform] duration-200 " +
-  "cursor-pointer select-none text-center active:scale-[0.98] " +
-  "disabled:cursor-not-allowed disabled:opacity-50 disabled:active:scale-100";
+  "transition-[background-color,border-color,color,transform] duration-200 ease-soft " +
+  "active:scale-[0.98] " +
+  "cursor-pointer select-none text-center " +
+  "disabled:cursor-not-allowed disabled:opacity-50";
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-brand text-white shadow-soft hover:bg-brand-600 hover:shadow-lift",
-  outline:
-    "border-2 border-brand/25 bg-white text-brand hover:border-brand hover:bg-brand-50",
-  accent:
-    "bg-orange text-white shadow-soft hover:bg-orange-ink hover:shadow-lift",
-  quiet:
-    "bg-white/10 text-white ring-1 ring-white/30 hover:bg-white/20 backdrop-blur-sm",
+  primary: "bg-brand text-white hover:bg-brand-600",
+  outline: "border border-brand/30 bg-white text-brand hover:border-brand hover:bg-brand-50",
+  accent: "bg-orange text-white hover:bg-orange-ink",
+  quiet: "bg-white/12 text-white ring-1 ring-white/25 hover:bg-white/20",
 };
 
 /* Hauteurs >= 44px : cible tactile minimale recommandee. */

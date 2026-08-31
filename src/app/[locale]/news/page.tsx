@@ -27,10 +27,10 @@ export default async function NewsPage({ params }: LocaleParams) {
         lead={dictionary.news.hero.lead}
       />
 
-      <section className="py-14 sm:py-20 lg:py-24">
+      <section className="section">
         <Container>
           {articles.length === 0 ? (
-            <p className="rounded-3xl border border-line bg-white p-7 text-center text-ink-muted sm:p-10">
+            <p className="rounded-card border border-line bg-white p-7 text-center text-ink-muted sm:p-10">
               {dictionary.news.empty}
             </p>
           ) : (

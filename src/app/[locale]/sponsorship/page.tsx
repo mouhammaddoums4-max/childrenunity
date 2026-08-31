@@ -41,7 +41,7 @@ export default async function SponsorshipPage({ params }: LocaleParams) {
       />
 
       {/* Enfants proposes au parrainage */}
-      <section className="py-14 sm:py-16 lg:py-20">
+      <section className="section-sm">
         <Container>
           <ul className="grid gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
             {children.map((child) => (
@@ -56,8 +56,8 @@ export default async function SponsorshipPage({ params }: LocaleParams) {
           </ul>
 
           {/* Engagement de protection, affiche avec les fiches */}
-          <div className="mt-10 flex max-w-3xl items-start gap-3.5 rounded-3xl border border-line bg-white p-5 shadow-soft sm:mt-12 sm:gap-4 sm:p-6">
-            <span className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-teal-50">
+          <div className="mt-10 flex max-w-3xl items-start gap-3.5 rounded-card border border-line bg-white p-5 shadow-soft sm:mt-12 sm:gap-4 sm:p-6">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-teal-50">
               <ShieldCheck className="size-5 text-teal-ink" aria-hidden="true" />
             </span>
             <p className="text-sm leading-relaxed text-ink-muted">
@@ -71,7 +71,7 @@ export default async function SponsorshipPage({ params }: LocaleParams) {
       </section>
 
       {/* Fonctionnement */}
-      <section className="bg-white py-14 sm:py-20 lg:py-24">
+      <section className="bg-white section">
         <Container>
           <SectionHeading
             eyebrow={sponsorship.how.eyebrow}
@@ -83,15 +83,15 @@ export default async function SponsorshipPage({ params }: LocaleParams) {
             {sponsorship.how.steps.map((step, index) => (
               <li
                 key={step.title}
-                className="rounded-3xl border border-line bg-canvas p-6 sm:p-7"
+                className="rounded-card border border-line bg-canvas p-6 sm:p-7"
               >
                 <span
-                  className={`font-display flex size-12 items-center justify-center rounded-2xl text-lg font-bold tabular-nums ${stepColors[index]}`}
+                  className={`font-display flex size-11 items-center justify-center rounded-xl text-lg font-bold tabular-nums ${stepColors[index]}`}
                   aria-hidden="true"
                 >
                   {index + 1}
                 </span>
-                <h3 className="font-display mt-5 text-lg font-bold text-navy">
+                <h3 className="font-display mt-5 text-h3 font-bold text-navy">
                   {step.title}
                 </h3>
                 <p className="mt-2.5 text-sm leading-relaxed text-ink-muted">
