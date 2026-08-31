@@ -174,7 +174,16 @@ export function SiteFooter({
           <p>
             &copy; {year} {meta.siteName}. {footer.rights}
           </p>
-          <p className="text-white/50">{meta.tagline}</p>
+          <p className="flex items-center gap-4">
+            <Link
+              href={path(locale, "privacy")}
+              className="text-white/60 transition-colors duration-150 hover:text-white"
+            >
+              {footer.privacy}
+            </Link>
+            <span className="hidden text-white/40 sm:inline">·</span>
+            <span className="hidden text-white/50 sm:inline">{meta.tagline}</span>
+          </p>
         </div>
       </Container>
     </footer>

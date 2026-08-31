@@ -157,16 +157,65 @@ permet de vérifier qui a le droit d'accéder à quoi. L'ordre prévu :
 Tant que le nombre de parrains reste modeste, l'envoi manuel des reçus et des
 points d'étape depuis un outil d'emailing suffit.
 
-## Déploiement
+## Sécurité et vie privée
 
-Le site utilise un middleware pour rediriger `/` vers la langue du navigateur, ce
-qui demande un hébergement Next.js (et non un export statique). Le plus direct
-est [Vercel](https://vercel.com) : importer le dépôt, aucune configuration
-supplémentaire n'est nécessaire.
+Le site n'a ni base de données, ni compte utilisateur, ni formulaire enregistré
+côté serveur : la surface d'attaque se limite à des pages statiques. Il n'y a
+donc ni injection SQL, ni vol de session, ni élévation de privilèges possibles.
 
-Définir la variable d'environnement suivante pour le sitemap et les métadonnées
-de partage :
+En complément, `next.config.ts` sert un jeu complet d'en-têtes :
+
+| En-tête | Effet |
+|---|---|
+| `Content-Security-Policy` | seul le domaine du site peut fournir scripts, styles, images et polices ; seul YouTube sans cookie peut être mis en cadre |
+| `Strict-Transport-Security` | HTTPS obligatoire pendant deux ans |
+| `X-Frame-Options` · `frame-ancestors` | le site ne peut pas être encadré (clickjacking) |
+| `X-Content-Type-Options` | interdit au navigateur de deviner un type de fichier |
+| `Referrer-Policy` | l'URL complète n'est jamais transmise à un autre domaine |
+| `Permissions-Policy` | caméra, micro, position, paiement et capteurs refusés |
+| `Cross-Origin-*` | isole le site des autres onglets |
+
+**Aucune requête ne part vers un domaine tiers.** Les polices sont auto-hébergées
+par `next/font`, et les vidéos YouTube restent derrière une vignette : rien n'est
+chargé chez Google tant que le visiteur n'a pas cliqué pour lire.
+
+Ce qui reste à votre charge, et qui compte autant que le code : activer la
+**double authentification** sur le compte GitHub, sur Railway et chez le
+registrar du domaine. La plupart des sites tombent par un mot de passe, pas par
+une faille applicative.
+
+### Consentement
+
+Le bandeau propose deux réponses, et l'absence de réponse vaut refus. Seules les
+préférences d'affichage (langue, devise, réponse au bandeau) sont conservées,
+dans le stockage local du navigateur — elles ne sont jamais transmises. La page
+`/privacy` détaille l'ensemble.
+
+## Déploiement sur Railway
+
+Le middleware qui redirige `/` vers la langue du navigateur impose un hébergement
+Next.js complet, et non un export statique. Railway convient parfaitement.
+
+1. **New Project → Deploy from GitHub repo**, choisir `childrenunity`
+2. Railway détecte Next.js et lit `railway.json` : build `npm run build`,
+   démarrage `npm start`, contrôle de santé sur `/fr`
+3. Ajouter les variables d'environnement ci-dessous
+4. **Settings → Networking → Generate Domain**, puis brancher le domaine
+   `childrensunityfoundation.org` et suivre les enregistrements DNS indiqués
+
+Railway injecte lui-même la variable `PORT` ; le script `start` écoute sur
+`0.0.0.0` pour que le conteneur soit joignable.
+
+### Variables d'environnement
+
+| Variable | Rôle | Obligatoire |
+|---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | URL publique, utilisée par le sitemap et les aperçus de partage | oui |
+| `NEXT_PUBLIC_NEWSLETTER_ENDPOINT` | URL du formulaire d'inscription du prestataire d'emailing (Brevo, Mailchimp). Sans elle, l'inscription passe par le logiciel de messagerie du visiteur | non |
 
 ```
 NEXT_PUBLIC_SITE_URL=https://childrensunityfoundation.org
 ```
+
+Ces variables sont lues **à la compilation** : après les avoir modifiées dans
+Railway, relancez un déploiement pour qu'elles soient prises en compte.

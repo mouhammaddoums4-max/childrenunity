@@ -6,6 +6,7 @@ import { getDictionary } from "@/i18n/dictionaries";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SocialRail } from "@/components/social-rail";
+import { CookieNotice } from "@/components/cookie-notice";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { siteUrl } from "@/lib/site";
 import "../globals.css";
@@ -99,6 +100,8 @@ export default async function LocaleLayout({
           locale={typedLocale}
           label={dictionary.nav.changeLanguage}
         />
+
+        <CookieNotice locale={typedLocale} dictionary={dictionary} />
       </body>
     </html>
   );

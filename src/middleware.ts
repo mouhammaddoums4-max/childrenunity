@@ -40,9 +40,14 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  /* On laisse passer les fichiers statiques, les routes d'API et les
-     fichiers de reference lus par les moteurs de recherche. */
+  /* On laisse passer les fichiers statiques, les routes d'API, les
+     fichiers de reference lus par les moteurs de recherche et le dossier
+     .well-known (security.txt).
+
+     Les points sont echappes en `\\.` : dans une chaine JavaScript, `\.`
+     se reduit a `.`, qui accepte n'importe quel caractere et rendait le
+     filtre plus large que voulu. */
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|.*\.(?:png|jpg|jpeg|svg|webp|ico|xml|txt)$).*)",
+    "/((?!api|_next/static|_next/image|\\.well-known|favicon\\.ico|robots\\.txt|sitemap\\.xml|.*\\.(?:png|jpg|jpeg|svg|webp|avif|ico|xml|txt)$).*)",
   ],
 };

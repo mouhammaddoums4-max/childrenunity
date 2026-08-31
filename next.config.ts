@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const isProduction = process.env.NODE_ENV === "production";
+
 /**
  * Politique de sécurité du contenu.
  *
@@ -11,19 +13,29 @@ import type { NextConfig } from "next";
  * d'entrée par lequel injecter du script. Tout ce qui vient d'un autre
  * domaine reste bloqué, ce qui coupe le vecteur d'attaque réel.
  *
+ * Les styles, eux, sont resserrés en production : la compilation ne produit
+ * aucune balise `<style>` en ligne (vérifié sur la sortie du build), seuls
+ * les attributs `style` posés par React subsistent — d'où la séparation
+ * entre `style-src` et `style-src-attr`. En développement, le rechargement
+ * à chaud injecte des styles en ligne : la règle y reste souple.
+ *
  * `frame-src` n'autorise que YouTube en mode sans cookie, pour les vidéos
- * de présentation des enfants parrainés.
+ * de présentation des enfants parrainés. Aucune miniature n'est chargée
+ * avant le clic, donc aucun domaine d'images tiers n'est autorisé.
  */
 const contentSecurityPolicy = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline'",
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://i.ytimg.com",
+  isProduction ? "style-src 'self'" : "style-src 'self' 'unsafe-inline'",
+  "style-src-attr 'unsafe-inline'",
+  "img-src 'self' data: blob:",
   "font-src 'self' data:",
   "connect-src 'self'",
   "frame-src https://www.youtube-nocookie.com",
   "media-src 'self'",
   "manifest-src 'self'",
+  /* Le site n'emploie ni service worker ni worker dédié. */
+  "worker-src 'none'",
   /* Aucun plugin, aucune balise <base> détournée, aucun envoi de
      formulaire vers un domaine tiers, aucune mise en cadre du site. */
   "object-src 'none'",
@@ -32,6 +44,30 @@ const contentSecurityPolicy = [
   "frame-ancestors 'none'",
   "upgrade-insecure-requests",
 ].join("; ");
+
+/**
+ * Capteurs et interfaces matérielles refusés par défaut, y compris aux
+ * cadres embarqués. Seul le plein écran est concédé, et uniquement au
+ * lecteur YouTube sans cookie : sans cette exception, `allowFullScreen`
+ * sur l'iframe resterait sans effet.
+ */
+const permissionsPolicy = [
+  'fullscreen=(self "https://www.youtube-nocookie.com")',
+  "accelerometer=()",
+  "autoplay=(self)",
+  "browsing-topics=()",
+  "camera=()",
+  "display-capture=()",
+  "encrypted-media=(self)",
+  "geolocation=()",
+  "gyroscope=()",
+  "magnetometer=()",
+  "microphone=()",
+  "midi=()",
+  "payment=()",
+  "usb=()",
+  "xr-spatial-tracking=()",
+].join(", ");
 
 const securityHeaders = [
   { key: "Content-Security-Policy", value: contentSecurityPolicy },
@@ -46,10 +82,12 @@ const securityHeaders = [
   /* Redondant avec frame-ancestors, mais compris des navigateurs anciens. */
   { key: "X-Frame-Options", value: "DENY" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  {
-    key: "Permissions-Policy",
-    value: "camera=(), microphone=(), geolocation=(), payment=(), usb=()",
-  },
+  { key: "Permissions-Policy", value: permissionsPolicy },
+  /* Ni Flash ni Acrobat ne doivent lire une politique inter-domaines ici. */
+  { key: "X-Permitted-Cross-Domain-Policies", value: "none" },
+  /* Le site obtient son propre cluster d'agents : une page d'un autre
+     sous-domaine ne peut plus tenter de partager sa mémoire avec lui. */
+  { key: "Origin-Agent-Cluster", value: "?1" },
   { key: "X-DNS-Prefetch-Control", value: "on" },
   { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
   { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
@@ -60,7 +98,18 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
 
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      /* Le fichier de contact sécurité doit rester lisible par tous les
+         outils de veille, y compris depuis un autre domaine. */
+      {
+        source: "/.well-known/security.txt",
+        headers: [
+          { key: "Content-Type", value: "text/plain; charset=utf-8" },
+          { key: "Cross-Origin-Resource-Policy", value: "cross-origin" },
+        ],
+      },
+    ];
   },
 };
 
