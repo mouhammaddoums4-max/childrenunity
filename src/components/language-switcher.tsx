@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { Check, ChevronDown, Languages } from "lucide-react";
 import { locales, localeNames, type Locale } from "@/i18n/config";
 import { cn } from "@/lib/cn";
 
@@ -18,6 +16,11 @@ function swapLocale(pathname: string, next: Locale): string {
   return `/${segments.join("/")}`;
 }
 
+/**
+ * Interrupteur FR/EN flottant, ancre au milieu du bord droit de la
+ * fenetre. Les deux langues restent visibles en permanence : le pouce
+ * violet glisse sur celle qui est active, comme un bouton switch.
+ */
 export function LanguageSwitcher({
   locale,
   label,
@@ -26,78 +29,44 @@ export function LanguageSwitcher({
   label: string;
 }) {
   const pathname = usePathname() ?? `/${locale}`;
-  const [open, setOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!open) return;
-
-    function onPointerDown(event: MouseEvent) {
-      if (!containerRef.current?.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    }
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setOpen(false);
-    }
-
-    document.addEventListener("mousedown", onPointerDown);
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("mousedown", onPointerDown);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [open]);
+  const activeIndex = Math.max(0, locales.indexOf(locale));
 
   return (
-    <div ref={containerRef} className="relative">
-      <button
-        type="button"
-        onClick={() => setOpen((value) => !value)}
-        aria-expanded={open}
-        aria-haspopup="menu"
+    <div className="fixed top-1/2 right-3 z-30 -translate-y-1/2 sm:right-5">
+      <div
+        role="group"
         aria-label={label}
-        className="flex min-h-11 cursor-pointer items-center gap-1.5 rounded-full border border-line bg-white px-4 py-2 text-sm font-semibold text-navy transition-colors duration-200 hover:border-brand/40 hover:bg-brand-50"
+        className="relative flex flex-col gap-1 rounded-full border border-line bg-white/90 p-1 shadow-lift backdrop-blur-md"
       >
-        <Languages className="size-4 text-brand" aria-hidden="true" />
-        <span className="uppercase">{locale}</span>
-        <ChevronDown
-          className={cn(
-            "size-4 text-ink-muted transition-transform duration-200",
-            open && "rotate-180",
-          )}
+        {/* Pouce coulissant : purement decoratif, l'etat reel est porte
+            par aria-current sur le lien actif. */}
+        <span
           aria-hidden="true"
+          className="absolute inset-x-1 top-1 h-9 rounded-full bg-brand shadow-soft transition-transform duration-300 ease-out"
+          style={{ transform: `translateY(${activeIndex * 2.5}rem)` }}
         />
-      </button>
 
-      {open ? (
-        <div
-          role="menu"
-          className="absolute right-0 z-50 mt-2 w-44 overflow-hidden rounded-2xl border border-line bg-white p-1.5 shadow-lift"
-        >
-          {locales.map((code) => (
+        {locales.map((code) => {
+          const active = code === locale;
+          return (
             <Link
               key={code}
-              role="menuitem"
               href={swapLocale(pathname, code)}
-              onClick={() => setOpen(false)}
               lang={code}
               hrefLang={code}
+              aria-current={active ? "true" : undefined}
+              title={localeNames[code]}
               className={cn(
-                "flex items-center justify-between rounded-xl px-3 py-2.5 text-sm font-medium transition-colors duration-150",
-                code === locale
-                  ? "bg-brand-50 text-brand"
-                  : "text-ink hover:bg-canvas",
+                "relative z-10 flex size-9 items-center justify-center rounded-full text-xs font-bold tracking-wide uppercase transition-colors duration-200",
+                active ? "text-white" : "text-ink-muted hover:text-brand",
               )}
             >
-              {localeNames[code]}
-              {code === locale ? (
-                <Check className="size-4" aria-hidden="true" />
-              ) : null}
+              {code}
+              <span className="sr-only"> — {localeNames[code]}</span>
             </Link>
-          ))}
-        </div>
-      ) : null}
+          );
+        })}
+      </div>
     </div>
   );
 }

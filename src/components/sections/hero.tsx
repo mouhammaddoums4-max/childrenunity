@@ -30,7 +30,7 @@ export function Hero({
         className="pointer-events-none absolute top-24 right-0 size-96 rounded-full bg-teal/10 blur-3xl"
       />
 
-      <Container className="relative grid items-center gap-14 py-16 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:py-24">
+      <Container className="relative grid items-center gap-12 py-14 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:py-20">
         <div className="animate-rise">
           <h1 className="font-display text-4xl leading-[1.08] font-extrabold text-navy sm:text-5xl lg:text-6xl">
             {hero.titleLine1}
@@ -60,7 +60,7 @@ export function Hero({
             </ButtonLink>
           </div>
 
-          <ul className="mt-12 flex flex-wrap gap-x-10 gap-y-6">
+          <ul className="mt-10 flex flex-wrap gap-x-10 gap-y-6">
             {hero.pillars.map((pillar, index) => {
               const Icon = pillarIcons[index];
               return (

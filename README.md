@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Children's Unity Foundation — site web
 
-## Getting Started
+Site vitrine bilingue (français / anglais) de la **Children's Unity Foundation (CUF)**,
+organisation non gouvernementale indépendante, apolitique, non confessionnelle et à but
+non lucratif, qui œuvre en Afrique pour l'éducation, le mentorat, la formation
+professionnelle, le leadership, la protection de l'enfance et le développement des
+communautés.
 
-First, run the development server:
+- Site : https://childrensunityfoundation.org
+- Contact : contact@childrensunityfoundation.org
+
+## Stack
+
+| | |
+|---|---|
+| Framework | Next.js 16 (App Router, React 19) |
+| Langage | TypeScript |
+| Styles | Tailwind CSS v4 (tokens définis dans `src/app/globals.css`) |
+| Icônes | lucide-react (SVG), logos de réseaux sociaux en SVG local |
+| Polices | Poppins (titres) et Inter (texte), servies par `next/font` |
+
+Toutes les pages sont pré-rendues en statique dans les deux langues.
+
+## Démarrer
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Autres commandes :
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build    # build de production
+npm start        # sert le build de production
+npm run lint     # ESLint
+npx tsc --noEmit # vérification des types
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Structure
 
-## Learn More
+```
+src/
+  app/
+    [locale]/            toutes les pages, préfixées par /fr ou /en
+      page.tsx           accueil
+      about/             à propos (mission, valeurs, statut, équipe)
+      programs/          les six programmes, avec ancre par programme
+      impact/            chiffres, répartition des dépenses, pays
+      news/              actualités + page d'article
+      contact/           coordonnées et formulaire
+      donate/            montants de don et transparence
+    sitemap.ts, robots.ts
+  components/            en-tête, pied de page, sections, composants d'interface
+  i18n/                  fr.ts, en.ts (textes) et configuration des langues
+  lib/                   content.ts (contenu éditorial), helpers
+  middleware.ts          redirige / vers la langue du navigateur
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Modifier le contenu
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Deux fichiers couvrent la quasi-totalité des textes :
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **`src/lib/content.ts`** — programmes, chiffres d'impact, pays, témoignages,
+  équipe, actualités, coordonnées et montants de don. Chaque entrée porte ses deux
+  versions linguistiques côte à côte, pour qu'aucune traduction ne soit oubliée.
+- **`src/i18n/fr.ts` et `src/i18n/en.ts`** — libellés d'interface et textes de
+  chaque page. Les deux fichiers partagent la même structure : `en.ts` est typé
+  d'après `fr.ts`, donc une clé manquante fait échouer la compilation.
 
-## Deploy on Vercel
+Le logo est dans `public/` en trois variantes : `logo.png` (original),
+`logo-full.png` (fond transparent) et `logo-mark.png` (symbole seul, utilisé dans
+l'en-tête, le pied de page et la bannière d'accueil).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## À brancher avant la mise en production
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Ces éléments fonctionnent mais attendent un service réel :
+
+- **Formulaire de contact** — ouvre aujourd'hui le logiciel de messagerie du
+  visiteur avec un message pré-rempli (aucun message n'est perdu). Pour un envoi
+  serveur, remplacer `openMailClient` dans `src/components/contact-form.tsx`.
+- **Newsletter** — l'inscription est validée côté client uniquement. Brancher
+  l'appel au prestataire dans `src/components/newsletter-form.tsx`.
+- **Dons** — le paiement en ligne n'est pas activé : le bouton renvoie vers la page
+  contact, et un message l'indique clairement. Brancher un prestataire de paiement
+  dans `src/components/donation-widget.tsx`.
+- **Réseaux sociaux** — les liens pointent vers les pages d'accueil des plateformes
+  (`organisation.social` dans `src/lib/content.ts`).
+- **Chiffres et équipe** — les valeurs présentées (10 000+ enfants, 500+ bénévoles,
+  résultats par programme, membres de l'équipe) doivent être confirmées et
+  actualisées à chaque exercice.
+
+## Déploiement
+
+Le site utilise un middleware pour rediriger `/` vers la langue du navigateur, ce qui
+demande un hébergement Next.js (et non un export statique). Le plus direct est
+[Vercel](https://vercel.com) : importer le dépôt, aucune configuration
+supplémentaire n'est nécessaire.
+
+Définir la variable d'environnement suivante pour le sitemap et les métadonnées de
+partage :
+
+```
+NEXT_PUBLIC_SITE_URL=https://childrensunityfoundation.org
+```

@@ -27,7 +27,7 @@ export default async function HomePage({ params }: LocaleParams) {
       <Hero locale={locale} dictionary={dictionary} />
 
       {/* Programmes */}
-      <section className="py-20 sm:py-24">
+      <section className="py-16 sm:py-20">
         <Container>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <SectionHeading

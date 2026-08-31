@@ -8,7 +8,6 @@ import { path, type Locale, type RouteKey } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { Container } from "@/components/ui/container";
 import { ButtonLink } from "@/components/ui/button";
-import { LanguageSwitcher } from "@/components/language-switcher";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/cn";
 
@@ -82,12 +81,12 @@ export function SiteHeader({
           : "border-transparent bg-white",
       )}
     >
-      <Container className="flex h-20 items-center justify-between gap-4">
-        <Logo locale={locale} />
+      <Container className="flex h-20 items-center justify-between gap-6">
+        <Logo locale={locale} className="shrink-0" />
 
         <nav
           aria-label={dictionary.meta.siteName}
-          className="hidden items-center gap-1 lg:flex"
+          className="hidden items-center gap-0.5 lg:flex xl:gap-1"
         >
           {items.map((item) => (
             <Link
@@ -120,10 +119,6 @@ export function SiteHeader({
             <Heart className="size-4" aria-hidden="true" />
             {common.donate}
           </ButtonLink>
-
-          <div className="hidden sm:block">
-            <LanguageSwitcher locale={locale} label={nav.changeLanguage} />
-          </div>
 
           <button
             type="button"
@@ -169,7 +164,6 @@ export function SiteHeader({
                 <Heart className="size-4" aria-hidden="true" />
                 {common.donate}
               </ButtonLink>
-              <LanguageSwitcher locale={locale} label={nav.changeLanguage} />
             </div>
           </Container>
         </div>

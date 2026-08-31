@@ -33,7 +33,7 @@ export function Logo({
       />
 
       {withText ? (
-        <span className="hidden leading-none lg:block">
+        <span className="hidden leading-none xl:block">
           <span
             className={cn(
               "font-display block text-[15px] font-bold tracking-tight whitespace-nowrap",
