@@ -37,12 +37,31 @@ function preferredLocale(request: NextRequest): string {
   return defaultLocale;
 }
 
+/**
+ * Sous-domaines qui menent a l'administration.
+ *
+ * `admin.` fonctionne toujours ; `ADMIN_HOSTS` permet d'en declarer
+ * d'autres, separes par des virgules — un nom complet
+ * (« cuf.childrensunityfoundation.org ») ou un simple prefixe (« cuf »).
+ * Le sous-domaine retenu n'a donc pas a etre fige dans le code.
+ */
+const adminHosts = ["admin", ...(process.env.ADMIN_HOSTS ?? "").split(",")]
+  .map((entry) => entry.trim().toLowerCase())
+  .filter(Boolean);
+
+function isAdminHost(host: string): boolean {
+  const name = host.split(":")[0];
+  return adminHosts.some(
+    (entry) => name === entry || name.startsWith(`${entry}.`),
+  );
+}
+
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const host = request.headers.get("host")?.toLowerCase() ?? "";
 
   /* Sous-domaine d'administration : tout y mene a /admin. */
-  if (host.startsWith("admin.")) {
+  if (isAdminHost(host)) {
     if (pathname.startsWith("/admin")) return NextResponse.next();
 
     const rewritten = request.nextUrl.clone();
