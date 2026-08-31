@@ -1,5 +1,7 @@
 const fr = {
   meta: {
+    draftNotice:
+      "Site de démonstration : chiffres, témoignages et fiches sont des exemples, pas des données réelles.",
     siteName: "Children's Unity Foundation",
     tagline: "Unis pour l'avenir de chaque enfant.",
     home: {
@@ -42,8 +44,9 @@ const fr = {
   nav: {
     home: "Accueil",
     about: "À propos",
-    programs: "Nos programmes",
+    programs: "Programmes",
     sponsorship: "Parrainage",
+    membership: "Adhésion",
     impact: "Impact",
     news: "Actualités",
     contact: "Contact",
@@ -275,12 +278,16 @@ const fr = {
   },
 
   sponsorship: {
+    empty:
+      "Aucun dossier de parrainage n'est ouvert pour le moment. Écrivez-nous pour être prévenu de la prochaine session.",
     hero: {
       eyebrow: "Parrainage",
       title: "Accompagner un enfant, du début à la fin de son parcours",
       lead: "Le parrainage finance la scolarité complète d'un enfant et lui assure un suivi régulier. Vous recevez deux points d'étape par an sur ses progrès.",
     },
     meta: {
+    draftNotice:
+      "Site de démonstration : chiffres, témoignages et fiches sont des exemples, pas des données réelles.",
       title: "Parrainer un enfant",
       description:
         "Découvrez les enfants accompagnés par la fondation et financez la scolarité de l'un d'eux tout au long de l'année.",
@@ -330,6 +337,87 @@ const fr = {
         },
       ],
     },
+  },
+
+  membership: {
+    meta: {
+    draftNotice:
+      "Site de démonstration : chiffres, témoignages et fiches sont des exemples, pas des données réelles.",
+      title: "Devenir membre",
+      description:
+        "Rejoignez la Children's Unity Foundation : frais d'adhésion, cotisation annuelle et formulaire d'inscription.",
+    },
+    hero: {
+      eyebrow: "Devenir membre",
+      title: "Rejoindre celles et ceux qui portent la fondation",
+      lead: "Les membres font vivre la fondation : ils élisent ses instances, votent les orientations et portent les programmes sur le terrain.",
+    },
+    benefits: {
+      eyebrow: "Ce que l'adhésion vous donne",
+      title: "Membre, et pas seulement donateur",
+      items: [
+        {
+          title: "Voix délibérative",
+          body: "Vous participez à l'assemblée générale, votez les orientations et élisez les instances de la fondation.",
+        },
+        {
+          title: "Numéro d'adhésion",
+          body: "Un numéro personnel vous est attribué dès la validation de votre dossier, avec votre reçu.",
+        },
+        {
+          title: "Accès aux formations",
+          body: "Les sessions réservées aux membres et aux mentors vous sont ouvertes tout au long de l'année.",
+        },
+        {
+          title: "Rapports détaillés",
+          body: "Vous recevez les comptes annuels et les bilans de programme avant leur publication.",
+        },
+      ],
+    },
+    fees: {
+      eyebrow: "Tarifs",
+      title: "Frais d'adhésion et cotisation",
+      lead: "Montants fixés par les statuts, réglés en francs guinéens.",
+      joining: "Frais d'adhésion",
+      joiningNote: "À régler une seule fois, à l'inscription.",
+      dues: "Cotisation annuelle",
+      duesNote: "Renouvelée chaque année civile.",
+    },
+    form: {
+      title: "Votre demande d'adhésion",
+      lead: "Ces informations constituent votre dossier. Elles ne servent qu'à la gestion de votre adhésion.",
+      planTitle: "Choisissez votre formule",
+      recommended: "Recommandé",
+      methodTitle: "Comment souhaitez-vous régler ?",
+      firstName: "Prénom",
+      lastName: "Nom",
+      country: "Pays",
+      city: "Ville",
+      phone: "Téléphone",
+      email: "Adresse e-mail",
+      profession: "Profession",
+      motivation: "Pourquoi souhaitez-vous nous rejoindre ? (facultatif)",
+      required: "obligatoire",
+      submit: "Envoyer ma demande",
+      errors: {
+        firstName: "Merci d'indiquer votre prénom.",
+        lastName: "Merci d'indiquer votre nom.",
+        country: "Merci d'indiquer votre pays.",
+        city: "Merci d'indiquer votre ville.",
+        phone: "Merci d'indiquer un numéro de téléphone.",
+        email: "Merci d'indiquer une adresse e-mail valide.",
+        profession: "Merci d'indiquer votre profession.",
+        method: "Sélectionnez un moyen de paiement disponible.",
+      },
+    },
+    summaryLabels: {
+      plan: "Formule",
+      applicant: "Demandeur",
+      location: "Lieu",
+      profession: "Profession",
+    },
+    notice:
+      "Votre dossier est examiné par le bureau. Après réception de votre règlement, votre numéro d'adhésion et votre reçu vous sont envoyés par courriel.",
   },
 
   impact: {
@@ -471,6 +559,8 @@ const fr = {
 
   give: {
     meta: {
+    draftNotice:
+      "Site de démonstration : chiffres, témoignages et fiches sont des exemples, pas des données réelles.",
       title: "Finaliser votre soutien",
       description:
         "Choisissez un montant, un moyen de paiement, et recevez les instructions pour finaliser votre don ou votre parrainage.",
@@ -601,6 +691,8 @@ const fr = {
 
   privacy: {
     meta: {
+    draftNotice:
+      "Site de démonstration : chiffres, témoignages et fiches sont des exemples, pas des données réelles.",
       title: "Politique de confidentialité",
       description:
         "Ce que ce site enregistre, ce qu'il n'enregistre pas, et comment exercer vos droits.",

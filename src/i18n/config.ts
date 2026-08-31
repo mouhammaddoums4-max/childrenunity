@@ -23,6 +23,7 @@ export const routes = {
   about: "about",
   programs: "programs",
   sponsorship: "sponsorship",
+  membership: "membership",
   impact: "impact",
   news: "news",
   contact: "contact",

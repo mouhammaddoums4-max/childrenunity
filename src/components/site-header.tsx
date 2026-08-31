@@ -19,6 +19,7 @@ const navKeys: NavKey[] = [
   "about",
   "programs",
   "sponsorship",
+  "membership",
   "impact",
   "news",
   "contact",
@@ -90,7 +91,7 @@ export function SiteHeader({
 
         <nav
           aria-label={dictionary.meta.siteName}
-          className="hidden items-center gap-0.5 lg:flex xl:gap-1"
+          className="hidden items-center gap-0.5 xl:flex"
         >
           {items.map((item) => (
             <Link
@@ -124,7 +125,7 @@ export function SiteHeader({
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? nav.closeMenu : nav.openMenu}
-            className="flex size-11 cursor-pointer items-center justify-center rounded-full border border-line text-navy transition-colors duration-200 ease-soft hover:bg-canvas lg:hidden"
+            className="flex size-11 cursor-pointer items-center justify-center rounded-full border border-line text-navy transition-colors duration-200 ease-soft hover:bg-canvas xl:hidden"
           >
             {open ? (
               <X className="size-5" aria-hidden="true" />
@@ -138,7 +139,7 @@ export function SiteHeader({
       {open ? (
         <div
           id="mobile-menu"
-          className="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-line bg-white lg:hidden"
+          className="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-line bg-white xl:hidden"
         >
           <Container className="flex flex-col gap-1 py-5">
             {items.map((item) => (

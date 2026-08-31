@@ -2,6 +2,8 @@ import type fr from "./fr";
 
 const en: typeof fr = {
   meta: {
+    draftNotice:
+      "Demonstration site: figures, testimonials and profiles are samples, not real data.",
     siteName: "Children's Unity Foundation",
     tagline: "United for every child's future.",
     home: {
@@ -44,8 +46,9 @@ const en: typeof fr = {
   nav: {
     home: "Home",
     about: "About",
-    programs: "Our programs",
+    programs: "Programs",
     sponsorship: "Sponsor a child",
+    membership: "Membership",
     impact: "Impact",
     news: "News",
     contact: "Contact",
@@ -277,12 +280,16 @@ const en: typeof fr = {
   },
 
   sponsorship: {
+    empty:
+      "No sponsorship files are open at the moment. Write to us and we will let you know when the next round opens.",
     hero: {
       eyebrow: "Sponsorship",
       title: "Supporting one child, from the first day to the last",
       lead: "Sponsorship funds a child's full schooling and guarantees regular follow-up. You receive two progress updates a year.",
     },
     meta: {
+    draftNotice:
+      "Demonstration site: figures, testimonials and profiles are samples, not real data.",
       title: "Sponsor a child",
       description:
         "Meet the children supported by the foundation and fund one child's schooling throughout the year.",
@@ -332,6 +339,87 @@ const en: typeof fr = {
         },
       ],
     },
+  },
+
+  membership: {
+    meta: {
+    draftNotice:
+      "Demonstration site: figures, testimonials and profiles are samples, not real data.",
+      title: "Become a member",
+      description:
+        "Join the Children's Unity Foundation: joining fee, annual dues and application form.",
+    },
+    hero: {
+      eyebrow: "Become a member",
+      title: "Join the people who carry the foundation",
+      lead: "Members keep the foundation alive: they elect its bodies, vote on its direction and carry the programs in the field.",
+    },
+    benefits: {
+      eyebrow: "What membership gives you",
+      title: "A member, not only a donor",
+      items: [
+        {
+          title: "A vote that counts",
+          body: "You take part in the general assembly, vote on the foundation's direction and elect its governing bodies.",
+        },
+        {
+          title: "Membership number",
+          body: "A personal number is issued as soon as your application is approved, together with your receipt.",
+        },
+        {
+          title: "Access to training",
+          body: "Sessions reserved for members and mentors are open to you throughout the year.",
+        },
+        {
+          title: "Detailed reports",
+          body: "You receive the annual accounts and programme reviews before they are published.",
+        },
+      ],
+    },
+    fees: {
+      eyebrow: "Fees",
+      title: "Joining fee and annual dues",
+      lead: "Amounts set by the statutes, paid in Guinean francs.",
+      joining: "Joining fee",
+      joiningNote: "Paid once, on registration.",
+      dues: "Annual dues",
+      duesNote: "Renewed each calendar year.",
+    },
+    form: {
+      title: "Your membership application",
+      lead: "This information makes up your file. It is used only to manage your membership.",
+      planTitle: "Choose your option",
+      recommended: "Recommended",
+      methodTitle: "How would you like to pay?",
+      firstName: "First name",
+      lastName: "Surname",
+      country: "Country",
+      city: "City",
+      phone: "Phone number",
+      email: "Email address",
+      profession: "Occupation",
+      motivation: "Why would you like to join us? (optional)",
+      required: "required",
+      submit: "Send my application",
+      errors: {
+        firstName: "Please enter your first name.",
+        lastName: "Please enter your surname.",
+        country: "Please enter your country.",
+        city: "Please enter your city.",
+        phone: "Please enter a phone number.",
+        email: "Please enter a valid email address.",
+        profession: "Please enter your occupation.",
+        method: "Please select an available payment method.",
+      },
+    },
+    summaryLabels: {
+      plan: "Option",
+      applicant: "Applicant",
+      location: "Location",
+      profession: "Occupation",
+    },
+    notice:
+      "Your application is reviewed by the board. Once your payment is received, your membership number and receipt are sent to you by email.",
   },
 
   impact: {
@@ -472,6 +560,8 @@ const en: typeof fr = {
 
   give: {
     meta: {
+    draftNotice:
+      "Demonstration site: figures, testimonials and profiles are samples, not real data.",
       title: "Complete your support",
       description:
         "Choose an amount and a payment method, then receive the instructions to complete your donation or sponsorship.",
@@ -602,6 +692,8 @@ const en: typeof fr = {
 
   privacy: {
     meta: {
+    draftNotice:
+      "Demonstration site: figures, testimonials and profiles are samples, not real data.",
       title: "Privacy policy",
       description:
         "What this site records, what it does not, and how to exercise your rights.",

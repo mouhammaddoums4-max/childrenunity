@@ -7,7 +7,6 @@ import {
   ArrowLeft,
   ArrowRight,
   Check,
-  Copy,
   Info,
   Landmark,
   Smartphone,
@@ -25,7 +24,6 @@ import {
 import { useCurrency } from "@/lib/currency-store";
 import {
   createReference,
-  getAccount,
   getPaymentMethods,
   type PaymentMethodId,
 } from "@/lib/payments";
@@ -79,7 +77,6 @@ export function GiveFlow({
   const [donor, setDonor] = useState({ name: "", email: "", phone: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [reference, setReference] = useState("");
-  const [copied, setCopied] = useState(false);
 
   const methods = useMemo(() => getPaymentMethods(), []);
   const chosen = methods.find((entry) => entry.id === method);

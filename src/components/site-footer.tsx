@@ -16,7 +16,7 @@ import { NewsletterForm } from "@/components/newsletter-form";
 /* Le tunnel de paiement et la page de don ne sont pas des onglets. */
 type NavKey = Exclude<RouteKey, "donate" | "give" | "privacy">;
 
-const navKeys: NavKey[] = ["home", "about", "programs", "sponsorship", "impact", "news", "contact"];
+const navKeys: NavKey[] = ["home", "about", "programs", "sponsorship", "membership", "impact", "news", "contact"];
 
 const socialLinks = (
   [
