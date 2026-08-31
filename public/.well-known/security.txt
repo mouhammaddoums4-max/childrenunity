@@ -1,0 +1,4 @@
+Contact: mailto:contact@childrensunityfoundation.org
+Expires: 2027-12-31T23:59:00.000Z
+Preferred-Languages: fr, en
+Canonical: https://childrensunityfoundation.org/.well-known/security.txt

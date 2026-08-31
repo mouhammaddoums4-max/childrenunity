@@ -126,8 +126,10 @@ non cliquable : rien ne prétend encaisser ce qu'il ne peut pas encaisser.
   messagerie du visiteur avec un message pré-rempli, ce qui fonctionne dès la
   mise en ligne. Pour un envoi serveur, remplacer `openMailClient` dans
   `src/components/contact-form.tsx`.
-- **Newsletter** — inscription validée côté client seulement. Brancher le
-  prestataire dans `src/components/newsletter-form.tsx`.
+- **Newsletter** — renseignez `NEXT_PUBLIC_NEWSLETTER_ENDPOINT` avec l'URL du
+  formulaire de votre prestataire (Brevo, Mailchimp) et l'inscription part
+  directement chez lui. Sans cette variable, le bouton ouvre le logiciel de
+  messagerie du visiteur : aucune inscription n'est perdue.
 - **Réseaux sociaux** — Facebook et LinkedIn sont renseignés ; Instagram et
   YouTube apparaîtront dès qu'ils seront ajoutés à `organisation.social`.
 - **Chiffres, équipe et fiches enfants** — les valeurs présentées (10 000+
