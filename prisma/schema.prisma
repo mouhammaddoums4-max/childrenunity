@@ -1,0 +1,541 @@
+// Base de données de la Children's Unity Foundation.
+//
+// ─────────────────────────────────────────────────────────────────────────
+// PROTECTION DES ENFANTS
+//
+// Un dossier d'enfant contient des données personnelles sensibles : nom
+// complet, date de naissance, établissement, situation familiale. Rien de
+// tout cela ne doit sortir de l'administration.
+//
+// Le site public n'expose que trois champs : `reference`, `publicName` et
+// `publicStory`. Les photos et vidéos ne deviennent publiques que si
+// `photoConsent` vaut GRANTED, c'est-à-dire si le représentant légal a
+// signé une autorisation dont la référence est conservée.
+// ─────────────────────────────────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+// Depuis Prisma 7, l'URL de connexion ne vit plus ici : les migrations la
+// lisent dans `prisma.config.ts`, et le client la reçoit via un adaptateur
+// (voir `src/lib/db.ts`).
+datasource db {
+  provider = "postgresql"
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// Comptes et accès
+// ═══════════════════════════════════════════════════════════════════════
+
+enum Role {
+  ADMIN //        Contrôle tout : dossiers, parrainages, montants, galerie
+  COORDINATOR //  Valide les dossiers, oriente les enfants, saisit les paiements
+  MENTOR //       Enregistre ses enfants et rédige leurs rapports d'avancement
+  VIEWER //       Lecture seule, pour un audit ou un bailleur
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  fullName  String
+  phone     String?
+  role      Role     @default(MENTOR)
+  /// Un compte désactivé conserve son historique mais ne peut plus se connecter.
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  member          Member?
+  sessions        Session[]
+  loginTokens     LoginToken[]
+  childrenCreated Child[]          @relation("ChildCreatedBy")
+  mentorships     Mentorship[]
+  reports         ProgressReport[]
+  paymentsChecked Payment[]        @relation("PaymentConfirmedBy")
+  auditEntries    AuditLog[]
+
+  @@index([role, active])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  /// Empreinte du jeton de session, jamais le jeton lui-même : une fuite
+  /// de la table ne permet pas de se connecter à la place de quelqu'un.
+  tokenHash String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  userAgent String?
+  ipHash    String?
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+/// Lien de connexion à usage unique, envoyé par courriel.
+model LoginToken {
+  id        String    @id @default(cuid())
+  tokenHash String    @unique
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// Membres et mentors
+// ═══════════════════════════════════════════════════════════════════════
+
+enum MemberStatus {
+  PENDING //   Demande reçue, règlement non encaissé
+  ACTIVE //    À jour de cotisation
+  LAPSED //    Cotisation échue
+  RESIGNED //  A quitté la fondation
+}
+
+model Member {
+  id             String       @id @default(cuid())
+  /// Numéro d'adhésion communiqué au membre, ex. « CUF-M-0042 ».
+  membershipNo   String?      @unique
+  firstName      String
+  lastName       String
+  email          String       @unique
+  phone          String
+  country        String
+  city           String
+  profession     String
+  motivation     String?
+  status         MemberStatus @default(PENDING)
+  joinedAt       DateTime?
+  /// Fin de validité de la cotisation en cours.
+  duesValidUntil DateTime?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  /// Un membre ne reçoit un compte que s'il devient mentor ou encadrant.
+  userId   String?   @unique
+  user     User?     @relation(fields: [userId], references: [id])
+  payments Payment[]
+
+  @@index([status])
+  @@index([lastName, firstName])
+}
+
+/// Rattachement d'un mentor à un enfant, avec sa période d'exercice.
+model Mentorship {
+  id       String    @id @default(cuid())
+  childId  String
+  child    Child     @relation(fields: [childId], references: [id], onDelete: Cascade)
+  mentorId String
+  mentor   User      @relation(fields: [mentorId], references: [id])
+  startedAt DateTime @default(now())
+  endedAt  DateTime?
+  note     String?
+
+  @@unique([childId, mentorId, startedAt])
+  @@index([mentorId, endedAt])
+  @@index([childId])
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// Enfants
+// ═══════════════════════════════════════════════════════════════════════
+
+enum ChildStatus {
+  DRAFT //           Saisi par le mentor, incomplet
+  PENDING_REVIEW //  Soumis, en attente de validation par la coordination
+  ACTIVE //          Dossier validé, enfant accompagné
+  GRADUATED //       Parcours achevé
+  WITHDRAWN //       Sorti du dispositif
+}
+
+enum Gender {
+  FEMALE
+  MALE
+  UNSPECIFIED
+}
+
+enum ConsentStatus {
+  NOT_REQUESTED
+  REQUESTED
+  GRANTED
+  REFUSED
+  WITHDRAWN
+}
+
+model Child {
+  id        String      @id @default(cuid())
+  /// Identifiant public communiqué aux parrains, ex. « CUF-2026-014 ».
+  reference String      @unique
+  status    ChildStatus @default(DRAFT)
+
+  // ── Identité réelle : ne quitte jamais l'administration ──────────────
+  firstName   String
+  lastName    String
+  dateOfBirth DateTime
+  gender      Gender    @default(UNSPECIFIED)
+  birthPlace  String?
+  nationality String?
+  address     String?
+  city        String
+  country     String
+  /// Situation familiale, scolarisation antérieure, santé, difficultés.
+  background  String?
+  healthNotes String?
+
+  // ── Ce que le site public peut montrer ───────────────────────────────
+  /// Prénom ou pseudonyme affiché en ligne.
+  publicName   String
+  /// Récit publiable, rédigé pour ne rien révéler d'identifiant.
+  publicStory  String?
+  publicNeeds  String[]      @default([])
+  publicGoals  String[]      @default([])
+  /// Autorisation écrite du représentant légal pour l'image de l'enfant.
+  photoConsent ConsentStatus @default(NOT_REQUESTED)
+  /// Référence du document d'autorisation conservé par la fondation.
+  consentRef   String?
+  photoPath    String?
+  videoId      String?
+
+  // ── Parrainage ───────────────────────────────────────────────────────
+  /// Coût annuel de l'accompagnement, en francs guinéens. Fixé par l'admin.
+  annualCostGnf Int     @default(0)
+  /// L'enfant apparaît sur la page publique de parrainage.
+  openToSponsors Boolean @default(false)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  createdById String?
+  createdBy   User?    @relation("ChildCreatedBy", fields: [createdById], references: [id])
+
+  guardians    Guardian[]
+  placements   Placement[]
+  mentorships  Mentorship[]
+  reports      ProgressReport[]
+  sponsorships Sponsorship[]
+  payments     Payment[]
+
+  @@index([status, openToSponsors])
+  @@index([lastName, firstName])
+}
+
+/// Représentant légal : c'est lui qui signe les autorisations.
+model Guardian {
+  id           String  @id @default(cuid())
+  childId      String
+  child        Child   @relation(fields: [childId], references: [id], onDelete: Cascade)
+  fullName     String
+  relationship String
+  phone        String?
+  email        String?
+  address      String?
+  /// Interlocuteur principal pour ce dossier.
+  primary      Boolean @default(false)
+
+  @@index([childId])
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// Orientation et suivi
+// ═══════════════════════════════════════════════════════════════════════
+
+enum PlacementKind {
+  SCHOOL //         Scolarisation classique
+  VOCATIONAL //     Atelier : mécanique, couture, menuiserie, coiffure…
+  QURANIC //        École coranique, mémorisation
+  LITERACY //       Alphabétisation
+  APPRENTICESHIP // Apprentissage en entreprise
+}
+
+enum PlacementStatus {
+  ACTIVE
+  COMPLETED
+  INTERRUPTED
+}
+
+/// Orientation décidée par la fondation : où l'enfant est placé, et pour
+/// quoi faire. Un enfant peut en enchaîner plusieurs au fil des années.
+model Placement {
+  id      String @id @default(cuid())
+  childId String
+  child   Child  @relation(fields: [childId], references: [id], onDelete: Cascade)
+
+  kind   PlacementKind
+  /// Métier ou spécialité, quand l'orientation est un atelier.
+  trade  String?
+  /// École, atelier ou centre d'accueil.
+  institution String
+  /// Classe, niveau ou année d'apprentissage.
+  level       String?
+  supervisor  String?
+  supervisorPhone String?
+
+  status    PlacementStatus @default(ACTIVE)
+  startedAt DateTime
+  endedAt   DateTime?
+  /// Coût annuel de ce placement, en francs guinéens.
+  annualCostGnf Int      @default(0)
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([childId, status])
+  @@index([kind])
+}
+
+enum ReportPeriod {
+  MONTHLY
+  TERM
+  ANNUAL
+  INCIDENT
+}
+
+/// Rapport d'avancement rédigé par le mentor. C'est la matière première
+/// des points d'étape envoyés aux parrains.
+model ProgressReport {
+  id      String @id @default(cuid())
+  childId String
+  child   Child  @relation(fields: [childId], references: [id], onDelete: Cascade)
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id])
+
+  period     ReportPeriod @default(MONTHLY)
+  /// Date à laquelle porte le rapport, pas celle de la saisie.
+  periodEnd  DateTime
+  attendance String?
+  results    String?
+  behaviour  String?
+  health     String?
+  /// Ce que le mentor demande à la fondation.
+  needs      String?
+  summary    String
+
+  /// Le parrain peut lire ce rapport dans son espace.
+  visibleToSponsor Boolean @default(false)
+  photoPath        String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([childId, periodEnd])
+  @@index([authorId])
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// Parrains et parrainages
+// ═══════════════════════════════════════════════════════════════════════
+
+enum SponsorshipStatus {
+  PENDING //    Demande reçue, premier versement attendu
+  ACTIVE //     Parrainage en cours
+  SUSPENDED //  Versements interrompus
+  ENDED //      Parrainage terminé
+}
+
+enum Frequency {
+  ONCE
+  MONTHLY
+  QUARTERLY
+  ANNUAL
+}
+
+model Sponsor {
+  id        String   @id @default(cuid())
+  fullName  String
+  email     String   @unique
+  phone     String?
+  country   String?
+  city      String?
+  /// Le parrain ne souhaite pas être nommé publiquement.
+  anonymous Boolean  @default(false)
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sponsorships Sponsorship[]
+  payments     Payment[]
+
+  @@index([email])
+}
+
+model Sponsorship {
+  id        String            @id @default(cuid())
+  reference String            @unique
+  sponsorId String
+  sponsor   Sponsor           @relation(fields: [sponsorId], references: [id])
+  childId   String
+  child     Child             @relation(fields: [childId], references: [id])
+  status    SponsorshipStatus @default(PENDING)
+  frequency Frequency         @default(MONTHLY)
+  /// Engagement par échéance, en francs guinéens.
+  amountGnf Int
+  startedAt DateTime          @default(now())
+  endedAt   DateTime?
+  notes     String?
+
+  payments Payment[]
+
+  @@index([childId, status])
+  @@index([sponsorId])
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// Encaissements
+// ═══════════════════════════════════════════════════════════════════════
+
+enum PaymentPurpose {
+  DONATION
+  SPONSORSHIP
+  MEMBERSHIP_FEE
+  ANNUAL_DUES
+}
+
+enum PaymentChannel {
+  ORANGE_MONEY
+  MTN_MOMO
+  WAVE
+  CARD
+  PAYPAL
+  BANK_TRANSFER
+  CASH
+}
+
+enum PaymentStatus {
+  PENDING //    Annoncé par le donateur, transfert non retrouvé
+  CONFIRMED //  Rapproché d'un versement réel
+  REJECTED //   Aucun versement reçu, ou doublon
+  REFUNDED
+}
+
+/// Tout encaissement, quelle qu'en soit la raison. La référence est celle
+/// que le donateur rappelle dans son transfert mobile money : c'est elle
+/// qui permet le rapprochement.
+model Payment {
+  id        String         @id @default(cuid())
+  reference String         @unique
+  purpose   PaymentPurpose
+  channel   PaymentChannel
+  status    PaymentStatus  @default(PENDING)
+
+  /// Montant tel que saisi par le payeur, dans sa devise.
+  amount       Int
+  currency     String @default("GNF")
+  /// Contre-valeur en francs guinéens, seule base des totaux.
+  amountGnf    Int
+  /// Identifiant du transfert chez l'opérateur, saisi au rapprochement.
+  operatorRef  String?
+
+  // ── Qui paie : au moins l'un de ces liens, ou les champs libres ──────
+  sponsorId String?
+  sponsor   Sponsor? @relation(fields: [sponsorId], references: [id])
+  memberId  String?
+  member    Member?  @relation(fields: [memberId], references: [id])
+  /// Don ponctuel d'une personne qui n'est ni membre ni parrain.
+  payerName  String?
+  payerEmail String?
+  payerPhone String?
+
+  // ── À quoi le versement est affecté ──────────────────────────────────
+  sponsorshipId String?
+  sponsorship   Sponsorship? @relation(fields: [sponsorshipId], references: [id])
+  childId       String?
+  child         Child?       @relation(fields: [childId], references: [id])
+
+  message     String?
+  receivedAt  DateTime?
+  confirmedAt DateTime?
+  confirmedById String?
+  confirmedBy   User?   @relation("PaymentConfirmedBy", fields: [confirmedById], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status, createdAt])
+  @@index([purpose, status])
+  @@index([childId])
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// Galerie
+// ═══════════════════════════════════════════════════════════════════════
+
+enum ProjectStatus {
+  DRAFT
+  PUBLISHED
+}
+
+/// Un projet de la galerie : une action de terrain, une formation, une
+/// remise de diplômes. Il porte plusieurs photos.
+model Project {
+  id     String        @id @default(cuid())
+  slug   String        @unique
+  status ProjectStatus @default(DRAFT)
+
+  titleFr       String
+  titleEn       String
+  descriptionFr String?
+  descriptionEn String?
+  /// Date de l'action, celle qui s'affiche sur la fiche.
+  happenedAt    DateTime
+  location      String?
+  /// Rattachement à un programme, ex. « education », « leadership ».
+  programSlug   String?
+
+  coverPath String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  photos ProjectPhoto[]
+
+  @@index([status, happenedAt])
+}
+
+model ProjectPhoto {
+  id        String  @id @default(cuid())
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  path      String
+  captionFr String?
+  captionEn String?
+  /// Texte alternatif, obligatoire pour l'accessibilité.
+  altFr     String
+  altEn     String
+  /// Ordre d'affichage dans l'album.
+  position  Int     @default(0)
+  width     Int?
+  height    Int?
+
+  createdAt DateTime @default(now())
+
+  @@index([projectId, position])
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// Journal
+// ═══════════════════════════════════════════════════════════════════════
+
+/// Trace des actions sensibles : qui a modifié un dossier d'enfant, qui a
+/// confirmé un versement, qui a publié une photo. Indispensable pour
+/// répondre à un contrôle, et pour retrouver l'origine d'une erreur.
+model AuditLog {
+  id       String   @id @default(cuid())
+  actorId  String?
+  actor    User?    @relation(fields: [actorId], references: [id])
+  action   String
+  /// Type et identifiant de l'objet touché, ex. « Child » / « clx… ».
+  entity   String
+  entityId String
+  /// Ce qui a changé, en clair.
+  detail   Json?
+  ipHash   String?
+  createdAt DateTime @default(now())
+
+  @@index([entity, entityId])
+  @@index([actorId, createdAt])
+}

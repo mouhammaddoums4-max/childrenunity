@@ -46,6 +46,7 @@ const fr = {
     sponsorship: "Parrainage",
     membership: "Adhésion",
     impact: "Impact",
+    gallery: "Galerie",
     news: "Actualités",
     contact: "Contact",
     openMenu: "Ouvrir le menu",
@@ -443,6 +444,27 @@ const fr = {
       title: "Nos pays d'intervention",
       lead: "Huit pays, un même modèle d'accompagnement adapté à chaque contexte local.",
     },
+  },
+
+  gallery: {
+    meta: {
+      title: "Galerie",
+      description:
+        "Les projets de la fondation en images : écoles, formations, remises de diplômes et actions de terrain.",
+    },
+    hero: {
+      eyebrow: "Galerie",
+      title: "Nos actions en images",
+      lead: "Chaque projet raconte une action menée sur le terrain, avec sa date, son lieu et ses photos.",
+    },
+    empty:
+      "Aucun projet n'est encore publié. Les albums apparaîtront ici dès que l'équipe les aura mis en ligne.",
+    photoCount: "photo",
+    photoCountPlural: "photos",
+    viewProject: "Voir l'album",
+    back: "Toute la galerie",
+    location: "Lieu",
+    date: "Date",
   },
 
   news: {

@@ -25,6 +25,7 @@ export const routes = {
   sponsorship: "sponsorship",
   membership: "membership",
   impact: "impact",
+  gallery: "gallery",
   news: "news",
   contact: "contact",
   donate: "donate",

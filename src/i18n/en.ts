@@ -48,6 +48,7 @@ const en: typeof fr = {
     sponsorship: "Sponsor a child",
     membership: "Membership",
     impact: "Impact",
+    gallery: "Gallery",
     news: "News",
     contact: "Contact",
     openMenu: "Open menu",
@@ -445,6 +446,27 @@ const en: typeof fr = {
       title: "Countries where we work",
       lead: "Eight countries, one support model adapted to each local context.",
     },
+  },
+
+  gallery: {
+    meta: {
+      title: "Gallery",
+      description:
+        "The foundation's projects in pictures: schools, training, graduations and work in the field.",
+    },
+    hero: {
+      eyebrow: "Gallery",
+      title: "Our work in pictures",
+      lead: "Each project records an action carried out in the field, with its date, its place and its photographs.",
+    },
+    empty:
+      "No project has been published yet. Albums will appear here as soon as the team puts them online.",
+    photoCount: "photo",
+    photoCountPlural: "photos",
+    viewProject: "View album",
+    back: "All the gallery",
+    location: "Place",
+    date: "Date",
   },
 
   news: {

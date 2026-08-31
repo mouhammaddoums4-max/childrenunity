@@ -20,7 +20,7 @@ const navKeys: NavKey[] = [
   "programs",
   "sponsorship",
   "membership",
-  "impact",
+  "gallery",
   "news",
   "contact",
 ];
