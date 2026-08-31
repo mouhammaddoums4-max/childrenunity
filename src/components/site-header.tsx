@@ -36,10 +36,14 @@ export function SiteHeader({
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  /* Le menu mobile se referme des que l'on change de page. */
-  useEffect(() => {
+  /* Le menu mobile se referme des que l'on change de page. C'est un etat
+     derive du chemin, ajuste pendant le rendu plutot que par un effet :
+     React applique le changement avant de peindre, sans rendu en cascade. */
+  const [lastPath, setLastPath] = useState(pathname);
+  if (pathname !== lastPath) {
+    setLastPath(pathname);
     setOpen(false);
-  }, [pathname]);
+  }
 
   /* Fond plein et ombre une fois la page defilee. */
   useEffect(() => {
