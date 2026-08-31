@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
+import { useId, useState } from "react";
 import { ArrowRight, Info } from "lucide-react";
 import type { Locale } from "@/i18n/config";
 import { path } from "@/i18n/config";
@@ -8,10 +8,10 @@ import type { Dictionary } from "@/i18n/dictionaries";
 import {
   currencies,
   currencyCodes,
-  detectCurrency,
   formatMoney,
   type CurrencyCode,
 } from "@/lib/currency";
+import { useCurrency } from "@/lib/currency-store";
 import { ButtonLink } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 
@@ -28,17 +28,11 @@ export function DonationWidget({
   const customId = useId();
 
   const [frequency, setFrequency] = useState<Frequency>("once");
-  /* Le rendu serveur part d'une devise stable ; la devise du visiteur est
-     appliquee apres montage, pour ne pas casser l'hydratation. */
-  const [currency, setCurrency] = useState<CurrencyCode>(
-    locale === "fr" ? "EUR" : "USD",
-  );
+  /* Devise partagee avec le reste du site : franc guineen au rendu
+     serveur, devise du visiteur des l'hydratation. */
+  const [currency, setCurrency] = useCurrency();
   const [index, setIndex] = useState<number | null>(1);
   const [custom, setCustom] = useState("");
-
-  useEffect(() => {
-    setCurrency(detectCurrency(locale));
-  }, [locale]);
 
   const active = currencies[currency];
   const impact =

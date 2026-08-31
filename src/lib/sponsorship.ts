@@ -32,9 +32,9 @@ type ChildSource = {
   photo?: string;
   /** Identifiant de la vidéo YouTube de présentation, si elle existe. */
   videoId?: string;
-  /** Coût annuel de l'accompagnement, en euros. */
+  /** Coût annuel de l'accompagnement, en francs guinéens. */
   goal: number;
-  /** Part déjà financée, en euros. */
+  /** Part déjà financée, en francs guinéens. */
   raised: number;
   content: Localized<ChildContent>;
 };
@@ -53,8 +53,8 @@ const childSources: ChildSource[] = [
     accent: "brand",
     grade: { fr: "CM2", en: "Year 6" },
     country: { fr: "Guinée", en: "Guinea" },
-    goal: 320,
-    raised: 210,
+    goal: 3_200_000,
+    raised: 2_100_000,
     content: {
       fr: {
         story: [
@@ -95,8 +95,8 @@ const childSources: ChildSource[] = [
     accent: "teal",
     grade: { fr: "4e", en: "Year 9" },
     country: { fr: "Guinée", en: "Guinea" },
-    goal: 420,
-    raised: 120,
+    goal: 4_200_000,
+    raised: 1_200_000,
     content: {
       fr: {
         story: [
@@ -137,8 +137,8 @@ const childSources: ChildSource[] = [
     accent: "orange",
     grade: { fr: "CE2", en: "Year 4" },
     country: { fr: "Guinée", en: "Guinea" },
-    goal: 280,
-    raised: 265,
+    goal: 2_800_000,
+    raised: 2_650_000,
     content: {
       fr: {
         story: [

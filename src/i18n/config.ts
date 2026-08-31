@@ -27,6 +27,7 @@ export const routes = {
   news: "news",
   contact: "contact",
   donate: "donate",
+  give: "give",
 } as const;
 
 export type RouteKey = keyof typeof routes;

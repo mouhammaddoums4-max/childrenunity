@@ -7,7 +7,7 @@ import { locales, path } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { getChild, getChildReferences } from "@/lib/sponsorship";
 import { accentClasses } from "@/lib/accents";
-import { formatAmount } from "@/lib/format";
+import { Money } from "@/components/ui/money";
 import { resolvePhoto } from "@/lib/public-photo";
 import { resolveLocale } from "@/lib/locale-param";
 import { Container } from "@/components/ui/container";
@@ -136,7 +136,7 @@ export default async function ChildPage({ params }: ChildParams) {
           <div className="rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-7">
             <div className="flex items-baseline justify-between gap-3">
               <span className="font-display text-2xl font-bold tabular-nums text-navy">
-                {formatAmount(child.raised, locale)}
+                <Money gnf={child.raised} locale={locale} />
               </span>
               <span className="font-display text-lg font-bold tabular-nums text-navy">
                 {child.progress} %
@@ -158,7 +158,7 @@ export default async function ChildPage({ params }: ChildParams) {
             </div>
 
             <p className="mt-3 text-sm tabular-nums text-ink-muted">
-              {formatAmount(child.goal, locale)} {card.goal}
+              <Money gnf={child.goal} locale={locale} /> {card.goal}
             </p>
 
             <ButtonLink

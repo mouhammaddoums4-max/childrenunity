@@ -5,7 +5,7 @@ import { path, type Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import type { Child } from "@/lib/sponsorship";
 import { accentClasses } from "@/lib/accents";
-import { formatAmount } from "@/lib/format";
+import { Money } from "@/components/ui/money";
 import { resolvePhoto } from "@/lib/public-photo";
 
 export function ChildCard({
@@ -65,7 +65,7 @@ export function ChildCard({
         <div className="mt-6">
           <div className="flex items-baseline justify-between gap-3 text-sm">
             <span className="font-semibold text-navy tabular-nums">
-              {formatAmount(child.raised, locale)}{" "}
+              <Money gnf={child.raised} locale={locale} />{" "}
               <span className="font-normal text-ink-muted">{card.collected}</span>
             </span>
             <span className="font-display font-bold tabular-nums text-navy">
@@ -86,7 +86,7 @@ export function ChildCard({
             />
           </div>
           <p className="mt-2 text-xs text-ink-muted tabular-nums">
-            {formatAmount(child.goal, locale)} {card.goal}
+            <Money gnf={child.goal} locale={locale} /> {card.goal}
           </p>
         </div>
 

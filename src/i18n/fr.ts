@@ -432,6 +432,87 @@ const fr = {
       "Le paiement en ligne n'est pas encore activé sur ce site. Contactez-nous et notre équipe vous transmettra les coordonnées bancaires ainsi que votre reçu.",
   },
 
+  give: {
+    meta: {
+      title: "Finaliser votre soutien",
+      description:
+        "Choisissez un montant, un moyen de paiement, et recevez les instructions pour finaliser votre don ou votre parrainage.",
+    },
+    hero: {
+      eyebrow: "Votre soutien",
+      donationTitle: "Finaliser votre don",
+      sponsorshipTitle: "Parrainer {name}",
+      lead: "Trois étapes : le montant, le moyen de paiement, puis vos coordonnées. Vous recevrez une référence à rappeler lors du transfert.",
+    },
+    steps: {
+      amount: "Montant",
+      method: "Paiement",
+      details: "Coordonnées",
+      done: "Confirmation",
+    },
+    amount: {
+      title: "Combien souhaitez-vous donner ?",
+      once: "Une fois",
+      monthly: "Chaque mois",
+      custom: "Autre montant",
+      currency: "Devise",
+      goalRemaining: "Reste à financer pour {name}",
+      next: "Choisir le moyen de paiement",
+      invalid: "Indiquez un montant supérieur à zéro.",
+    },
+    method: {
+      title: "Comment souhaitez-vous payer ?",
+      soon: "Bientôt disponible",
+      unavailableHint:
+        "Ce moyen n'est pas encore ouvert. Choisissez-en un autre, ou écrivez-nous et nous vous accompagnerons.",
+      back: "Modifier le montant",
+      next: "Continuer",
+      invalid: "Sélectionnez un moyen de paiement disponible.",
+    },
+    details: {
+      title: "Vos coordonnées",
+      lead: "Elles nous servent à rapprocher votre versement et à vous envoyer votre reçu.",
+      name: "Nom complet",
+      email: "Adresse e-mail",
+      phone: "Téléphone",
+      phoneHint: "Le numéro depuis lequel vous ferez le transfert, si vous payez par mobile money.",
+      message: "Message à la fondation (facultatif)",
+      required: "obligatoire",
+      back: "Modifier le paiement",
+      submit: "Obtenir mes instructions de paiement",
+      errors: {
+        name: "Merci d'indiquer votre nom.",
+        email: "Merci d'indiquer une adresse e-mail valide.",
+        phone: "Merci d'indiquer un numéro de téléphone.",
+      },
+    },
+    summary: {
+      title: "Récapitulatif",
+      amount: "Montant",
+      frequency: "Fréquence",
+      method: "Moyen de paiement",
+      child: "Enfant parrainé",
+      reference: "Référence",
+    },
+    done: {
+      title: "Dernière étape : effectuez le transfert",
+      lead: "Votre demande est enregistrée. Effectuez maintenant le transfert ci-dessous en indiquant la référence, puis notre équipe vous confirmera la réception et vous enverra votre reçu.",
+      referenceHint:
+        "Indiquez impérativement cette référence dans le motif du transfert : c'est elle qui nous permet d'identifier votre versement.",
+      phoneInstruction:
+        "Envoyez le montant par {method} au numéro ci-dessous, au nom de {holder}.",
+      bankInstruction: "Effectuez un virement vers le compte ci-dessous.",
+      copy: "Copier",
+      copied: "Copié",
+      sendRecap: "Envoyer le récapitulatif à la fondation",
+      sendHint:
+        "Si votre logiciel de messagerie ne s'est pas ouvert, écrivez-nous directement à {email} en rappelant votre référence.",
+      backHome: "Retour à l'accueil",
+    },
+    notice:
+      "Le paiement automatique n'est pas encore ouvert : le transfert se fait depuis votre application, et la fondation le rapproche grâce à votre référence. Aucune donnée bancaire ne transite par ce site.",
+  },
+
   footer: {
     about:
       "Organisation non gouvernementale indépendante, apolitique, non confessionnelle et à but non lucratif, la Children's Unity Foundation œuvre en Afrique pour le potentiel de chaque enfant.",

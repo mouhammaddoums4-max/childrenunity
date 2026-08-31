@@ -11,7 +11,8 @@ import { ButtonLink } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import { cn } from "@/lib/cn";
 
-type NavKey = Exclude<RouteKey, "donate">;
+/* Le tunnel de paiement et la page de don ne sont pas des onglets. */
+type NavKey = Exclude<RouteKey, "donate" | "give">;
 
 const navKeys: NavKey[] = [
   "home",

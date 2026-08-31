@@ -433,6 +433,87 @@ const en: typeof fr = {
       "Online payment is not yet enabled on this site. Contact us and our team will send you the bank details along with your receipt.",
   },
 
+  give: {
+    meta: {
+      title: "Complete your support",
+      description:
+        "Choose an amount and a payment method, then receive the instructions to complete your donation or sponsorship.",
+    },
+    hero: {
+      eyebrow: "Your support",
+      donationTitle: "Complete your donation",
+      sponsorshipTitle: "Sponsor {name}",
+      lead: "Three steps: the amount, the payment method, then your details. You will receive a reference to quote with your transfer.",
+    },
+    steps: {
+      amount: "Amount",
+      method: "Payment",
+      details: "Your details",
+      done: "Confirmation",
+    },
+    amount: {
+      title: "How much would you like to give?",
+      once: "Once",
+      monthly: "Every month",
+      custom: "Other amount",
+      currency: "Currency",
+      goalRemaining: "Still to fund for {name}",
+      next: "Choose a payment method",
+      invalid: "Please enter an amount greater than zero.",
+    },
+    method: {
+      title: "How would you like to pay?",
+      soon: "Coming soon",
+      unavailableHint:
+        "This method is not open yet. Please pick another one, or write to us and we will help you.",
+      back: "Change the amount",
+      next: "Continue",
+      invalid: "Please select an available payment method.",
+    },
+    details: {
+      title: "Your details",
+      lead: "We use them to match your transfer and send you your receipt.",
+      name: "Full name",
+      email: "Email address",
+      phone: "Phone number",
+      phoneHint: "The number you will transfer from, if you pay by mobile money.",
+      message: "Message to the foundation (optional)",
+      required: "required",
+      back: "Change the payment method",
+      submit: "Get my payment instructions",
+      errors: {
+        name: "Please enter your name.",
+        email: "Please enter a valid email address.",
+        phone: "Please enter a phone number.",
+      },
+    },
+    summary: {
+      title: "Summary",
+      amount: "Amount",
+      frequency: "Frequency",
+      method: "Payment method",
+      child: "Sponsored child",
+      reference: "Reference",
+    },
+    done: {
+      title: "Last step: make the transfer",
+      lead: "Your request is recorded. Now make the transfer below, quoting the reference, and our team will confirm receipt and send your receipt.",
+      referenceHint:
+        "You must quote this reference with your transfer: it is how we identify your payment.",
+      phoneInstruction:
+        "Send the amount by {method} to the number below, in the name of {holder}.",
+      bankInstruction: "Make a bank transfer to the account below.",
+      copy: "Copy",
+      copied: "Copied",
+      sendRecap: "Send the summary to the foundation",
+      sendHint:
+        "If your email app did not open, write to us directly at {email}, quoting your reference.",
+      backHome: "Back to home",
+    },
+    notice:
+      "Automatic payment is not open yet: you make the transfer from your own app, and the foundation matches it using your reference. No banking data passes through this site.",
+  },
+
   footer: {
     about:
       "An independent, non-political, non-denominational and non-profit non-governmental organisation, the Children's Unity Foundation works across Africa for the potential of every child.",

@@ -1,10 +1,7 @@
-import fs from "node:fs";
-import path from "node:path";
 import Image from "next/image";
 import { Arcs, Sun } from "@/components/ui/arcs";
+import { resolvePhoto } from "@/lib/public-photo";
 import { cn } from "@/lib/cn";
-
-const publicDir = path.join(process.cwd(), "public");
 
 /**
  * Les visuels sont deposes au fur et a mesure dans `public/images/`
@@ -12,11 +9,6 @@ const publicDir = path.join(process.cwd(), "public");
  * sur le motif d'arcs de la charte plutot que sur un cadre vide : le site
  * reste presentable, et l'ajout d'une photo ne demande aucun code.
  */
-function firstExisting(candidates: string[]): string | undefined {
-  return candidates.find((src) =>
-    fs.existsSync(path.join(publicDir, src.replace(/^\//, ""))),
-  );
-}
 
 export function Photo({
   src,
@@ -36,7 +28,7 @@ export function Photo({
   priority?: boolean;
 }) {
   const candidates = Array.isArray(src) ? src : [src];
-  const found = firstExisting(candidates);
+  const found = candidates.map((entry) => resolvePhoto(entry)).find(Boolean);
 
   return (
     <div

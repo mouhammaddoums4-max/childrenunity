@@ -13,7 +13,8 @@ import { getPrograms, organisation } from "@/lib/content";
 import { Container } from "@/components/ui/container";
 import { NewsletterForm } from "@/components/newsletter-form";
 
-type NavKey = Exclude<RouteKey, "donate">;
+/* Le tunnel de paiement et la page de don ne sont pas des onglets. */
+type NavKey = Exclude<RouteKey, "donate" | "give">;
 
 const navKeys: NavKey[] = ["home", "about", "programs", "sponsorship", "impact", "news", "contact"];
 

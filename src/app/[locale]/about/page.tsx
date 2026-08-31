@@ -191,7 +191,7 @@ export default async function AboutPage({ params }: LocaleParams) {
                       alt={member.name}
                       width={160}
                       height={160}
-                      className={`mx-auto size-20 rounded-full object-cover object-top ring-2 ${accent.ring}`}
+                      className={`mx-auto size-16 rounded-full object-cover object-top ring-2 sm:size-20 ${accent.ring}`}
                     />
                   ) : (
                     <span
