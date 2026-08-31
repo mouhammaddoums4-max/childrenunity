@@ -152,6 +152,8 @@ export async function POST(request: NextRequest) {
           "",
           "Votre dossier est en attente d'approbation par l'administration. Dès qu'il sera validé, vous recevrez votre matricule de membre par courriel et par SMS.",
           "",
+          "La cotisation ne se règle pas en ligne : elle se paie en espèces auprès de la fondation, une fois votre adhésion approuvée.",
+          "",
           `Pour toute question : ${organisation.email}`,
         ].join("\n")
       : [
@@ -162,6 +164,8 @@ export async function POST(request: NextRequest) {
           `Annual dues: ${fee}.`,
           "",
           "Your file is awaiting approval by the administration. As soon as it is approved you will receive your membership number by email and SMS.",
+          "",
+          "The dues are not paid online: they are paid in cash at the foundation, once your membership is approved.",
           "",
           `Any questions: ${organisation.email}`,
         ].join("\n");

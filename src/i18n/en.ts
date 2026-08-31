@@ -414,6 +414,17 @@ const en: typeof fr = {
           "Too many applications from this device. Try again in an hour.",
       },
     },
+    received: {
+      title: "Your application is recorded",
+      reference: "File reference",
+      applicant: "Applicant",
+      dues: "Annual dues",
+      steps: [
+        "The administration reviews your file. You receive a confirmation email and SMS right now.",
+        "Once your membership is approved, your member number is sent to you by email and SMS.",
+        "The dues are then paid in cash, at the foundation. Nothing is paid on this site.",
+      ],
+    },
     confirmation: {
       sent: "Your application is recorded. A confirmation has just been sent to you by {channels}. Your member number will follow once the administration approves your file.",
       pending:

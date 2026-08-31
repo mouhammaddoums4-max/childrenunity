@@ -1,32 +1,15 @@
 "use client";
 
 import { useId, useMemo, useState } from "react";
-import { AlertCircle, Check, Landmark, Send, Smartphone, Wallet } from "lucide-react";
+import { AlertCircle, Check, Send } from "lucide-react";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { formatMoney } from "@/lib/currency";
 import { getPlans, type PlanId } from "@/lib/membership";
-import {
-  getPaymentMethods,
-  type PaymentMethodId,
-} from "@/lib/payments";
-import {
-  methodNames,
-  PaymentInstructions,
-} from "@/components/payment-instructions";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-
-const methodIcons: Record<PaymentMethodId, typeof Smartphone> = {
-  "orange-money": Smartphone,
-  "mtn-momo": Smartphone,
-  wave: Smartphone,
-  card: Wallet,
-  paypal: Wallet,
-  bank: Landmark,
-};
 
 type FieldName =
   | "firstName"
@@ -58,7 +41,6 @@ export function MembershipForm({
   const { form } = membership;
 
   const plans = useMemo(() => getPlans(locale), [locale]);
-  const methods = useMemo(() => getPaymentMethods(), []);
 
   const ids: Record<FieldName | "motivation", string> = {
     firstName: useId(),
@@ -72,7 +54,6 @@ export function MembershipForm({
   };
 
   const [plan, setPlan] = useState<PlanId>("full");
-  const [method, setMethod] = useState<PaymentMethodId | null>(null);
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
@@ -94,7 +75,6 @@ export function MembershipForm({
   });
 
   const chosenPlan = plans.find((entry) => entry.id === plan) ?? plans[0];
-  const chosenMethod = methods.find((entry) => entry.id === method);
   /* Les tarifs sont statutaires : ils s'affichent en francs guinéens,
      sans conversion, pour que l'adhérent règle la somme exacte. */
   const amountLabel = formatMoney(chosenPlan.amountGnf, "GNF", locale);
@@ -107,7 +87,6 @@ export function MembershipForm({
       if (values[field].trim().length < 2) found[field] = form.errors[field];
     }
     if (!EMAIL_PATTERN.test(values.email.trim())) found.email = form.errors.email;
-    if (!chosenMethod?.available) found.method = form.errors.method;
 
     setErrors(found);
 
@@ -116,8 +95,6 @@ export function MembershipForm({
       document.getElementById(ids[firstInvalid])?.focus();
       return;
     }
-    if (found.method) return;
-
     setSending(true);
     try {
       const response = await fetch("/api/membership", {
@@ -164,27 +141,57 @@ export function MembershipForm({
 
   if (reference) {
     return (
-      <div className="rounded-3xl border border-line bg-white p-6 shadow-soft sm:p-9">
-        <PaymentInstructions
-          give={give}
-          locale={locale}
-          reference={reference}
-          method={method}
-          subject={`${reference} — ${chosenPlan.label}`}
-          recapLines={[
-            `${give.summary.reference}: ${reference}`,
-            `${membership.summaryLabels.plan}: ${chosenPlan.label}`,
-            `${give.summary.amount}: ${amountLabel}`,
-            `${give.summary.method}: ${method ? methodNames[method] : ""}`,
-            "",
-            `${membership.summaryLabels.applicant}: ${values.firstName} ${values.lastName}`,
-            `${membership.summaryLabels.location}: ${values.city}, ${values.country}`,
-            `${membership.summaryLabels.profession}: ${values.profession}`,
-            values.email,
-            values.phone,
-            values.motivation,
-          ]}
-        />
+      <div className="rounded-card border border-line bg-white p-6 sm:p-9">
+        <span className="flex size-12 items-center justify-center rounded-xl bg-teal-50">
+          <Check className="size-6 text-teal-ink" aria-hidden="true" />
+        </span>
+
+        <h2 className="font-display mt-5 text-h2 font-bold text-navy">
+          {membership.received.title}
+        </h2>
+
+        {/* Récapitulatif : la référence sert à retrouver le dossier. */}
+        <dl className="mt-6 divide-y divide-line overflow-hidden rounded-card border border-line">
+          <div className="flex flex-wrap justify-between gap-2 p-4">
+            <dt className="text-sm text-ink-muted">
+              {membership.received.reference}
+            </dt>
+            <dd className="font-display text-sm font-bold tabular-nums text-navy">
+              {reference}
+            </dd>
+          </div>
+          <div className="flex flex-wrap justify-between gap-2 p-4">
+            <dt className="text-sm text-ink-muted">
+              {membership.received.applicant}
+            </dt>
+            <dd className="text-sm font-semibold text-navy">
+              {values.firstName} {values.lastName}
+            </dd>
+          </div>
+          <div className="flex flex-wrap justify-between gap-2 p-4">
+            <dt className="text-sm text-ink-muted">
+              {membership.received.dues}
+            </dt>
+            <dd className="font-display text-sm font-bold tabular-nums text-navy">
+              {amountLabel}
+            </dd>
+          </div>
+        </dl>
+
+        {/* Le règlement se fait en espèces, et seulement après approbation. */}
+        <ol className="mt-6 space-y-4">
+          {membership.received.steps.map((step, index) => (
+            <li key={step} className="flex gap-3.5">
+              <span
+                className="font-display flex size-7 shrink-0 items-center justify-center rounded-full bg-brand-50 text-sm font-bold text-brand tabular-nums"
+                aria-hidden="true"
+              >
+                {index + 1}
+              </span>
+              <span className="text-sm leading-relaxed text-ink">{step}</span>
+            </li>
+          ))}
+        </ol>
 
         <p
           role="status"
@@ -341,61 +348,7 @@ export function MembershipForm({
         </div>
       </div>
 
-      {/* Règlement */}
-      <fieldset className="mt-8">
-        <legend className="text-sm font-semibold text-navy">
-          {form.methodTitle}
-        </legend>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
-          {methods.map((entry) => {
-            const Icon = methodIcons[entry.id];
-            const selected = method === entry.id;
-            return (
-              <button
-                key={entry.id}
-                type="button"
-                role="radio"
-                aria-checked={selected}
-                disabled={!entry.available}
-                onClick={() => {
-                  setMethod(entry.id);
-                  setErrors((current) => ({ ...current, method: undefined }));
-                }}
-                className={cn(
-                  "flex items-center gap-3 rounded-2xl border-2 p-4 text-left transition-colors duration-200",
-                  selected
-                    ? "border-brand bg-brand-50"
-                    : "border-line hover:border-brand/40",
-                  !entry.available &&
-                    "cursor-not-allowed opacity-55 hover:border-line",
-                )}
-              >
-                <span
-                  className={cn(
-                    "flex size-10 shrink-0 items-center justify-center rounded-xl",
-                    selected ? "bg-brand text-white" : "bg-canvas text-brand",
-                  )}
-                >
-                  <Icon className="size-5" aria-hidden="true" />
-                </span>
-                <span className="flex-1 text-sm font-semibold text-navy">
-                  {methodNames[entry.id]}
-                  {!entry.available ? (
-                    <span className="mt-0.5 block text-xs font-normal text-ink-muted">
-                      {give.method.soon}
-                    </span>
-                  ) : null}
-                </span>
-                {selected ? (
-                  <Check className="size-5 shrink-0 text-brand" aria-hidden="true" />
-                ) : null}
-              </button>
-            );
-          })}
-        </div>
-        {errors.method ? <FieldError>{errors.method}</FieldError> : null}
-        {errors.submit ? <FieldError>{errors.submit}</FieldError> : null}
-      </fieldset>
+      {errors.submit ? <FieldError>{errors.submit}</FieldError> : null}
 
       <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-7">
         <p className="text-sm text-ink-muted">

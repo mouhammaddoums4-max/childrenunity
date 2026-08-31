@@ -97,6 +97,13 @@ export async function GET(request: NextRequest) {
   }
 
   const memberId = issueMemberId();
+  /* Le montant est rappele dans le courriel : c'est a ce moment que
+     l'adherent doit regler, en especes. */
+  const dues = new Intl.NumberFormat(application.locale === "en" ? "en-GB" : "fr-FR", {
+    style: "currency",
+    currency: "GNF",
+    maximumFractionDigits: 0,
+  }).format(application.amountGnf);
   const fullName = `${application.firstName} ${application.lastName}`;
   const french = application.locale !== "en";
 
@@ -113,6 +120,8 @@ export async function GET(request: NextRequest) {
         "",
         "Conservez ce matricule : il vous identifie auprès de la fondation, à l'assemblée générale et pour le renouvellement de votre cotisation.",
         "",
+        `Cotisation annuelle à régler : ${dues}, en espèces auprès de la fondation. Aucun paiement ne se fait en ligne.`,
+        "",
         `Pour toute question : ${organisation.email}`,
       ].join("\n")
     : [
@@ -126,6 +135,8 @@ export async function GET(request: NextRequest) {
         `Country: ${application.country}`,
         "",
         "Keep this number: it identifies you to the foundation, at the general assembly and when renewing your dues.",
+        "",
+        `Annual dues to pay: ${dues}, in cash at the foundation. No payment is made online.`,
         "",
         `Any questions: ${organisation.email}`,
       ].join("\n");

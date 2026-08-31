@@ -412,6 +412,17 @@ const fr = {
           "Trop de demandes envoyées depuis cet appareil. Réessayez dans une heure.",
       },
     },
+    received: {
+      title: "Votre demande est enregistrée",
+      reference: "Référence du dossier",
+      applicant: "Demandeur",
+      dues: "Cotisation annuelle",
+      steps: [
+        "L'administration examine votre dossier. Vous recevez un courriel et un SMS de confirmation dès maintenant.",
+        "Une fois votre adhésion approuvée, votre matricule de membre vous est communiqué par courriel et par SMS.",
+        "La cotisation se règle alors en espèces, auprès de la fondation. Rien ne se paie sur ce site.",
+      ],
+    },
     confirmation: {
       sent: "Votre demande est enregistrée. Une confirmation vient de vous être envoyée par {channels}. Votre matricule vous parviendra dès que l'administration aura approuvé votre dossier.",
       pending:
