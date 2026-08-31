@@ -3,18 +3,13 @@ import type { Locale } from "@/i18n/config";
 /**
  * Événement mis en avant à l'ouverture du site.
  *
- * ─────────────────────────────────────────────────────────────────────
- * À CONFIGURER AVANT LA MISE EN LIGNE
- *
- * Les informations ci-dessous sont un gabarit : remplacez la date, le
- * lieu et les intitulés par ceux de l'événement réel. Tant que ce n'est
- * pas fait, ne mettez pas le site en ligne avec `active: true` — une date
- * inventée sur un site de fondation se retourne contre elle.
+ * Le panel n'a pas encore de date : l'affiche annonce « Bientôt ». Tant
+ * que `date` reste vide, la fenêtre affiche ce statut plutôt qu'une date
+ * inventée, et rien n'a besoin d'être corrigé le jour où elle sera fixée
+ * — il suffira de la poser ici.
  *
  * Pour retirer la fenêtre sans toucher au reste du code, passez `active`
- * à `false`. Pour annoncer un autre événement, il suffit de réécrire cet
- * objet : la fenêtre, ses traductions et le formulaire suivent.
- * ─────────────────────────────────────────────────────────────────────
+ * à `false`.
  */
 
 type Localized<T> = Record<Locale, T>;
@@ -27,46 +22,75 @@ type EventSource = {
    * chez les visiteurs qui avaient déjà fermé la précédente.
    */
   id: string;
-  /** Date de début, au format ISO, pour la balise `<time>`. */
-  date: string;
   /**
-   * Dernier jour d'affichage, au format ISO. Passée cette date, la
-   * fenêtre disparaît d'elle-même : personne n'a à penser à la retirer.
+   * Date de début au format ISO, quand elle est connue. Vide, la fenêtre
+   * affiche « Bientôt » et ne disparaît pas d'elle-même.
    */
-  until: string;
+  date?: string;
+  /** Dernier jour d'affichage, si la date est connue. */
+  until?: string;
+  /** Lieu, quand il est arrêté. */
+  place?: Localized<string>;
   eyebrow: Localized<string>;
   title: Localized<string>;
+  tagline: Localized<string>;
   lead: Localized<string>;
-  when: Localized<string>;
-  where: Localized<string>;
+  soon: Localized<string>;
+  programmeTitle: Localized<string>;
+  programme: Localized<string[]>;
 };
 
 const source: EventSource = {
   active: true,
-  id: "education-instruction-2026",
-  date: "2026-11-14",
-  until: "2026-11-14",
-  eyebrow: { fr: "Événement à venir", en: "Upcoming event" },
+  id: "panel-instruction-education",
+  eyebrow: { fr: "Panel · Thème", en: "Panel · Theme" },
   title: {
-    fr: "Journée de l'éducation et de l'instruction",
-    en: "Education and Learning Day",
+    fr: "L'instruction et l'éducation",
+    en: "Instruction and education",
+  },
+  tagline: {
+    fr: "Investir aujourd'hui, bâtir demain !",
+    en: "Invest today, build tomorrow!",
   },
   lead: {
-    fr: "Une journée pour réunir familles, enseignants et partenaires autour d'une question simple : comment garder chaque enfant à l'école, et l'y faire réussir. Ateliers, témoignages et rencontres avec nos équipes de terrain.",
-    en: "A day bringing families, teachers and partners together around one question: how do we keep every child in school, and help them succeed there. Workshops, first-hand accounts and meetings with our field teams.",
+    fr: "Un panel pour échanger, partager des idées et agir ensemble pour un avenir meilleur pour chaque enfant.",
+    en: "A panel to exchange, share ideas and act together for a better future for every child.",
   },
-  when: { fr: "Samedi 14 novembre 2026, 9h – 17h", en: "Saturday 14 November 2026, 9am – 5pm" },
-  where: { fr: "Conakry, République de Guinée", en: "Conakry, Republic of Guinea" },
+  soon: {
+    fr: "Bientôt — restez connectés !",
+    en: "Coming soon — stay tuned!",
+  },
+  programmeTitle: { fr: "Au programme", en: "On the programme" },
+  programme: {
+    fr: [
+      "Panels et discussions inspirantes",
+      "Partage d'expériences",
+      "Solutions et bonnes pratiques",
+      "Échanges avec le public",
+      "Engagements pour l'avenir",
+    ],
+    en: [
+      "Inspiring panels and discussions",
+      "Sharing of experience",
+      "Solutions and good practice",
+      "Exchanges with the audience",
+      "Commitments for the future",
+    ],
+  },
 };
 
 export type FoundationEvent = {
   id: string;
-  date: string;
-  title: string;
   eyebrow: string;
+  title: string;
+  tagline: string;
   lead: string;
-  when: string;
-  where: string;
+  soon: string;
+  programmeTitle: string;
+  programme: string[];
+  /** Absente tant que la date n'est pas fixée. */
+  date?: string;
+  place?: string;
 };
 
 /**
@@ -78,16 +102,21 @@ export function getEvent(locale: Locale): FoundationEvent | undefined {
 
   /* Comparaison en jours pleins : l'événement reste annoncé pendant
      toute la journée du `until`, quel que soit le fuseau du visiteur. */
-  const today = new Date().toISOString().slice(0, 10);
-  if (today > source.until) return undefined;
+  if (source.until) {
+    const today = new Date().toISOString().slice(0, 10);
+    if (today > source.until) return undefined;
+  }
 
   return {
     id: source.id,
-    date: source.date,
-    title: source.title[locale],
     eyebrow: source.eyebrow[locale],
+    title: source.title[locale],
+    tagline: source.tagline[locale],
     lead: source.lead[locale],
-    when: source.when[locale],
-    where: source.where[locale],
+    soon: source.soon[locale],
+    programmeTitle: source.programmeTitle[locale],
+    programme: source.programme[locale],
+    date: source.date,
+    place: source.place?.[locale],
   };
 }

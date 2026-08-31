@@ -27,7 +27,8 @@ const DELAY_MS = 1400;
 function openMailClient(event: FoundationEvent, name: string, email: string) {
   const body = [
     `Inscription : ${event.title}`,
-    `${event.when} — ${event.where}`,
+    /* La date n'est pas toujours connue : on reprend alors le statut. */
+    [event.date ?? event.soon, event.place].filter(Boolean).join(" — "),
     "",
     "---",
     name,
@@ -169,7 +170,7 @@ export function EventModal({
         aria-modal="true"
         aria-labelledby={ids.title}
         aria-describedby={ids.lead}
-        className="animate-pop relative w-full max-w-lg overflow-hidden rounded-panel border border-line bg-white shadow-lift"
+        className="animate-pop relative max-h-[92dvh] w-full max-w-xl overflow-y-auto overscroll-contain rounded-panel border border-line bg-white shadow-lift"
       >
         <button
           ref={closeRef}
@@ -181,28 +182,40 @@ export function EventModal({
           <X className="size-5" aria-hidden="true" />
         </button>
 
-        {/* Bandeau de tete aux couleurs de la charte */}
+        {/* Bandeau de tete : le theme du panel, comme sur l'affiche */}
         <div className="bg-gradient-to-br from-brand to-navy px-6 pt-7 pb-6 text-white sm:px-8">
-          <p className="text-eyebrow font-semibold text-white/70 uppercase">
-            {event.eyebrow}
-          </p>
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <p className="text-eyebrow font-semibold text-teal uppercase">
+              {event.eyebrow}
+            </p>
+            {/* La date n'est pas encore arretee : on annonce le statut. */}
+            <p className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 text-xs font-semibold">
+              <CalendarDays className="size-3.5 shrink-0" aria-hidden="true" />
+              {event.date ? (
+                <time dateTime={event.date}>{event.date}</time>
+              ) : (
+                event.soon
+              )}
+            </p>
+          </div>
+
           <h2
             id={ids.title}
-            className="font-display mt-3 max-w-sm text-h2 font-bold"
+            className="font-display mt-4 text-h2 font-bold uppercase"
           >
             {event.title}
           </h2>
 
-          <ul className="mt-5 flex flex-col gap-2 text-sm text-white/85">
-            <li className="flex items-center gap-2.5">
-              <CalendarDays className="size-4 shrink-0" aria-hidden="true" />
-              <time dateTime={event.date}>{event.when}</time>
-            </li>
-            <li className="flex items-center gap-2.5">
+          <p className="mt-3 text-base font-medium text-sun italic">
+            {event.tagline}
+          </p>
+
+          {event.place ? (
+            <p className="mt-4 flex items-center gap-2.5 text-sm text-white/85">
               <MapPin className="size-4 shrink-0" aria-hidden="true" />
-              {event.where}
-            </li>
-          </ul>
+              {event.place}
+            </p>
+          ) : null}
         </div>
 
         <div className="px-6 py-6 sm:px-8">
@@ -222,6 +235,22 @@ export function EventModal({
               <p id={ids.lead} className="text-sm leading-relaxed text-ink-muted">
                 {event.lead}
               </p>
+
+              {/* Au programme */}
+              <h3 className="font-display mt-6 text-eyebrow font-semibold text-brand uppercase">
+                {event.programmeTitle}
+              </h3>
+              <ul className="mt-3 grid gap-2">
+                {event.programme.map((item) => (
+                  <li key={item} className="flex gap-2.5">
+                    <CheckCircle2
+                      className="mt-0.5 size-4 shrink-0 text-teal-ink"
+                      aria-hidden="true"
+                    />
+                    <span className="text-sm leading-snug text-ink">{item}</span>
+                  </li>
+                ))}
+              </ul>
 
               <form onSubmit={onSubmit} noValidate className="mt-5">
                 <div className="flex flex-col gap-3 sm:flex-row">
