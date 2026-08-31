@@ -79,8 +79,32 @@ const source: EventSource = {
   },
 };
 
+/**
+ * Empreinte du contenu annoncé.
+ *
+ * Elle sert de clé de mémorisation à la fenêtre : le visiteur ne revoit
+ * pas la même annonce deux fois, mais **la moindre modification de
+ * l'événement change l'empreinte**, et la fenêtre se rouvre d'elle-même
+ * pour tout le monde. Rien à incrémenter à la main, et cela continuera de
+ * fonctionner le jour où l'événement viendra de la base plutôt que de ce
+ * fichier.
+ *
+ * Somme FNV-1a : courte, stable d'un rendu à l'autre, et sans dépendance.
+ */
+function contentVersion(value: unknown): string {
+  const text = JSON.stringify(value);
+  let hash = 0x811c9dc5;
+  for (let index = 0; index < text.length; index += 1) {
+    hash ^= text.charCodeAt(index);
+    hash = Math.imul(hash, 0x01000193) >>> 0;
+  }
+  return hash.toString(36);
+}
+
 export type FoundationEvent = {
   id: string;
+  /** Change dès que le contenu annoncé change. */
+  version: string;
   eyebrow: string;
   title: string;
   tagline: string;
@@ -109,6 +133,7 @@ export function getEvent(locale: Locale): FoundationEvent | undefined {
 
   return {
     id: source.id,
+    version: contentVersion(source),
     eyebrow: source.eyebrow[locale],
     title: source.title[locale],
     tagline: source.tagline[locale],

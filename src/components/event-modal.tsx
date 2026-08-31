@@ -11,7 +11,12 @@ import { cn } from "@/lib/cn";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-/** Une annonce par session, et plus rien une fois l'inscription faite. */
+/*
+ * Une annonce par session, et plus rien une fois l'inscription faite —
+ * mais les deux clés portent la version du contenu : dès que l'événement
+ * est modifié, la fenêtre se rouvre pour tout le monde, y compris pour
+ * qui s'était déjà inscrit à l'annonce précédente.
+ */
 const SEEN_KEY = "cuf.event.seen";
 const DONE_KEY = "cuf.event.registered";
 
@@ -68,8 +73,8 @@ export function EventModal({
     let seen = false;
     try {
       seen =
-        window.sessionStorage.getItem(SEEN_KEY) === event.id ||
-        window.localStorage.getItem(DONE_KEY) === event.id;
+        window.sessionStorage.getItem(SEEN_KEY) === event.version ||
+        window.localStorage.getItem(DONE_KEY) === event.version;
     } catch {
       /* Stockage indisponible : on annonce, quitte a le refaire. */
     }
@@ -77,17 +82,17 @@ export function EventModal({
 
     const timer = window.setTimeout(() => setOpen(true), DELAY_MS);
     return () => window.clearTimeout(timer);
-  }, [consent, event.id]);
+  }, [consent, event.version]);
 
   const close = useCallback(() => {
     setOpen(false);
     try {
-      window.sessionStorage.setItem(SEEN_KEY, event.id);
+      window.sessionStorage.setItem(SEEN_KEY, event.version);
     } catch {
       /* Sans stockage, la fenetre reviendra a la prochaine page. */
     }
     if (restoreRef.current instanceof HTMLElement) restoreRef.current.focus();
-  }, [event.id]);
+  }, [event.version]);
 
   /* Defilement bloque, focus capture dans la fenetre, Echap pour sortir. */
   useEffect(() => {
@@ -148,7 +153,7 @@ export function EventModal({
     openMailClient(event, values.name.trim(), values.email.trim());
     setSent(true);
     try {
-      window.localStorage.setItem(DONE_KEY, event.id);
+      window.localStorage.setItem(DONE_KEY, event.version);
     } catch {
       /* Sans stockage, la fenetre pourra revenir : ce n'est pas grave. */
     }
