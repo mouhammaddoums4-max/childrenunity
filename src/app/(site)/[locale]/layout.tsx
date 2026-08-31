@@ -3,12 +3,12 @@ import { notFound } from "next/navigation";
 import { Inter, Poppins } from "next/font/google";
 import { isLocale, locales, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
+import { getEvent } from "@/lib/event";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SocialRail } from "@/components/social-rail";
 import { CookieNotice } from "@/components/cookie-notice";
 import { EventModal } from "@/components/event-modal";
-import { getEvent } from "@/lib/event";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { siteUrl } from "@/lib/site";
 import { isDraft } from "@/lib/publication";
@@ -109,8 +109,8 @@ export default async function LocaleLayout({
 
         <CookieNotice locale={typedLocale} dictionary={dictionary} />
 
-        {/* Annonce d'evenement : rien n'est rendu s'il n'y en a pas, ou
-            si sa date est passee. */}
+        {/* Annonce d'evenement : la fenetre s'ouvre sur toutes les pages,
+            une fois par session et des que le contenu annonce change. */}
         {foundationEvent ? (
           <EventModal event={foundationEvent} dictionary={dictionary} />
         ) : null}

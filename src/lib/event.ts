@@ -42,7 +42,7 @@ type EventSource = {
 };
 
 const source: EventSource = {
-  active: false,
+  active: true,
   id: "panel-instruction-education",
   eyebrow: { fr: "Panel · Thème", en: "Panel · Theme" },
   title: {

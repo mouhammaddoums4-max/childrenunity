@@ -30,7 +30,6 @@ export default async function HomePage({ params }: LocaleParams) {
   const dictionary = getDictionary(locale);
   const { home, common } = dictionary;
   const articles = getArticles(locale).slice(0, 3);
-
   return (
     <>
       <Hero locale={locale} dictionary={dictionary} />
